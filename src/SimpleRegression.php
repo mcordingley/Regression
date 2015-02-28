@@ -32,7 +32,7 @@ class SimpleRegression
      */
     public function addData($dependent, array $independentSeries)
     {
-        $this->regression->addData($dependent, array_merge([ 1 ], $independentSeries));
+        $this->regression->addData($dependent, array_merge([1], $independentSeries));
         
         return $this;
     }
