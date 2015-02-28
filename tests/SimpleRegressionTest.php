@@ -18,12 +18,12 @@ class SimpleRegressionTest extends PHPUnit_Framework_TestCase
         $this->simpleSkinnyRegression->addData(5, [ 2.25 ]);
     }
     
-    public function testAssertIntercept()
+    public function testSimpleSkinnyIntercept()
     {
         $this->assertEquals(1.095497063, round($this->simpleSkinnyRegression->getIntercept(), 9));
     }
     
-    public function testAssertCoefficients()
+    public function testSimpleSkinnyCoefficients()
     {
         $coefficients = $this->simpleSkinnyRegression->getCoefficients();
         $this->assertEquals(0.924515989, round($coefficients[0], 9));
