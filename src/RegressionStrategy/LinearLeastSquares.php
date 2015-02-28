@@ -3,7 +3,7 @@
 namespace mcordingley\Regression\RegressionStrategy;
 
 use mcordingley\LinearAlgebra\Matrix;
-use mcordingley\RegressionStrategy;
+use mcordingley\Regression\RegressionStrategy;
 
 class LinearLeastSquares implements RegressionStrategy
 {
