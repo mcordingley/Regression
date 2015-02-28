@@ -7,7 +7,7 @@ use LengthException;
 
 class Regression
 {
-    protected $dependentSeries;
+    protected $dependentSeries = [];
     protected $dirty = true;
     protected $independentSeries = [];
     protected $predictors;
@@ -25,16 +25,16 @@ class Regression
     }
     
     /**
-     * addIndependentSeries
+     * addData
      * 
-     * Adds a new independent data series to the regression
-     * 
-     * @param DataSeries $series
+     * @param float $dependent The variable explained by $independentSeries.
+     * @param array $independentSeries Array of explanatory variables.
      * @return self
      */
-    public function addIndependentSeries(DataSeries $series)
+    public function addData($dependent, array $independentSeries)
     {
-        $this->independentSeries[] = $series;
+        $this->dependentSeries[] = $dependent;
+        $this->independentSeries[] = $independentSeries;
         $this->dirty = true;
         
         return $this;
@@ -50,16 +50,8 @@ class Regression
      */
     protected function checkData()
     {
-        if (!$this->dependentSeries) {
-            throw new LengthException('Cannot perform regression; missing the dependent data series.');
-        }
-        
-        if (!count($this->dependentSeries)) {
-            throw new LengthException('Cannot perform regression; no data points in the dependent data series.');
-        }
-        
         if (!count($this->independentSeries)) {
-            throw new LengthException('Cannot perform regression; no independent data series provided.');
+            throw new LengthException('Cannot perform regression; no data provided.');
         }
         
         $length = count($this->independentSeries[0]);
@@ -135,21 +127,5 @@ class Regression
         $this->predictors = $this->strategy->regress($this->independentSeries, $this->dependentSeries);
         
         $this->dirty = false;
-    }
-    
-    /**
-     * setDependentSeries
-     * 
-     * Adds a new independent data series to the regression
-     * 
-     * @param DataSeries $series
-     * @return self
-     */
-    public function setDependentSeries(DataSeries $series)
-    {
-        $this->dependentSeries = $series;
-        $this->dirty = true;
-        
-        return $this;
     }
 }

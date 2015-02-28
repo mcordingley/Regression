@@ -17,19 +17,24 @@ class SimpleRegression
 
     /**
      * __construct
-     * 
-     * @param array $independentData
-     * @param array $dependentData
      */
-    public function __construct(array $independentData, array $dependentData)
+    public function __construct()
     {
         $this->regression = new Regression(new LinearLeastSquares);
+    }
+    
+    /**
+     * addData
+     * 
+     * @param float $dependent The variable explained by $independentSeries.
+     * @param array $independentSeries Array of explanatory variables.
+     * @return self
+     */
+    public function addData($dependent, array $independentSeries)
+    {
+        $this->regression->addData($dependent, array_merge([ 1 ], $independentSeries));
         
-        foreach ($independentData as $series) {
-            $this->regression->addIndependentSeries(new DataSeries([1] + $series));
-        }
-        
-        $this->regression->setDependentSeries(new DataSeries([1] + $dependentData));
+        return $this;
     }
     
     /**
@@ -60,6 +65,6 @@ class SimpleRegression
      */
     public function predict(array $data)
     {
-        return $this->regression->predict(new DataSeries([1] + $data));
+        return $this->regression->predict([1] + $data);
     }
 }
