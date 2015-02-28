@@ -124,7 +124,7 @@ class Regression
     {
         $this->checkData();
         
-        $this->predictors = $this->strategy->regress($this->independentSeries, $this->dependentSeries);
+        $this->predictors = $this->strategy->regress($this->dependentSeries, $this->independentSeries);
         
         $this->dirty = false;
     }

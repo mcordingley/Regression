@@ -7,7 +7,7 @@ use mcordingley\Regression\RegressionStrategy;
 
 class LinearLeastSquares implements RegressionStrategy
 {
-    public function regress(array $independentData, array $dependentData)
+    public function regress(array $dependentData, array $independentData)
     {
         $design = new Matrix($independentData);
         $observed = (new Matrix([ $dependentData ]))->transpose();
