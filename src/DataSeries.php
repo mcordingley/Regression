@@ -2,8 +2,6 @@
 
 namespace mcordingley\Regression;
 
-use callable;
-
 /**
  * DataSeries
  * 
