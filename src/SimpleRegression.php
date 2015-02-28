@@ -9,7 +9,8 @@ use mcordingley\Regression\RegressionStrategy\LinearLeastSquares;
  * 
  * A facade (in the GoF sense) over the other regression classes, for when you
  * just want to run a linear regression and get data out with a minimum of
- * digging through the documentation.
+ * digging through the documentation. Includes special handling of the intercept
+ * apart from the other predictors.
  */
 class SimpleRegression
 {
