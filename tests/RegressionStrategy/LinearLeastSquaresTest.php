@@ -21,7 +21,13 @@ class LinearLeastSquaresTest extends PHPUnit_Framework_TestCase
     
     public function testSkinnyMatrix()
     {
-        $coefficients = $this->strategy->regress([1, 2, 3, 4, 5], [[1, 1], [1, 2], [1, 1.3], [1, 3.75], [1, 2.25]]);
+        $coefficients = $this->strategy->regress([1, 2, 3, 4, 5], [
+            [1, 1],
+            [1, 2],
+            [1, 1.3],
+            [1, 3.75],
+            [1, 2.25],
+        ]);
         
         $this->assertEquals(1.095497063, round($coefficients[0], 9));
         $this->assertEquals(0.924515989, round($coefficients[1], 9));
