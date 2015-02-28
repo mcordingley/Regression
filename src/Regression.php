@@ -96,22 +96,22 @@ class Regression
     /**
      * predict
      * 
-     * @param DataSeries $series Data with which to make a prediction.
+     * @param array $series Data with which to make a prediction.
      * @return float The predicted value.
      */
-    public function predict(DataSeries $series)
+    public function predict(array $series)
     {
         $this->checkDirty();
         
         $products = array_map(function ($predictor, $datum) {
             return $predictor * $datum;
-        }, $this->predictors, $series->getDesign());
+        }, $this->predictors, $series);
         
         $sumProduct = array_reduce($products, function($memo, $product) {
             return $memo + $product;
         }, 0);
         
-        return call_user_func($series->getInverse(), $sumProduct);
+        return $sumProduct;
     }
 
     /**
