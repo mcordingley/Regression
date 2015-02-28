@@ -7,9 +7,9 @@ use LengthException;
 
 class Regression
 {
-    protected $dependentDataSeries;
+    protected $dependentSeries;
     protected $dirty = true;
-    protected $independentDataSeries = [];
+    protected $independentSeries = [];
     protected $predictors;
     protected $strategy;
     
@@ -50,26 +50,26 @@ class Regression
      */
     protected function checkData()
     {
-        if (!$this->dependentDataSeries) {
+        if (!$this->dependentSeries) {
             throw new LengthException('Cannot perform regression; missing the dependent data series.');
         }
         
-        if (!count($this->dependentDataSeries)) {
+        if (!count($this->dependentSeries)) {
             throw new LengthException('Cannot perform regression; no data points in the dependent data series.');
         }
         
-        if (!count($this->independentDataSeries)) {
+        if (!count($this->independentSeries)) {
             throw new LengthException('Cannot perform regression; no independent data series provided.');
         }
         
-        $length = count($this->independentDataSeries[0]);
+        $length = count($this->independentSeries[0]);
         
         if (!$length) {
             throw new LengthException('Cannot perform regression; no data points in the first independent data series.');
         }
         
-        for ($i = 1, $len = count($this->independentDataSeries); $i < $len; $i++) {
-            if (count($this->independentDataSeries[$i]) != $length) {
+        for ($i = 1, $len = count($this->independentSeries); $i < $len; $i++) {
+            if (count($this->independentSeries[$i]) != $length) {
                 throw new LengthException('Cannot perform regression; every provided independent data series must be of the same length.');
             }
         }
