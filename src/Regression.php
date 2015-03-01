@@ -43,15 +43,12 @@ class Regression
     }
     
     /**
+     * calculateRSquared
      * 
-     * @return type
+     * Calculates the goodness of fit for the model.
      */
     protected function calculateRSquared()
-    {
-        if (is_null($this->predictors)) {
-            $this->regress();
-        }
-        
+    {   
         $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
             return $memo + $value;
         }) / count($this->dependentSeries);
@@ -137,14 +134,10 @@ class Regression
      * @return float The predicted value.
      */
     public function predict(array $series)
-    {
-        if (is_null($this->predictors)) {
-            $this->regress();
-        }
-        
+    {   
         $products = array_map(function ($predictor, $datum) {
             return $predictor * $datum;
-        }, $this->predictors, $series);
+        }, $this->getCoefficients(), $series);
         
         $sumProduct = array_reduce($products, function($memo, $product) {
             return $memo + $product;
