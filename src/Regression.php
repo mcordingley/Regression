@@ -99,7 +99,7 @@ class Regression
     /**
      * calculateRSquared
      * 
-     * Calculates the goodness of fit for the model.
+     * Calculates the goodness of fit for the model, setting $this->r2 when done.
      */
     protected function calculateRSquared()
     {   
@@ -204,7 +204,7 @@ class Regression
      * regress
      * 
      * Performs the regression, setting the predictors array to the result of
-     * the regression and clearing the dirty flag.
+     * the regression.
      */
     protected function regress()
     {
