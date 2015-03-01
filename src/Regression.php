@@ -10,6 +10,15 @@ use mcordingley\Regression\RegressionStrategy\LinearLeastSquares;
 class Regression
 {
     /**
+     * dependentLinking
+     * 
+     * Strategy object to transform Y values into and out of linear form.
+     * 
+     * @var Linking 
+     */
+    protected $dependentLinking;
+    
+    /**
      * dependentSeries
      * 
      * Array of floats representing the observed outcomes.
@@ -27,15 +36,6 @@ class Regression
      * @var array
      */
     protected $independentSeries = [];
-    
-    /**
-     * linking
-     * 
-     * Strategy object to transform Y values into and out of linear form.
-     * 
-     * @var Linking 
-     */
-    protected $linking;
     
     /**
      * predictors
@@ -197,7 +197,7 @@ class Regression
             return $memo + $product;
         }, 0);
         
-        return $this->linking->delinearize($sumProduct);
+        return $this->dependentLinking->delinearize($sumProduct);
     }
 
     /**
@@ -210,7 +210,7 @@ class Regression
     {
         $this->checkData();
         
-        $linearDependents = array_map([$this->linking, 'linearize'], $this->dependentSeries);
+        $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
         
         $this->predictors = $this->strategy->regress($linearDependents, $this->independentSeries);
     }
