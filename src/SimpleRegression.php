@@ -81,6 +81,6 @@ class SimpleRegression
      */
     public function predict(array $data)
     {
-        return $this->regression->predict([1] + $data);
+        return $this->regression->predict(array_merge([1], $data));
     }
 }
