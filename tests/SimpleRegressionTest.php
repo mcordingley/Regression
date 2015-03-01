@@ -31,6 +31,6 @@ class SimpleRegressionTest extends PHPUnit_Framework_TestCase
     
     public function testRSquared()
     {
-        $this->assertEquals(0.63, round($this->simple->getRSquared(), 2));
+        $this->assertEquals(0.39, round($this->simple->getRSquared(), 2));
     }
 }
