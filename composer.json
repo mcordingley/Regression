@@ -1,6 +1,7 @@
 {
     "name": "mcordingley/regression",
     "description": "Regression Package for PHP",
+    "keywords": ["statistics", "regression"],
     "license": "MIT",
     "authors": [
         {
