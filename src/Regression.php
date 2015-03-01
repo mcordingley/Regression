@@ -8,9 +8,9 @@ use LengthException;
 class Regression
 {
     protected $dependentSeries = [];
-    protected $dirty = true;
     protected $independentSeries = [];
     protected $predictors;
+    protected $r2;
     protected $strategy;
     
     /**
@@ -35,9 +35,39 @@ class Regression
     {
         $this->dependentSeries[] = $dependent;
         $this->independentSeries[] = $independentSeries;
-        $this->dirty = true;
+        
+        $this->predictors = null;
+        $this->r2 = null;
         
         return $this;
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    protected function calculateRSquared()
+    {
+        if (is_null($this->predictors)) {
+            $this->regress();
+        }
+        
+        $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
+            return $memo + $value;
+        }) / count($this->dependentSeries);
+        
+        $sumSquaredError = 0;
+        $meanSquaredError = 0;
+        
+        foreach ($this->independentSeries as $index => $series) {
+            $actual = $this->dependentSeries[$index];
+            $predicted = $this->predict($series);
+            
+            $sumSquaredError += pow($actual - $predicted, 2);
+            $meanSquaredError += pow($actual - $mean, 2);
+        }
+        
+        $this->r2 = 1 - $sumSquaredError / $meanSquaredError;
     }
     
     /**
@@ -68,18 +98,6 @@ class Regression
     }
     
     /**
-     * checkDirty
-     * 
-     * Checks to see if the data is dirty and runs the regression if so.
-     */
-    protected function checkDirty()
-    {
-        if ($this->dirty) {
-            $this->regress();
-        }
-    }
-    
-    /**
      * getCoefficents
      * 
      * Returns the coefficients determined by the regression.
@@ -88,9 +106,28 @@ class Regression
      */
     public function getCoefficients()
     {
-        $this->checkDirty();
+        if (is_null($this->predictors)) {
+            $this->regress();
+        }
         
         return $this->predictors;
+    }
+    
+    /**
+     * getRSquared
+     * 
+     * Calculates the coefficient of determination. i.e. how well the line of
+     * best fit describes the data.
+     * 
+     * @return float
+     */
+    public function getRSquared()
+    {
+        if (is_null($this->r2)) {
+            $this->calculateRSquared();
+        }
+        
+        return $this->r2;
     }
 
     /**
@@ -101,7 +138,9 @@ class Regression
      */
     public function predict(array $series)
     {
-        $this->checkDirty();
+        if (is_null($this->predictors)) {
+            $this->regress();
+        }
         
         $products = array_map(function ($predictor, $datum) {
             return $predictor * $datum;
@@ -125,7 +164,5 @@ class Regression
         $this->checkData();
         
         $this->predictors = $this->strategy->regress($this->dependentSeries, $this->independentSeries);
-        
-        $this->dirty = false;
     }
 }
