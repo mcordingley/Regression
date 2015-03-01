@@ -7,10 +7,52 @@ use LengthException;
 
 class Regression
 {
+    /**
+     * dependentSeries
+     * 
+     * Array of floats representing the observed outcomes.
+     * 
+     * @var array
+     */
     protected $dependentSeries = [];
+    
+    /**
+     * independentSeries
+     * 
+     * Array of arrays of floats. Each sub-array is a set of explanatory
+     * variables for one of the observed outcomes.
+     * 
+     * @var array
+     */
     protected $independentSeries = [];
+    
+    /**
+     * predictors
+     * 
+     * The calculated beta values that show what the contribution of each
+     * explanatory variable is to the overall fitted curve.
+     * 
+     * @var array
+     */
     protected $predictors;
+    
+    /**
+     * r2
+     * 
+     * Value in the range [0, 1] that shows how well the fitted curve fits the
+     * data.
+     * 
+     * @var float
+     */
     protected $r2;
+    
+    /**
+     * strategy
+     * 
+     * Class instance that performs the actual regression.
+     * 
+     * @var RegressionStrategy 
+     */
     protected $strategy;
     
     /**
