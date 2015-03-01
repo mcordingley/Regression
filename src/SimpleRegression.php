@@ -39,7 +39,9 @@ class SimpleRegression
     }
     
     /**
-     * getCoefficients
+     * getCoefficents
+     * 
+     * Returns the coefficients determined by the regression.
      * 
      * @return array
      */
@@ -59,10 +61,23 @@ class SimpleRegression
     }
     
     /**
+     * getRSquared
+     * 
+     * Calculates the coefficient of determination. i.e. how well the line of
+     * best fit describes the data.
+     * 
+     * @return float
+     */
+    public function getRSquared()
+    {
+        return $this->regression->getRSquared();
+    }
+    
+    /**
      * predict
      * 
-     * @param array $data
-     * @return float
+     * @param array $series Data with which to make a prediction.
+     * @return float The predicted value.
      */
     public function predict(array $data)
     {

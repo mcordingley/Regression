@@ -28,4 +28,9 @@ class SimpleRegressionTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(1.095497063, round($this->simple->getIntercept(), 9));
     }
+    
+    public function testRSquared()
+    {
+        $this->assertEquals(0.63, round($this->simple->getRSquared(), 2));
+    }
 }
