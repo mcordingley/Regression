@@ -4,6 +4,8 @@ namespace mcordingley\Regression;
 
 use InvalidArgumentException;
 use LengthException;
+use mcordingley\Regression\Linking\Identity;
+use mcordingley\Regression\RegressionStrategy\LinearLeastSquares;
 
 class Regression
 {
@@ -25,6 +27,15 @@ class Regression
      * @var array
      */
     protected $independentSeries = [];
+    
+    /**
+     * linking
+     * 
+     * Strategy object to transform Y values into and out of linear form.
+     * 
+     * @var Linking 
+     */
+    protected $linking;
     
     /**
      * predictors
@@ -61,9 +72,10 @@ class Regression
      * @param RegressionStrategy A regression strategy to perform the calculations
      * @throws InvalidArgumentException
      */
-    public function __construct(RegressionStrategy $regressionStrategy)
+    public function __construct(RegressionStrategy $regressionStrategy, Linking $linkingStrategy = null)
     {
         $this->strategy = $regressionStrategy;
+        $this->linking = $linkingStrategy ?: new Identity;
     }
     
     /**
@@ -185,7 +197,7 @@ class Regression
             return $memo + $product;
         }, 0);
         
-        return $sumProduct;
+        return $this->linking->delinearize($sumProduct);
     }
 
     /**
@@ -198,6 +210,8 @@ class Regression
     {
         $this->checkData();
         
-        $this->predictors = $this->strategy->regress($this->dependentSeries, $this->independentSeries);
+        $linearDependents = array_map([$this->linking, 'linearize'], $this->dependentSeries);
+        
+        $this->predictors = $this->strategy->regress($linearDependents, $this->independentSeries);
     }
 }
