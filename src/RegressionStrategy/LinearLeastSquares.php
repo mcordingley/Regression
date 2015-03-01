@@ -12,7 +12,7 @@ class LinearLeastSquares implements RegressionStrategy
         $design = new Matrix($independentData);
         $observed = (new Matrix([ $dependentData ]))->transpose();
         
-        // Avoid creating a singular matrix:
+        // Use different math depending on the data dimensions:
         // http://math.stackexchange.com/questions/381600/singular-matrix-problem
         
         if ($design->columns == $design->rows) { // Square
