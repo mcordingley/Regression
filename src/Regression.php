@@ -72,9 +72,9 @@ class Regression
      * @param RegressionStrategy A regression strategy to perform the calculations
      * @throws InvalidArgumentException
      */
-    public function __construct(RegressionStrategy $regressionStrategy, Linking $linkingStrategy = null)
+    public function __construct(RegressionStrategy $regressionStrategy = null, Linking $linkingStrategy = null)
     {
-        $this->strategy = $regressionStrategy;
+        $this->strategy = $regressionStrategy ?: new LinearLeastSquares;
         $this->linking = $linkingStrategy ?: new Identity;
     }
     

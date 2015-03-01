@@ -21,7 +21,7 @@ class SimpleRegression
      */
     public function __construct()
     {
-        $this->regression = new Regression(new LinearLeastSquares);
+        $this->regression = new Regression;
     }
     
     /**
