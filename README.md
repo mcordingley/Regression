@@ -3,8 +3,17 @@ Regression
 
 [![Build Status](https://api.travis-ci.org/repositories/mcordingley/Regression.svg)](https://travis-ci.org/mcordingley/Regression)
 
-This is a regression package for PHP that performs multiple regression on numeric
-data. It is still in active development, so the API may still shift, but it is
+From [Wikipedia](http://en.wikipedia.org/wiki/Regression_analysis):
+
+> In statistics, regression analysis is a statistical process for estimating the
+> relationships among variables. It includes many techniques for modeling and
+> analyzing several variables, when the focus is on the relationship between a
+> dependent variable and one or more independent variables. More specifically,
+> regression analysis helps one understand how the typical value of the dependent
+> variable (or 'criterion variable') changes when any one of the independent
+> variables is varied, while the other independent variables are held fixed.
+
+Note: It is still in active development, so the API may still shift, but it is
 also finally in a usable state for probably most use cases. Use, but with caution.
 
 ## Installation
