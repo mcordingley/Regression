@@ -50,7 +50,58 @@ set of explanatory data:
 
 ## Advanced Use
 
-Coming soon!
+`SimpleRegression` is a facade (in the GoF sense) over the other classes in this
+library. To make use of the more advanced features in this library, you'll need
+to get your hands dirty with the constituent classes.
+
+Start by instantiating an instance of `Regression`:
+
+    use mcordingley\Regression\Regression;
+    
+    $regression = new Regression;
+
+By default, the regression uses the Linear Least Squares method of estimating
+the regression coefficients. If you have some alternate method that you would
+like to use, pass your own class that implements
+`mcordingley\Regression\RegressionStrategy` into the `Regression` constructor as
+its only argument. If you think your new strategy object would be of general use
+to others, *please submit it in a pull request.*
+
+Next, apply any transformation logic to your data if data that you are using is
+non-linear. This is done by injecting objects that implement the
+`mcordingley\Regression\Linking` interface into the following methods:
+
+    $regression->setDependentLinking($linking); // To transform Y values
+    $regression->setIndependentLinking($linking); // To transform X values regardless of position in the data
+    $regression->setIndependentLinking($linking, $index); // To transform the X values that are at $index position in the data in preference to the linking set above
+
+Currently, these linking objects ship with the library:
+
+- `mcordingley\Regression\Linking\Identity`: Passes data through untransformed. Used by default unless something else is specified.
+- `mcordingley\Regression\Linking\Power`: For data that follows a geometric progression. Constructor takes the exponent as its argument. Default 2.
+- `mcordingley\Regression\Linking\Exponential`: For data that follows an exponential progression. Constructor takes the base of the exponent as its argument. Default M_E.
+- `mcordingley\Regression\Linking\Logarithm`: For data that follows a logarithmic progression. Constructor takes the base of the logarithm as its argument. Default M_E.
+
+Depending on your data, other transformations may be appropriate. If you end up
+developing a transform for use with your data that is not included already here
+and that you think would be of use to others, *please submit it in a pull request*.
+
+Adding data and pulling out the coefficients is also slightly different than
+with the `SimpleRegression` object. The idea of an intercept is an abstraction
+that is introduced by that object. When dealing with the data and computed
+coefficients, you have to introduce a constant `1` as your first data point. This
+represents the idea of invariance as a predictive "variable". Your first
+computed coefficient is therefore your intercept. If this is still confusing,
+take a look at the implementation of `SimpleRegression` to see how it abstracts
+this out for you. The base `Regression` class leaves altering this up to you,
+in case there's a good reason why it doesn't make sense for you to include this.
+
+As such, the `Regression` class does not have the `getIntercept` method that
+`SimpleRegression` has. Otherwise, the remaining methods operate the same:
+
+    $coefficients = $regression->getCoefficients();
+    $rSquared = $regression->getRSquared();
+    $predictedOutcome = $regression->predict([1, 2, 3, 4, 5, 6]);
 
 ## Check-list For First Release
 
