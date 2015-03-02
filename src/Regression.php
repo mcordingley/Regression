@@ -28,6 +28,25 @@ class Regression
     protected $dependentSeries = [];
     
     /**
+     * independentLinking
+     * 
+     * Strategy object to use by default to linearize independent variables.
+     * 
+     * @var Linking
+     */
+    protected $independentLinking;
+    
+    /**
+     * independentLinkings
+     * 
+     * Sparse array of strategy objects to linearize specific independent
+     * variables by index.
+     * 
+     * @var array 
+     */
+    protected $independentLinkings = [];
+    
+    /**
      * independentSeries
      * 
      * Array of arrays of floats. Each sub-array is a set of explanatory
@@ -72,10 +91,12 @@ class Regression
      * @param RegressionStrategy A regression strategy to perform the calculations
      * @throws InvalidArgumentException
      */
-    public function __construct(RegressionStrategy $regressionStrategy = null, Linking $linkingStrategy = null)
+    public function __construct(RegressionStrategy $regressionStrategy = null)
     {
+        // Set sane defaults for internal objects.
         $this->strategy = $regressionStrategy ?: new LinearLeastSquares;
-        $this->linking = $linkingStrategy ?: new Identity;
+        $this->dependentLinking = new Identity;
+        $this->independentLinking = new Identity;
     }
     
     /**
@@ -188,10 +209,16 @@ class Regression
      * @return float The predicted value.
      */
     public function predict(array $series)
-    {   
+    {
+        $transformed = [];
+        
+        foreach ($series as $index => $datum) {
+            $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
+        }
+        
         $products = array_map(function ($predictor, $datum) {
             return $predictor * $datum;
-        }, $this->getCoefficients(), $series);
+        }, $this->getCoefficients(), $transformed);
         
         $sumProduct = array_reduce($products, function($memo, $product) {
             return $memo + $product;
@@ -210,8 +237,64 @@ class Regression
     {
         $this->checkData();
         
+        // Perform transformations
+        
         $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
         
-        $this->predictors = $this->strategy->regress($linearDependents, $this->independentSeries);
+        $linearIndependents = [];
+        
+        foreach ($this->independentSeries as $series) {
+            $transformed = [];
+            
+            foreach ($series as $index => $datum) {
+                $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
+            }
+            
+            $linearIndependents[] = $transformed;
+        }
+        
+        // Now that everything has been linearized, regress it.
+        
+        $this->predictors = $this->strategy->regress($linearDependents, $linearIndependents);
+    }
+    
+    /**
+     * setDependentLinking
+     * 
+     * Sets the linking object used to transform dependent values into and out
+     * of linear form for regression. Defaults to the identity function if this
+     * method isn't used to change it.
+     * 
+     * @param Linking $linking
+     * @return self
+     */
+    public function setDependentLinking(Linking $linking)
+    {
+        $this->dependentLinking = $linking;
+        
+        return $this;
+    }
+    
+    /**
+     * setIndependentLinking
+     * 
+     * Sets the linking object used to transform indepenent variables prior to
+     * regression. If no index is supplied, this is used as the default transform
+     * for all independent variables. If an index is supplied, then it is used only
+     * for independent variables with a matching index.
+     * 
+     * @param Linking $linking
+     * @param int|null $index If specified, use this linking only for independent variables at the specified index
+     * @return self
+     */
+    public function setIndependentLinking(Linking $linking, $index = null)
+    {
+        if (is_null($index)) {
+            $this->independentLinking = $linking;
+        } else {
+            $this->independentLinkings[$index] = $linking;
+        }
+        
+        return $this;
     }
 }
