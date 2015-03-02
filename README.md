@@ -3,8 +3,7 @@ Regression
 
 This is a regression package for PHP that performs multiple regression on numeric
 data. It is still in active development, so the API may still shift, but it is
-also finally in a usable state for probably most use cases. Use, but still with
-caution.
+also finally in a usable state for probably most use cases. Use, but with caution.
 
 ## Installation
 
@@ -95,13 +94,19 @@ computed coefficient is therefore your intercept. If this is still confusing,
 take a look at the implementation of `SimpleRegression` to see how it abstracts
 this out for you. The base `Regression` class leaves altering this up to you,
 in case there's a good reason why it doesn't make sense for you to include this.
+    
+    $regression->addData(2, [1, 3, 5, 7, 2, 8, 10])
+               ->addData(4, [1, 3, 2, 1, 5, 5, 9])
+               ->addData(6, [1, 1, 2, 3, 4, 5, 6])
+               ->addData(8, [1, 1, 3, 4, 7, 7, 12])
+               ->addData(10, [1, 19, 17, 15, 14, 5, 1]);
 
 As such, the `Regression` class does not have the `getIntercept` method that
 `SimpleRegression` has. Otherwise, the remaining methods operate the same:
 
     $coefficients = $regression->getCoefficients();
     $rSquared = $regression->getRSquared();
-    $predictedOutcome = $regression->predict([1, 2, 3, 4, 5, 6]);
+    $predictedOutcome = $regression->predict([1, 1, 2, 3, 4, 5, 6]); // Note added 1 at the start
 
 ## Check-list For 1.0
 
