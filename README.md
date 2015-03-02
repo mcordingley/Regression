@@ -1,6 +1,8 @@
 Regression
 ==========
 
+[![Build Status](https://api.travis-ci.org/repositories/mcordingley/Regression.svg)](https://travis-ci.org/mcordingley/Regression)
+
 This is a regression package for PHP that performs multiple regression on numeric
 data. It is still in active development, so the API may still shift, but it is
 also finally in a usable state for probably most use cases. Use, but with caution.
