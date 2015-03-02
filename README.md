@@ -10,7 +10,7 @@ caution.
 
 Add this line to your composer.json file and update:
 
-    "mcordingley/regression": "dev-master"
+    "mcordingley/regression": "~0.9.0"
 
 That's it!
 
@@ -103,6 +103,6 @@ As such, the `Regression` class does not have the `getIntercept` method that
     $rSquared = $regression->getRSquared();
     $predictedOutcome = $regression->predict([1, 2, 3, 4, 5, 6]);
 
-## Check-list For First Release
+## Check-list For 1.0
 
 - Finish tests for fat and square matrices on the Least Squares strategy.
