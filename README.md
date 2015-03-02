@@ -55,4 +55,3 @@ Coming soon!
 ## Check-list For First Release
 
 - Finish tests for fat and square matrices on the Least Squares strategy.
-- Implement transformation logic so that non-linear data may be linearized for regression and delinearized for prediction
