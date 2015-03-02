@@ -7,6 +7,12 @@ use LengthException;
 use mcordingley\Regression\Linking\Identity;
 use mcordingley\Regression\RegressionStrategy\LinearLeastSquares;
 
+/**
+ * Regression
+ * 
+ * Represents a regression analysis. Each instance maps to a particular 
+ * regression analysis.
+ */
 class Regression
 {
     /**

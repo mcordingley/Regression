@@ -2,6 +2,12 @@
 
 namespace mcordingley\Regression;
 
+/**
+ * RegressionStrategy
+ * 
+ * Strategy object used by the `Regression` class to find a set of predictor
+ * coefficients. Encapsulates the algorithm used to calculate these values.
+ */
 interface RegressionStrategy
 {
     /**

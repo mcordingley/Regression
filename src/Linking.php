@@ -2,6 +2,11 @@
 
 namespace mcordingley\Regression;
 
+/**
+ * Linking
+ * 
+ * Defines a mapping of non-linear data into a linear space.
+ */
 interface Linking
 {
     /**
