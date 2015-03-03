@@ -5,7 +5,9 @@ namespace mcordingley\Regression;
 use InvalidArgumentException;
 use LengthException;
 use mcordingley\Regression\Linking\Identity;
-use mcordingley\Regression\RegressionStrategy\LinearLeastSquares;
+use mcordingley\Regression\Linking\LinkingInterface;
+use mcordingley\Regression\RegressionAlgorithm\LinearLeastSquares;
+use mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface;
 
 /**
  * Regression
@@ -20,7 +22,7 @@ class Regression
      * 
      * Strategy object to transform Y values into and out of linear form.
      * 
-     * @var Linking 
+     * @var LinkingInterface 
      */
     protected $dependentLinking;
     
@@ -38,7 +40,7 @@ class Regression
      * 
      * Strategy object to use by default to linearize independent variables.
      * 
-     * @var Linking
+     * @var LinkingInterface
      */
     protected $independentLinking;
     
@@ -87,9 +89,9 @@ class Regression
      * 
      * Class instance that performs the actual regression.
      * 
-     * @var RegressionStrategy 
+     * @var RegressionAlgorithmInterface 
      */
-    protected $strategy;
+    protected $algorithm;
     
     /**
      * __construct
@@ -97,10 +99,10 @@ class Regression
      * @param RegressionStrategy A regression strategy to perform the calculations
      * @throws InvalidArgumentException
      */
-    public function __construct(RegressionStrategy $regressionStrategy = null)
+    public function __construct(RegressionAlgorithmInterface $regressionStrategy = null)
     {
         // Set sane defaults for internal objects.
-        $this->strategy = $regressionStrategy ?: new LinearLeastSquares;
+        $this->algorithm = $regressionStrategy ?: new LinearLeastSquares;
         $this->dependentLinking = new Identity;
         $this->independentLinking = new Identity;
     }
@@ -188,7 +190,7 @@ class Regression
      * of linear form for regression. Defaults to the identity function if this
      * method isn't used to change it.
      * 
-     * @param Linking $linking
+     * @param LinkingInterface $linking
      * @return self
      */
     public function setDependentLinking(Linking $linking)
@@ -206,7 +208,7 @@ class Regression
      * for all independent variables. If an index is supplied, then it is used only
      * for independent variables with a matching index.
      * 
-     * @param Linking $linking
+     * @param LinkingInterface $linking
      * @param int|null $index If specified, use this linking only for independent variables at the specified index
      * @return self
      */
@@ -301,6 +303,6 @@ class Regression
         
         // Now that everything has been linearized, regress it.
         
-        $this->predictors = $this->strategy->regress($linearDependents, $linearIndependents);
+        $this->predictors = $this->algorithm->regress($linearDependents, $linearIndependents);
     }
 }

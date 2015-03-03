@@ -1,13 +1,13 @@
 <?php
 
-namespace mcordingley\Regression;
+namespace mcordingley\Regression\Linking;
 
 /**
- * Linking
+ * LinkingInterface
  * 
  * Defines a mapping of non-linear data into a linear space.
  */
-interface Linking
+interface LinkingInterface
 {
     /**
      * delinearize

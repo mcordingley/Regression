@@ -1,14 +1,14 @@
 <?php
 
-namespace mcordingley\Regression;
+namespace mcordingley\Regression\RegressionAlgorithm;
 
 /**
- * RegressionStrategy
+ * RegressionAlgorithmInterface
  * 
  * Strategy object used by the `Regression` class to find a set of predictor
  * coefficients. Encapsulates the algorithm used to calculate these values.
  */
-interface RegressionStrategy
+interface RegressionAlgorithmInterface
 {
     /**
      * regress

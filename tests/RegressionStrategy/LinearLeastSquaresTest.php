@@ -1,6 +1,6 @@
 <?php
 
-use mcordingley\Regression\RegressionStrategy\LinearLeastSquares;
+use mcordingley\Regression\RegressionAlgorithm\LinearLeastSquares;
 
 class LinearLeastSquaresTest extends PHPUnit_Framework_TestCase
 {

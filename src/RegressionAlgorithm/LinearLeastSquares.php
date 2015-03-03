@@ -1,11 +1,10 @@
 <?php
 
-namespace mcordingley\Regression\RegressionStrategy;
+namespace mcordingley\Regression\RegressionAlgorithm;
 
 use mcordingley\LinearAlgebra\Matrix;
-use mcordingley\Regression\RegressionStrategy;
 
-class LinearLeastSquares implements RegressionStrategy
+class LinearLeastSquares implements RegressionAlgorithmInterface
 {
     public function regress(array $dependentData, array $independentData)
     {

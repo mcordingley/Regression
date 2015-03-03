@@ -2,8 +2,6 @@
 
 namespace mcordingley\Regression\Linking;
 
-use mcordingley\Regression\Linking;
-
 /**
  * Exponential
  * 
@@ -11,7 +9,7 @@ use mcordingley\Regression\Linking;
  * into and back out of linear space. No data points may have values that are
  * less than or equal to zero.
  */
-class Exponential implements Linking
+class Exponential implements LinkingInterface
 {
     protected $base;
 

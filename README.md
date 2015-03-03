@@ -72,14 +72,14 @@ Start by instantiating an instance of `Regression`:
 
 By default, the regression uses the Linear Least Squares method of estimating
 the regression coefficients. If you have some alternate method that you would
-like to use, pass your own class that implements
-`mcordingley\Regression\RegressionStrategy` into the `Regression` constructor as
-its only argument. If you think your new strategy object would be of general use
-to others, *please submit it in a pull request.*
+like to use, pass an instance of your own class that implements
+`mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface` into
+the `Regression` constructor as its only argument. If you think your new
+algorithm would be of general use to others, *please submit it in a pull request.*
 
 Next, apply any transformation logic to your data if data that you are using is
 non-linear. This is done by injecting objects that implement the
-`mcordingley\Regression\Linking` interface into the following methods:
+`mcordingley\Regression\Linking\LinkingInterface` interface into the following methods:
 
     $regression->setDependentLinking($linking); // To transform Y values
     $regression->setIndependentLinking($linking); // To transform X values regardless of position in the data

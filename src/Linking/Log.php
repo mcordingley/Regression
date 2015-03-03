@@ -3,7 +3,6 @@
 namespace mcordingley\Regression\Linking;
 
 use InvalidArgumentException;
-use mcordingley\Regression\Linking;
 
 /**
  * Log
@@ -11,7 +10,7 @@ use mcordingley\Regression\Linking;
  * Linking implementation that transforms data that follows a logarithmic curve
  * into and out of linear space.
  */
-class Log implements Linking
+class Log implements LinkingInterface
 {
     protected $base;
 

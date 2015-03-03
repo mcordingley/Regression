@@ -2,14 +2,12 @@
 
 namespace mcordingley\Regression\Linking;
 
-use mcordingley\Regression\Linking;
-
 /**
  * Power
  * 
  * Linking implementation that transforms data that follows a geometric curve.
  */
-class Power implements Linking
+class Power implements LinkingInterface
 {
     protected $exponent;
     
