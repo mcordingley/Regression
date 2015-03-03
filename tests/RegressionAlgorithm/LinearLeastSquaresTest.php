@@ -52,8 +52,6 @@ class LinearLeastSquaresTest extends PHPUnit_Framework_TestCase
     
     public function testSquareMatrix()
     {
-        $this->fail('Test not yet implemented.');
-        /*
         $coefficients = $this->strategy->regress([2, 4, 6, 8, 10], [
             [1, 3, 5, 7, 2],
             [1, 3, 2, 1, 5],
@@ -62,11 +60,10 @@ class LinearLeastSquaresTest extends PHPUnit_Framework_TestCase
             [1, 19, 17, 15, 14],
         ]);
         
-        $this->assertEquals(, round($coefficients[0], 9));
-        $this->assertEquals(, round($coefficients[1], 9));
-        $this->assertEquals(, round($coefficients[2], 9));
-        $this->assertEquals(, round($coefficients[3], 9));
-        $this->assertEquals(, round($coefficients[4], 9));
-        */
+        $this->assertEquals(-2.667, round($coefficients[0], 3));
+        $this->assertEquals(3.333, round($coefficients[1], 3));
+        $this->assertEquals(-9.333, round($coefficients[2], 3));
+        $this->assertEquals(5.333, round($coefficients[3], 3));
+        $this->assertEquals(2, round($coefficients[4], 3));
     }
 }
