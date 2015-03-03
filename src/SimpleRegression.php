@@ -2,8 +2,6 @@
 
 namespace mcordingley\Regression;
 
-use mcordingley\Regression\RegressionStrategy\LinearLeastSquares;
-
 /**
  * SimpleRegression
  * 
