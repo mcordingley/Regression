@@ -124,58 +124,6 @@ class Regression
     }
     
     /**
-     * calculateRSquared
-     * 
-     * Calculates the goodness of fit for the model, setting $this->r2 when done.
-     */
-    protected function calculateRSquared()
-    {   
-        $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
-            return $memo + $value;
-        }) / count($this->dependentSeries);
-        
-        $sumSquaredError = 0;
-        $meanSquaredError = 0;
-        
-        foreach ($this->independentSeries as $index => $series) {
-            $actual = $this->dependentSeries[$index];
-            $predicted = $this->predict($series);
-            
-            $sumSquaredError += pow($actual - $predicted, 2);
-            $meanSquaredError += pow($actual - $mean, 2);
-        }
-        
-        $this->r2 = 1 - $sumSquaredError / $meanSquaredError;
-    }
-    
-    /**
-     * checkData
-     * 
-     * Checks the data provided to the regression to make sure that it is valid
-     * prior to attempting the regression.
-     * 
-     * @throws LengthException
-     */
-    protected function checkData()
-    {
-        if (!count($this->independentSeries)) {
-            throw new LengthException('Cannot perform regression; no data provided.');
-        }
-        
-        $length = count($this->independentSeries[0]);
-        
-        if (!$length) {
-            throw new LengthException('Cannot perform regression; no data points in the first independent data series.');
-        }
-        
-        for ($i = 1, $len = count($this->independentSeries); $i < $len; $i++) {
-            if (count($this->independentSeries[$i]) != $length) {
-                throw new LengthException('Cannot perform regression; every provided independent data series must be of the same length.');
-            }
-        }
-    }
-    
-    /**
      * getCoefficents
      * 
      * Returns the coefficients determined by the regression.
@@ -234,37 +182,6 @@ class Regression
     }
 
     /**
-     * regress
-     * 
-     * Performs the regression, setting the predictors array to the result of
-     * the regression.
-     */
-    protected function regress()
-    {
-        $this->checkData();
-        
-        // Perform transformations
-        
-        $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
-        
-        $linearIndependents = [];
-        
-        foreach ($this->independentSeries as $series) {
-            $transformed = [];
-            
-            foreach ($series as $index => $datum) {
-                $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
-            }
-            
-            $linearIndependents[] = $transformed;
-        }
-        
-        // Now that everything has been linearized, regress it.
-        
-        $this->predictors = $this->strategy->regress($linearDependents, $linearIndependents);
-    }
-    
-    /**
      * setDependentLinking
      * 
      * Sets the linking object used to transform dependent values into and out
@@ -302,5 +219,88 @@ class Regression
         }
         
         return $this;
+    }
+    
+    /**
+     * calculateRSquared
+     * 
+     * Calculates the goodness of fit for the model, setting $this->r2 when done.
+     */
+    protected function calculateRSquared()
+    {   
+        $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
+            return $memo + $value;
+        }) / count($this->dependentSeries);
+        
+        $sumSquaredError = 0;
+        $meanSquaredError = 0;
+        
+        foreach ($this->independentSeries as $index => $series) {
+            $actual = $this->dependentSeries[$index];
+            $predicted = $this->predict($series);
+            
+            $sumSquaredError += pow($actual - $predicted, 2);
+            $meanSquaredError += pow($actual - $mean, 2);
+        }
+        
+        $this->r2 = 1 - $sumSquaredError / $meanSquaredError;
+    }
+    
+    /**
+     * checkData
+     * 
+     * Checks the data provided to the regression to make sure that it is valid
+     * prior to attempting the regression.
+     * 
+     * @throws LengthException
+     */
+    protected function checkData()
+    {
+        if (!count($this->independentSeries)) {
+            throw new LengthException('Cannot perform regression; no data provided.');
+        }
+        
+        $length = count($this->independentSeries[0]);
+        
+        if (!$length) {
+            throw new LengthException('Cannot perform regression; no data points in the first independent data series.');
+        }
+        
+        for ($i = 1, $len = count($this->independentSeries); $i < $len; $i++) {
+            if (count($this->independentSeries[$i]) != $length) {
+                throw new LengthException('Cannot perform regression; every provided independent data series must be of the same length.');
+            }
+        }
+    }
+    
+    /**
+     * regress
+     * 
+     * Performs the regression, setting the predictors array to the result of
+     * the regression.
+     */
+    protected function regress()
+    {
+        $this->checkData();
+        
+        // Perform transformations
+        
+        $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
+        
+        $linearIndependents = [];
+        
+        foreach ($this->independentSeries as $series) {
+            $transformed = [];
+            
+            foreach ($series as $index => $datum) {
+                $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
+            }
+            
+            $linearIndependents[] = $transformed;
+        }
+        
+        // Now that everything has been linearized, regress it.
+        
+        $this->predictors = $this->strategy->regress($linearDependents, $linearIndependents);
     }
 }
