@@ -142,13 +142,13 @@ class Regression
     protected $sumSquaredError;
     
     /**
-     * tCoefficients
+     * tValues
      * 
      * This is an array of the t statistics for each calculated coefficient.
      * 
      * @var array
      */
-    protected $tCoefficients;
+    protected $tValues;
     
     /**
      * __construct
@@ -308,26 +308,26 @@ class Regression
     }
     
     /**
-     * getTCoefficients
+     * getTValues
      * 
      * Calculates the t test values of each of the regression coefficients.
      * 
      * @return array
      */
-    public function getTCoefficients()
+    public function getTValues()
     {
-        if (is_null($this->tCoefficients)) {
+        if (is_null($this->tValues)) {
             $predictors = $this->getCoefficients();
             $SCoefficients = $this->getStandardErrorCoefficients();
             
-            $this->tCoefficients = [];
+            $this->tValues = [];
 
             for ($i = 0, $len = count($predictors); $i < $len; $i++) {
-                $this->tCoefficients[$i] = $predictors[$i] / $SCoefficients[$i];
+                $this->tValues[$i] = $predictors[$i] / $SCoefficients[$i];
             }
         }
         
-        return $this->tCoefficients;
+        return $this->tValues;
     }
 
     /**

@@ -98,15 +98,15 @@ class SimpleRegression
     }
     
     /**
-     * getTCoefficients
+     * getTValues
      * 
      * Calculates the t test values of each of the regression coefficients.
      * 
      * @return array
      */
-    public function getTCoefficients()
+    public function getTValues()
     {
-        return array_slice($this->regression->getTCoefficients(), 1);
+        return array_slice($this->regression->getTValues(), 1);
     }
     
     /**
