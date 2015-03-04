@@ -258,7 +258,8 @@ class Regression
     /**
      * calculateStatistics
      * 
-     * Calculates the goodness of fit for the model, setting $this->r2 when done.
+     * Calculates the statistics for the model, setting $this->r2 and $this->S
+     * when done.
      */
     protected function calculateStatistics()
     {
