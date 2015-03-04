@@ -37,6 +37,15 @@ class Regression
     protected $coefficients;
     
     /**
+     * degreesFreedomError
+     * 
+     * The number of degrees of freedom of error for the model.
+     * 
+     * @var int
+     */
+    protected $degreesFreedomError;
+    
+    /**
      * dependentLinking
      * 
      * Strategy object to transform Y values into and out of linear form.
@@ -288,7 +297,7 @@ class Regression
             $observationCount = count($this->dependentSeries);
             $variableCount = count($this->independentSeries[0]);
             
-            $k = sqrt($this->getSumSquaredError() / $this->getDegreesOfFreedom());
+            $k = sqrt($this->getSumSquaredError() / $this->getDegreesOfFreedomError());
             
             for ($variableIndex = 0; $variableIndex < $variableCount; $variableIndex++) {
                 $sumX = 0;
@@ -412,6 +421,7 @@ class Regression
         $this->predictedValues = null;
         $this->sumSquaredError = null;
         $this->sumSquaredTotal = null;
+        $this->degreesFreedomError = null;
         $this->r2 = null;
         $this->S = null;
         $this->SCoefficients = null;
@@ -425,17 +435,16 @@ class Regression
      * 
      * @return int
      */
-    protected function getDegreesOfFreedom()
+    protected function getDegreesOfFreedomError()
     {
-        $observationCount = count($this->independentSeries);
+        if (is_null($this->degreesFreedomError)) {
+            $observationCount = count($this->independentSeries);
+            $explanatoryVariableCount = count($this->independentSeries[0]);
         
-        if (!$observationCount) {
-            return 0;
+            $this->degreesFreedomError = $observationCount - $explanatoryVariableCount;
         }
         
-        $explanatoryVariableCount = count($this->independentSeries[0]);
-        
-        return $observationCount - $explanatoryVariableCount;
+        return $this->degreesFreedomError;
     }
     
     /**
