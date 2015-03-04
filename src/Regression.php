@@ -27,6 +27,16 @@ class Regression
     protected $algorithm;
     
     /**
+     * coefficients
+     * 
+     * The calculated beta values that show what the contribution of each
+     * explanatory variable is to the overall fitted curve.
+     * 
+     * @var array
+     */
+    protected $coefficients;
+    
+    /**
      * dependentLinking
      * 
      * Strategy object to transform Y values into and out of linear form.
@@ -83,16 +93,6 @@ class Regression
     protected $meanSquaredError;
     
     /**
-     * predictors
-     * 
-     * The calculated beta values that show what the contribution of each
-     * explanatory variable is to the overall fitted curve.
-     * 
-     * @var array
-     */
-    protected $predictors;
-    
-    /**
      * predictedValues
      * 
      * What the observed values would be if predicted by the model.
@@ -125,8 +125,7 @@ class Regression
     /**
      * SCoefficients
      * 
-     * This is an array of the standard errors for each calculated coefficient
-     * in $this->predictors.
+     * This is an array of the standard errors for each calculated coefficient.
      * 
      * @var array
      */
@@ -145,8 +144,7 @@ class Regression
     /**
      * tCoefficients
      * 
-     * This is an array of the t statistics for each calculated coefficient
-     * in $this->predictors.
+     * This is an array of the t statistics for each calculated coefficient.
      * 
      * @var array
      */
@@ -194,11 +192,45 @@ class Regression
      */
     public function getCoefficients()
     {
-        if (is_null($this->predictors)) {
-            $this->regress();
+        if (is_null($this->coefficients)) {
+            if (!count($this->independentSeries)) {
+                throw new LengthException('Cannot perform regression; no data provided.');
+            }
+
+            $length = count($this->independentSeries[0]);
+
+            if (!$length) {
+                throw new LengthException('Cannot perform regression; no data points in the first independent data series.');
+            }
+
+            for ($i = 1, $len = count($this->independentSeries); $i < $len; $i++) {
+                if (count($this->independentSeries[$i]) != $length) {
+                    throw new LengthException('Cannot perform regression; every provided independent data series must be of the same length.');
+                }
+            }
+
+            // Perform transformations
+
+            $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
+
+            $linearIndependents = [];
+
+            foreach ($this->independentSeries as $series) {
+                $transformed = [];
+
+                foreach ($series as $index => $datum) {
+                    $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
+                }
+
+                $linearIndependents[] = $transformed;
+            }
+
+            // Now that everything has been linearized, regress it.
+
+            $this->coefficients = $this->algorithm->regress($linearDependents, $linearIndependents);
         }
         
-        return $this->predictors;
+        return $this->coefficients;
     }
     
     /**
@@ -364,33 +396,6 @@ class Regression
     }
     
     /**
-     * checkData
-     * 
-     * Checks the data provided to the regression to make sure that it is valid
-     * prior to attempting the regression.
-     * 
-     * @throws LengthException
-     */
-    protected function checkData()
-    {
-        if (!count($this->independentSeries)) {
-            throw new LengthException('Cannot perform regression; no data provided.');
-        }
-        
-        $length = count($this->independentSeries[0]);
-        
-        if (!$length) {
-            throw new LengthException('Cannot perform regression; no data points in the first independent data series.');
-        }
-        
-        for ($i = 1, $len = count($this->independentSeries); $i < $len; $i++) {
-            if (count($this->independentSeries[$i]) != $length) {
-                throw new LengthException('Cannot perform regression; every provided independent data series must be of the same length.');
-            }
-        }
-    }
-    
-    /**
      * clearCalculations
      * 
      * Clears out all of the derived data about this regression, as it has
@@ -492,36 +497,5 @@ class Regression
         }
         
         return $this->sumSquaredError;
-    }
-    
-    /**
-     * regress
-     * 
-     * Performs the regression, setting the predictors array to the result of
-     * the regression.
-     */
-    protected function regress()
-    {
-        $this->checkData();
-        
-        // Perform transformations
-        
-        $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
-        
-        $linearIndependents = [];
-        
-        foreach ($this->independentSeries as $series) {
-            $transformed = [];
-            
-            foreach ($series as $index => $datum) {
-                $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
-            }
-            
-            $linearIndependents[] = $transformed;
-        }
-        
-        // Now that everything has been linearized, regress it.
-        
-        $this->predictors = $this->algorithm->regress($linearDependents, $linearIndependents);
     }
 }
