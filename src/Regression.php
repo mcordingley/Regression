@@ -84,15 +84,6 @@ class Regression
     protected $independentSeries = [];
     
     /**
-     * meanSquaredError
-     * 
-     * The sum of the squared distances of the observations from their mean.
-     * 
-     * @var float
-     */
-    protected $meanSquaredError;
-    
-    /**
      * predictedValues
      * 
      * What the observed values would be if predicted by the model.
@@ -140,6 +131,15 @@ class Regression
      * @var float
      */
     protected $sumSquaredError;
+    
+    /**
+     * sumSquaredTotal
+     * 
+     * The sum of the squared distances of the observations from their mean.
+     * 
+     * @var float
+     */
+    protected $sumSquaredTotal;
     
     /**
      * tValues
@@ -244,11 +244,11 @@ class Regression
     public function getRSquared()
     {
         if (is_null($this->r2)) {
-            $meanSquaredError = $this->getMeanSquaredError();
-            if ($meanSquaredError === 0) {
+            $sumSquaredTotal = $this->getSumSquaredTotal();
+            if ($sumSquaredTotal === 0) {
                 $this->r2 = 0;
             } else {
-                $this->r2 = 1 - $this->getSumSquaredError() / $meanSquaredError;
+                $this->r2 = 1 - $this->getSumSquaredError() / $sumSquaredTotal;
             }
         }
         
@@ -411,7 +411,7 @@ class Regression
         $this->coefficients = null;
         $this->predictedValues = null;
         $this->sumSquaredError = null;
-        $this->meanSquaredError = null;
+        $this->sumSquaredTotal = null;
         $this->r2 = null;
         $this->S = null;
         $this->SCoefficients = null;
@@ -436,29 +436,6 @@ class Regression
         $explanatoryVariableCount = count($this->independentSeries[0]);
         
         return $observationCount - $explanatoryVariableCount;
-    }
-    
-    /**
-     * getMeanSquaredError
-     * 
-     * Calculates the mean-squared error of the regression. This is the sum
-     * of the squared distances of observations from their average.
-     * 
-     * @return float
-     */
-    protected function getMeanSquaredError()
-    {
-        if (is_null($this->meanSquaredError)) {
-            $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
-                return $memo + $value;
-            }) / count($this->dependentSeries);
-            
-            $this->meanSquaredError = array_reduce($this->dependentSeries, function ($memo, $value) use ($mean) {
-                return $memo + pow($value - $mean, 2);
-            }, 0);
-        }
-        
-        return $this->meanSquaredError;
     }
     
     /**
@@ -502,5 +479,28 @@ class Regression
         }
         
         return $this->sumSquaredError;
+    }
+    
+    /**
+     * getSumSquaredTotal
+     * 
+     * Calculates the mean-squared error of the regression. This is the sum
+     * of the squared distances of observations from their average.
+     * 
+     * @return float
+     */
+    protected function getSumSquaredTotal()
+    {
+        if (is_null($this->sumSquaredTotal)) {
+            $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
+                return $memo + $value;
+            }) / count($this->dependentSeries);
+            
+            $this->sumSquaredTotal = array_reduce($this->dependentSeries, function ($memo, $value) use ($mean) {
+                return $memo + pow($value - $mean, 2);
+            }, 0);
+        }
+        
+        return $this->sumSquaredTotal;
     }
 }
