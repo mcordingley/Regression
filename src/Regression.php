@@ -85,6 +85,17 @@ class Regression
     protected $r2;
     
     /**
+     * S
+     * 
+     * The S statistic is also known as the Standard Error of the regression,
+     * which is the average distance of observed values from the regression
+     * line.
+     * 
+     * @var float 
+     */
+    protected $S;
+    
+    /**
      * strategy
      * 
      * Class instance that performs the actual regression.
@@ -123,6 +134,7 @@ class Regression
         
         $this->predictors = null;
         $this->r2 = null;
+        $this->S = null;
         
         return $this;
     }
@@ -154,10 +166,28 @@ class Regression
     public function getRSquared()
     {
         if (is_null($this->r2)) {
-            $this->calculateRSquared();
+            $this->calculateStatistics();
         }
         
         return $this->r2;
+    }
+    
+    /**
+     * @return typegetStandardError
+     * 
+     * Calculates the standard error of the regression. This is the average
+     * distance of observed values from the regression line. It's conceptually
+     * similar to the standard deviation.
+     * 
+     * @return float
+     */
+    public function getStandardError()
+    {
+        if (is_null($this->S)) {
+            $this->calculateStatistics();
+        }
+        
+        return $this->S;
     }
 
     /**
@@ -226,15 +256,17 @@ class Regression
     }
     
     /**
-     * calculateRSquared
+     * calculateStatistics
      * 
      * Calculates the goodness of fit for the model, setting $this->r2 when done.
      */
-    protected function calculateRSquared()
-    {   
+    protected function calculateStatistics()
+    {
+        $count = count($this->dependentSeries);
+        
         $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
             return $memo + $value;
-        }) / count($this->dependentSeries);
+        }) / $count;
         
         $sumSquaredError = 0;
         $meanSquaredError = 0;
@@ -248,6 +280,7 @@ class Regression
         }
         
         $this->r2 = 1 - $sumSquaredError / $meanSquaredError;
+        $this->S = sqrt($sumSquaredError / $count);
     }
     
     /**
