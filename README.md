@@ -20,7 +20,7 @@ also finally in a usable state for probably most use cases. Use, but with cautio
 
 Add this line to your composer.json file and update:
 
-    "mcordingley/regression": "~0.9.0"
+    "mcordingley/regression": "~0.9.2"
 
 That's it!
 
@@ -52,6 +52,8 @@ line matches the data:
     $intercept = $regression->getIntercept();
     $coefficients = $regression->getCoefficients();
     $rSquared = $regression->getRSquared();
+    $seCoefficients = $regression->getStandardErrorCoefficients();
+    $tValues = $regression->getTValues();
 
 You can also use the regression to predict values based on a new or hypothetical
 set of explanatory data:
@@ -104,7 +106,8 @@ represents the idea of invariance as a predictive "variable". Your first
 computed coefficient is therefore your intercept. If this is still confusing,
 take a look at the implementation of `SimpleRegression` to see how it abstracts
 this out for you. The base `Regression` class leaves altering this up to you,
-in case there's a good reason why it doesn't make sense for you to include this.
+so you have the freedom to deviate from how `SimpleRegression` implements this
+if necessary.
     
     $regression->addData(2, [1, 3, 5, 7, 2, 8, 10])
                ->addData(4, [1, 3, 2, 1, 5, 5, 9])
@@ -113,12 +116,17 @@ in case there's a good reason why it doesn't make sense for you to include this.
                ->addData(10, [1, 19, 17, 15, 14, 5, 1]);
 
 As such, the `Regression` class does not have the `getIntercept` method that
-`SimpleRegression` has. Otherwise, the remaining methods operate the same:
+`SimpleRegression` has. Otherwise the remaining methods operate the same, albeit
+without stripping off the first value from array return values:
 
     $coefficients = $regression->getCoefficients();
     $rSquared = $regression->getRSquared();
+    $seCoefficients = $regression->getStandardErrorCoefficients();
+    $tValues = $regression->getTValues();
     $predictedOutcome = $regression->predict([1, 1, 2, 3, 4, 5, 6]); // Note added 1 at the start
 
-## Check-list For 1.0
+## Prerequisites For 1.0
 
-- Finish tests for fat and square matrices on the Least Squares strategy.
+- Get more tests in place. An adventurous early adopter of this library could
+  run real-world data through an external tool to generate test values to put
+  into unit tests here.
