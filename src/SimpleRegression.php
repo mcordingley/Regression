@@ -72,6 +72,44 @@ class SimpleRegression
     }
     
     /**
+     * getStandardError
+     * 
+     * Calculates the standard error of the regression. This is the average
+     * distance of observed values from the regression line. It's conceptually
+     * similar to the standard deviation.
+     * 
+     * @return float
+     */
+    public function getStandardError()
+    {
+        return $this->regression->getStandardError();
+    }
+    
+    /**
+     * getStandardErrorCoefficients
+     * 
+     * Calculates the standard error of each of the regression coefficients.
+     * 
+     * @return array
+     */
+    public function getStandardErrorCoefficients()
+    {
+        return array_slice($this->regression->getStandardErrorCoefficients(), 1);
+    }
+    
+    /**
+     * getTCoefficients
+     * 
+     * Calculates the t test values of each of the regression coefficients.
+     * 
+     * @return array
+     */
+    public function getTCoefficients()
+    {
+        return array_slice($this->regression->getTCoefficients(), 1);
+    }
+    
+    /**
      * predict
      * 
      * @param array $series Data with which to make a prediction.
