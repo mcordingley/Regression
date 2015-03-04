@@ -17,6 +17,9 @@ use mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface;
  */
 class Regression
 {
+    // Great reference for most of these members:
+    // http://facweb.cs.depaul.edu/sjost/csc423/documents/f-test-reg.htm
+    
     /**
      * algorithm
      * 
