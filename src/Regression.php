@@ -85,6 +85,15 @@ class Regression
     protected $dependentSeries = [];
     
     /**
+     * F
+     * 
+     * The F statistic of the regression, a measure of its significance.
+     * 
+     * @var float
+     */
+    protected $F;
+    
+    /**
      * independentLinking
      * 
      * Strategy object to use by default to linearize independent variables.
@@ -297,6 +306,23 @@ class Regression
     }
     
     /**
+     * getFStatistic
+     * 
+     * Returns the F statistic, which is compared against the F distribution CDF
+     * to determine if the regression is "significant" or not.
+     * 
+     * @return float
+     */
+    public function getFStatistic()
+    {
+        if (is_null($this->F)) {
+            $this->F = $this->getMeanSquaredModel() / $this->getMeanSquaredError();
+        }
+        
+        return $this->F;
+    }
+    
+    /**
      * getRSquared
      * 
      * Calculates the coefficient of determination. i.e. how well the line of
@@ -473,6 +499,8 @@ class Regression
     {
         $this->coefficients = null;
         $this->predictedValues = null;
+        $this->SCoefficients = null;
+        $this->tCoefficients = null;
         
         $this->sumSquaredError = null;
         $this->sumSquaredModel = null;
@@ -487,8 +515,7 @@ class Regression
         
         $this->r2 = null;
         $this->S = null;
-        $this->SCoefficients = null;
-        $this->tCoefficients = null;
+        $this->F = null;
     }
     
     /**
