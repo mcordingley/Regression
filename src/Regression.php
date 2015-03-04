@@ -74,6 +74,15 @@ class Regression
     protected $independentSeries = [];
     
     /**
+     * meanSquaredError
+     * 
+     * The sum of the squared distances of the observations from their mean.
+     * 
+     * @var float
+     */
+    protected $meanSquaredError;
+    
+    /**
      * predictors
      * 
      * The calculated beta values that show what the contribution of each
@@ -82,6 +91,15 @@ class Regression
      * @var array
      */
     protected $predictors;
+    
+    /**
+     * predictedValues
+     * 
+     * What the observed values would be if predicted by the model.
+     * 
+     * @var array
+     */
+    protected $predictedValues;
     
     /**
      * r2
@@ -103,6 +121,36 @@ class Regression
      * @var float 
      */
     protected $S;
+    
+    /**
+     * SCoefficients
+     * 
+     * This is an array of the standard errors for each calculated coefficient
+     * in $this->predictors.
+     * 
+     * @var array
+     */
+    protected $SCoefficients;
+    
+    /**
+     * sumSquaredError
+     * 
+     * This is the sum of squared distances of observations from their
+     * predicted values.
+     * 
+     * @var float
+     */
+    protected $sumSquaredError;
+    
+    /**
+     * tCoefficients
+     * 
+     * This is an array of the t statistics for each calculated coefficient
+     * in $this->predictors.
+     * 
+     * @var array
+     */
+    protected $tCoefficients;
     
     /**
      * __construct
@@ -132,9 +180,7 @@ class Regression
         $this->dependentSeries[] = $dependent;
         $this->independentSeries[] = $independentSeries;
         
-        $this->predictors = null;
-        $this->r2 = null;
-        $this->S = null;
+        $this->clearCalculations();
         
         return $this;
     }
@@ -166,14 +212,14 @@ class Regression
     public function getRSquared()
     {
         if (is_null($this->r2)) {
-            $this->calculateStatistics();
+            $this->r2 = 1 - $this->getSumSquaredError() / $this->getMeanSquaredError();
         }
         
         return $this->r2;
     }
     
     /**
-     * @return typegetStandardError
+     * getStandardError
      * 
      * Calculates the standard error of the regression. This is the average
      * distance of observed values from the regression line. It's conceptually
@@ -184,10 +230,72 @@ class Regression
     public function getStandardError()
     {
         if (is_null($this->S)) {
-            $this->calculateStatistics();
+            $this->S = sqrt($this->getSumSquaredError() / count($this->dependentSeries));
         }
         
         return $this->S;
+    }
+    
+    /**
+     * getStandardErrorCoefficients
+     * 
+     * Calculates the standard error of each of the regression coefficients.
+     * 
+     * @return array
+     */
+    public function getStandardErrorCoefficients()
+    {
+        if (is_null($this->SCoefficients)) {
+            $this->SCoefficients = [];
+            
+            $observationCount = count($this->dependentSeries);
+            $variableCount = count($this->independentSeries[0]);
+            
+            $k = sqrt($this->getSumSquaredError() / $this->getDegreesOfFreedom());
+            
+            for ($variableIndex = 0; $variableIndex < $variableCount; $variableIndex++) {
+                $sumX = 0;
+                
+                for ($observationIndex = 0; $observationIndex < $observationCount; $observationIndex++) {
+                    $sumX += $this->independentSeries[$observationIndex][$variableIndex];
+                }
+                
+                $averageX = $sumX / $observationCount;
+                
+                $sseX = 0;
+                
+                for ($observationIndex = 0; $observationIndex < $observationCount; $observationIndex++) {
+                    $sseX += pow($this->independentSeries[$observationIndex][$variableIndex] - $averageX, 2);
+                }
+                
+                $this->SCoefficients[] = $k / sqrt($sseX);
+            }
+        }
+        
+        return $this->SCoefficients;
+    }
+    
+    /**
+     * getTCoefficients
+     * 
+     * Calculates the t test values of each of the regression coefficients.
+     * 
+     * @return array
+     */
+    public function getTCoefficients()
+    {
+        if (is_null($this->tCoefficients)) {
+            $predictors = $this->getCoefficients();
+            $SCoefficients = $this->getStandardErrorCoefficients();
+            
+            $this->tCoefficients = [];
+
+            for ($i = 0, $len = count($predictors); $i < $len; $i++) {
+                $this->tCoefficients[$i] = $predictors[$i] / $SCoefficients[$i];
+            }
+        }
+        
+        return $this->tCoefficients;
     }
 
     /**
@@ -256,35 +364,6 @@ class Regression
     }
     
     /**
-     * calculateStatistics
-     * 
-     * Calculates the statistics for the model, setting $this->r2 and $this->S
-     * when done.
-     */
-    protected function calculateStatistics()
-    {
-        $count = count($this->dependentSeries);
-        
-        $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
-            return $memo + $value;
-        }) / $count;
-        
-        $sumSquaredError = 0;
-        $meanSquaredError = 0;
-        
-        foreach ($this->independentSeries as $index => $series) {
-            $actual = $this->dependentSeries[$index];
-            $predicted = $this->predict($series);
-            
-            $sumSquaredError += pow($actual - $predicted, 2);
-            $meanSquaredError += pow($actual - $mean, 2);
-        }
-        
-        $this->r2 = 1 - $sumSquaredError / $meanSquaredError;
-        $this->S = sqrt($sumSquaredError / $count);
-    }
-    
-    /**
      * checkData
      * 
      * Checks the data provided to the regression to make sure that it is valid
@@ -309,6 +388,110 @@ class Regression
                 throw new LengthException('Cannot perform regression; every provided independent data series must be of the same length.');
             }
         }
+    }
+    
+    /**
+     * clearCalculations
+     * 
+     * Clears out all of the derived data about this regression, as it has
+     * been rendered no longer accurate.
+     */
+    protected function clearCalculations()
+    {
+        $this->predictors = null;
+        $this->predictedValues = null;
+        $this->sumSquaredError = null;
+        $this->meanSquaredError = null;
+        $this->r2 = null;
+        $this->S = null;
+        $this->SCoefficients = null;
+        $this->tCoefficients = null;
+    }
+    
+    /**
+     * getDegreesOfFreedom
+     * 
+     * Returns the degrees of freedom for this regression.
+     * 
+     * @return int
+     */
+    protected function getDegreesOfFreedom()
+    {
+        $observationCount = count($this->independentSeries);
+        
+        if (!$observationCount) {
+            return 0;
+        }
+        
+        $explanatoryVariableCount = count($this->independentSeries[0]);
+        
+        return $observationCount - $explanatoryVariableCount;
+    }
+    
+    /**
+     * getMeanSquaredError
+     * 
+     * Calculates the mean-squared error of the regression. This is the sum
+     * of the squared distances of observations from their average.
+     * 
+     * @return float
+     */
+    protected function getMeanSquaredError()
+    {
+        if (is_null($this->meanSquaredError)) {
+            $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
+                return $memo + $value;
+            }) / count($this->dependentSeries);
+            
+            $this->meanSquaredError = array_reduce($this->dependentSeries, function ($memo, $value) use ($mean) {
+                return $memo + pow($value - $mean, 2);
+            }, 0);
+        }
+        
+        return $this->meanSquaredError;
+    }
+    
+    /**
+     * getPredictedValues
+     * 
+     * Calculates what the model would predict for each of the observed values.
+     * 
+     * @return array
+     */
+    protected function getPredictedValues()
+    {
+        if (is_null($this->predictedValues)) {
+            $this->predictedValues = [];
+            
+            foreach ($this->independentSeries as $series) {
+                $this->predictedValues[] = $this->predict($series);
+            }
+        }
+        
+        return $this->predictedValues;
+    }
+    
+    /**
+     * getSumSquaredError
+     * 
+     * Calculates the sum of the squares of the residuals, which are the
+     * distances of the observations from their predicted values.
+     * 
+     * @return float
+     */
+    protected function getSumSquaredError()
+    {
+        if (is_null($this->sumSquaredError)) {
+            $predictedValues = $this->getPredictedValues();
+        
+            $this->sumSquaredError = 0;
+            
+            foreach ($this->dependentSeries as $index => $observation) {
+                $this->sumSquaredError += pow($observation - $predictedValues[$index], 2);
+            }
+        }
+        
+        return $this->sumSquaredError;
     }
     
     /**
