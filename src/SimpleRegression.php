@@ -49,6 +49,19 @@ class SimpleRegression
     }
     
     /**
+     * getFStatistic
+     * 
+     * Returns the F statistic, which is compared against the F distribution CDF
+     * to determine if the regression is "significant" or not.
+     * 
+     * @return float
+     */
+    public function getFStatistic()
+    {
+        return $this->regression->getFStatistic();
+    }
+    
+    /**
      * getIntercept
      * 
      * @return float
