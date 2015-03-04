@@ -18,6 +18,15 @@ use mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface;
 class Regression
 {
     /**
+     * algorithm
+     * 
+     * Class instance that performs the actual regression.
+     * 
+     * @var RegressionAlgorithmInterface 
+     */
+    protected $algorithm;
+    
+    /**
      * dependentLinking
      * 
      * Strategy object to transform Y values into and out of linear form.
@@ -94,15 +103,6 @@ class Regression
      * @var float 
      */
     protected $S;
-    
-    /**
-     * strategy
-     * 
-     * Class instance that performs the actual regression.
-     * 
-     * @var RegressionAlgorithmInterface 
-     */
-    protected $algorithm;
     
     /**
      * __construct
