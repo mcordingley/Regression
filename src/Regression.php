@@ -58,6 +58,15 @@ class Regression
     protected $degreesFreedomModel;
     
     /**
+     * degreesFreedomTotal
+     * 
+     * The number of degrees of freedom.
+     * 
+     * @var int
+     */
+    protected $degreesFreedomTotal;
+    
+    /**
      * dependentLinking
      * 
      * Strategy object to transform Y values into and out of linear form.
@@ -451,6 +460,7 @@ class Regression
         
         $this->degreesFreedomError = null;
         $this->degreesFreedomModel = null;
+        $this->degreesFreedomTotal = null;
         
         $this->r2 = null;
         $this->S = null;
@@ -493,6 +503,24 @@ class Regression
         }
         
         return $this->degreesFreedomModel;
+    }
+    
+    /**
+     * getDegreesOfFreedomTotal
+     * 
+     * Returns the degrees of freedom for this regression.
+     * 
+     * @return int
+     */
+    protected function getDegreesOfFreedomTotal()
+    {
+        if (is_null($this->degreesFreedomTotal)) {
+            $observationCount = count($this->independentSeries);
+        
+            $this->degreesFreedomTotal = $observationCount - 1;
+        }
+        
+        return $this->degreesFreedomTotal;
     }
     
     /**
