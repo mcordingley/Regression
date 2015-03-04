@@ -20,7 +20,7 @@ also finally in a usable state for probably most use cases. Use, but with cautio
 
 Add this line to your composer.json file and update:
 
-    "mcordingley/regression": "~0.9.2"
+    "mcordingley/regression": "~0.9.3"
 
 That's it!
 
@@ -53,7 +53,8 @@ line matches the data:
     $coefficients = $regression->getCoefficients();
     $rSquared = $regression->getRSquared();
     $seCoefficients = $regression->getStandardErrorCoefficients();
-    $tValues = $regression->getTValues();
+    $tStatistics = $regression->getTStatistics();
+    $fStatistic = $regression->getFStatistic();
 
 You can also use the regression to predict values based on a new or hypothetical
 set of explanatory data:
@@ -122,7 +123,9 @@ without stripping off the first value from array return values:
     $coefficients = $regression->getCoefficients();
     $rSquared = $regression->getRSquared();
     $seCoefficients = $regression->getStandardErrorCoefficients();
-    $tValues = $regression->getTValues();
+    $tStatistics = $regression->getTStatistics();
+    $fStatistic = $regression->getFStatistic();
+
     $predictedOutcome = $regression->predict([1, 1, 2, 3, 4, 5, 6]); // Note added 1 at the start
 
 ## Prerequisites For 1.0
