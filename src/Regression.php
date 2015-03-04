@@ -138,16 +138,29 @@ class Regression
      * sumSquaredError
      * 
      * This is the sum of squared distances of observations from their
-     * predicted values.
+     * predicted values, a raw measure of the regression's overall error.
      * 
      * @var float
      */
     protected $sumSquaredError;
     
     /**
+     * sumSquaredModel
+     * 
+     * The sum of the squared distances of the predicted observations from the
+     * mean of the true observations, a raw measure of the regression's overall
+     * explanatory power.
+     * 
+     * @var float
+     */
+    protected $sumSquaredModel;
+    
+    /**
      * sumSquaredTotal
      * 
      * The sum of the squared distances of the observations from their mean.
+     * SST = SSE + SSM Useful measure to put the other two sum of squares measures
+     * into context
      * 
      * @var float
      */
@@ -422,9 +435,13 @@ class Regression
     {
         $this->coefficients = null;
         $this->predictedValues = null;
+        
         $this->sumSquaredError = null;
+        $this->sumSquaredModel = null;
         $this->sumSquaredTotal = null;
+        
         $this->degreesFreedomError = null;
+        
         $this->r2 = null;
         $this->S = null;
         $this->SCoefficients = null;
@@ -474,7 +491,8 @@ class Regression
      * getSumSquaredError
      * 
      * Calculates the sum of the squares of the residuals, which are the
-     * distances of the observations from their predicted values.
+     * distances of the observations from their predicted values, a raw measure
+     * of the overall error in the regression model.
      * 
      * @return float
      */
@@ -494,10 +512,35 @@ class Regression
     }
     
     /**
-     * getSumSquaredTotal
+     * getSumSquaredModel
      * 
      * Calculates the mean-squared error of the regression. This is the sum
      * of the squared distances of observations from their average.
+     * 
+     * @return float
+     */
+    protected function getSumSquaredModel()
+    {
+        if (is_null($this->sumSquaredModel)) {
+            $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
+                return $memo + $value;
+            }) / count($this->dependentSeries);
+            
+            $this->sumSquaredModel = array_reduce($this->getPredictedValues(), function ($memo, $value) use ($mean) {
+                return $memo + pow($value - $mean, 2);
+            }, 0);
+        }
+        
+        return $this->sumSquaredModel;
+    }
+    
+    /**
+     * getSumSquaredTotal
+     * 
+     * Calculates the sum-squared total of the regression. This is the sum
+     * of the squared distances of observations from their average, a useful
+     * measure to put the sum-squared error (SSE) and sum-squared model (SSM)
+     * into context.
      * 
      * @return float
      */
