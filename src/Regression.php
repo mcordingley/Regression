@@ -403,7 +403,7 @@ class Regression
      */
     protected function clearCalculations()
     {
-        $this->predictors = null;
+        $this->coefficients = null;
         $this->predictedValues = null;
         $this->sumSquaredError = null;
         $this->meanSquaredError = null;
