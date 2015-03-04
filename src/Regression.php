@@ -244,7 +244,12 @@ class Regression
     public function getRSquared()
     {
         if (is_null($this->r2)) {
-            $this->r2 = 1 - $this->getSumSquaredError() / $this->getMeanSquaredError();
+            $meanSquaredError = $this->getMeanSquaredError();
+            if ($meanSquaredError === 0) {
+                $this->r2 = 0;
+            } else {
+                $this->r2 = 1 - $this->getSumSquaredError() / $meanSquaredError;
+            }
         }
         
         return $this->r2;
