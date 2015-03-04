@@ -103,8 +103,10 @@ class Regression
     {
         // Set sane defaults for internal objects.
         $this->algorithm = $regressionStrategy ?: new LinearLeastSquares;
-        $this->dependentLinking = new Identity;
-        $this->independentLinking = new Identity;
+        
+        $identity = new Identity;
+        $this->dependentLinking = $identity;
+        $this->independentLinking = $identity;
     }
     
     /**
