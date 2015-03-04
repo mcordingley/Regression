@@ -114,6 +114,26 @@ class Regression
     protected $independentSeries = [];
     
     /**
+     * meanSquaredError
+     * 
+     * The mean-squared error, effectively the "average" of the corresponding sum of
+     * squares.
+     * 
+     * @var float
+     */
+    protected $meanSquaredError;
+    
+    /**
+     * meanSquaredModel
+     * 
+     * The mean-squared model, effectively the "average" of the corresponding sum of
+     * squares.
+     * 
+     * @var float
+     */
+    protected $meanSquaredModel;
+    
+    /**
      * predictedValues
      * 
      * What the observed values would be if predicted by the model.
@@ -462,6 +482,9 @@ class Regression
         $this->degreesFreedomModel = null;
         $this->degreesFreedomTotal = null;
         
+        $this->meanSquaredError = null;
+        $this->meanSquaredModel = null;
+        
         $this->r2 = null;
         $this->S = null;
         $this->SCoefficients = null;
@@ -523,6 +546,40 @@ class Regression
         return $this->degreesFreedomTotal;
     }
     
+    /**
+     * getMeanSquaredError
+     * 
+     * Returns the mean-squared error of the regression, which is effectively
+     * the "average" of the corresponding sum of squares.
+     * 
+     * @return float
+     */
+    protected function getMeanSquaredError()
+    {
+        if (is_null($this->meanSquaredError)) {
+            $this->meanSquaredError = $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
+        }
+        
+        return $this->meanSquaredError;
+    }
+    
+    /**
+     * getMeanSquaredModel
+     * 
+     * Returns the mean-squared model of the regression, which is effectively
+     * the "average" of the corresponding sum of squares.
+     * 
+     * @return float
+     */
+    protected function getMeanSquaredModel()
+    {
+        if (is_null($this->meanSquaredModel)) {
+            $this->meanSquaredModel = $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
+        }
+        
+        return $this->meanSquaredModel;
+    }
+
     /**
      * getPredictedValues
      * 
