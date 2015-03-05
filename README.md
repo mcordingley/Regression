@@ -13,8 +13,7 @@ From [Wikipedia](http://en.wikipedia.org/wiki/Regression_analysis):
 > variable (or 'criterion variable') changes when any one of the independent
 > variables is varied, while the other independent variables are held fixed.
 
-Note: It is still in active development, so the API may still shift, but it is
-also finally in a usable state for probably most use cases. Use, but with caution.
+Note: The library is largely stable and appears to be functioning well, but test coverage is still thin. Help this project reach 1.0 by using it and submitting pull requests with unit tests.
 
 ## Installation
 
