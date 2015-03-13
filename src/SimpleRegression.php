@@ -125,7 +125,8 @@ class SimpleRegression
      */
     public function getIntercept()
     {
-        return $this->regression->getCoefficients()[0];
+        $constantLinking = $this->regression->getIndependentLinking(0) ?: $this->regression->getIndependentLinking();
+        return $constantLinking->linearize($this->regression->getCoefficients()[0]);
     }
     
     /**
@@ -160,6 +161,7 @@ class SimpleRegression
      */
     public function predict(array $data)
     {
-        return $this->regression->predict(array_merge([1], $data));
+        $constantLinking = $this->regression->getIndependentLinking(0) ?: $this->regression->getIndependentLinking();
+        return $this->regression->predict(array_merge([$constantLinking->delinearize(1)], $data));
     }
 }
