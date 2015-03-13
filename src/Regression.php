@@ -245,7 +245,7 @@ class Regression
      * Factory function to return a regression object set up to perform
      * regressions against data fitted with the equation
      * 
-     *     y = a + b1 * ln(x1) + b2 * ln(x2) + ... + bn * ln(xn)
+     *     y = b1 * ln(x1) + b2 * ln(x2) + ... + bn * ln(xn)
      * 
      * Note that when using this, the identity value for any constant data points
      * is M_E, not 1 as is usually the case.
@@ -268,7 +268,7 @@ class Regression
      * Factory function to return a regression object set up to perform
      * regressions against data fitted with the equation
      * 
-     *     y = a * b1^x1 * b2^x2 * ... * bn^xn
+     *     y = b1^x1 * b2^x2 * ... * bn^xn
      * 
      * @param RegressionAlgorithmInterface $regressionStrategy
      * @return static
@@ -288,7 +288,7 @@ class Regression
      * Factory function to return a regression object set up to perform
      * regressions against data fitted with the equation
      * 
-     *     y = a * x1^b1 * x2^b2 * ... * xn^bn
+     *     y = x1^b1 * x2^b2 * ... * xn^bn
      * 
      * Note that when using this, the identity value for any constant data points
      * is M_E, not 1 as is usually the case.
