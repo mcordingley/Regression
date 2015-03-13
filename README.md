@@ -19,7 +19,7 @@ Note: The library is largely stable and appears to be functioning well, but test
 
 Add this line to your composer.json file and update:
 
-    "mcordingley/regression": "~0.9.3"
+    "mcordingley/regression": "~0.9.4"
 
 That's it!
 
@@ -117,7 +117,7 @@ if necessary.
 
 As such, the `Regression` class does not have the `getIntercept` method that
 `SimpleRegression` has. Otherwise the remaining methods operate the same, albeit
-without stripping off the first value from array return values:
+without stripping off the first value from any array return values:
 
     $coefficients = $regression->getCoefficients();
     $rSquared = $regression->getRSquared();
