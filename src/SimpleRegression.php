@@ -22,6 +22,12 @@ class SimpleRegression
         $this->regression = new Regression;
     }
     
+    // Proxy unmodified functions through to the wrapped `Regression` object.
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array([$this->regression, $name], $arguments);
+    }
+    
     /**
      * addData
      * 
@@ -49,19 +55,6 @@ class SimpleRegression
     }
     
     /**
-     * getFStatistic
-     * 
-     * Returns the F statistic, which is compared against the F distribution CDF
-     * to determine if the regression is "significant" or not.
-     * 
-     * @return float
-     */
-    public function getFStatistic()
-    {
-        return $this->regression->getFStatistic();
-    }
-    
-    /**
      * getIntercept
      * 
      * @return float
@@ -69,33 +62,6 @@ class SimpleRegression
     public function getIntercept()
     {
         return $this->regression->getCoefficients()[0];
-    }
-    
-    /**
-     * getRSquared
-     * 
-     * Calculates the coefficient of determination. i.e. how well the line of
-     * best fit describes the data.
-     * 
-     * @return float
-     */
-    public function getRSquared()
-    {
-        return $this->regression->getRSquared();
-    }
-    
-    /**
-     * getStandardError
-     * 
-     * Calculates the standard error of the regression. This is the average
-     * distance of observed values from the regression line. It's conceptually
-     * similar to the standard deviation.
-     * 
-     * @return float
-     */
-    public function getStandardError()
-    {
-        return $this->regression->getStandardError();
     }
     
     /**
