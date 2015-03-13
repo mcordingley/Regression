@@ -226,7 +226,7 @@ class Regression
     /**
      * __construct
      * 
-     * @param RegressionAlgorithm\RegressionAlgorithmInterface A regression strategy to perform the calculations
+     * @param RegressionAlgorithmInterface A regression strategy to perform the calculations
      * @throws InvalidArgumentException
      */
     public function __construct(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -247,7 +247,10 @@ class Regression
      * 
      *     y = a + b1 * ln(x1) + b2 * ln(x2) + ... + bn * ln(xn)
      * 
-     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * Note that when using this, the identity value for any constant data points
+     * is M_E, not 1 as is usually the case.
+     * 
+     * @param RegressionAlgorithmInterface $regressionStrategy
      * @return static
      */
     public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -267,7 +270,7 @@ class Regression
      * 
      *     y = a * b1^x1 * b2^x2 * ... * bn^xn
      * 
-     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * @param RegressionAlgorithmInterface $regressionStrategy
      * @return static
      */
     public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -287,7 +290,10 @@ class Regression
      * 
      *     y = a * x1^b1 * x2^b2 * ... * xn^bn
      * 
-     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * Note that when using this, the identity value for any constant data points
+     * is M_E, not 1 as is usually the case.
+     * 
+     * @param RegressionAlgorithmInterface $regressionStrategy
      * @return static
      */
     public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -369,6 +375,16 @@ class Regression
     }
     
     /**
+     * getDependentLinking
+     * 
+     * @return LinkingInterface
+     */
+    public function getDependentLinking()
+    {
+        return $this->dependentLinking;
+    }
+    
+    /**
      * getFStatistic
      * 
      * Returns the F statistic, which is compared against the F distribution CDF
@@ -383,6 +399,27 @@ class Regression
         }
         
         return $this->F;
+    }
+    
+    /**
+     * getIndependentLinking
+     * 
+     * Returns the linking used at the specified index if different than the
+     * default linking used for independent variables. If a linking isn't set
+     * specifically for the requested index, returns `null`. If $index is not
+     * specified, returns the linking used by default for all independent
+     * variables.
+     * 
+     * @param int|null $index If specified, returns the linking for this specific index.
+     * @return LinkingInterface|null
+     */
+    public function getIndependentLinking($index = null)
+    {
+        if (is_null($index)) {
+            return $this->independentLinking;
+        } else {
+            return isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index] : null;
+        }
     }
     
     /**
