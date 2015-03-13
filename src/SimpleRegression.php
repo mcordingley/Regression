@@ -92,11 +92,15 @@ class SimpleRegression
      * addData
      * 
      * @param float $dependent The variable explained by $independentSeries.
-     * @param array $independentSeries Array of explanatory variables.
+     * @param array|float $independentSeries Array of explanatory variables or a single such variable.
      * @return self
      */
-    public function addData($dependent, array $independentSeries)
+    public function addData($dependent, $independentSeries)
     {
+        if (!is_array($independentSeries)){
+            $independentSeries = [$independentSeries];
+        }
+        
         $constantLinking = $this->regression->getIndependentLinking(0) ?: $this->regression->getIndependentLinking();
         $this->regression->addData($dependent, array_merge([$constantLinking->delinearize(1)], $independentSeries));
         
