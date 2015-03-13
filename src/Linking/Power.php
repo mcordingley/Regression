@@ -23,11 +23,11 @@ class Power implements LinkingInterface
     
     public function delinearize($value)
     {
-        return pow($value, 1 / $this->exponent);
+        return pow($value, $this->exponent);
     }
     
     public function linearize($value)
     {
-        return pow($value, $this->exponent);
+        return pow($value, 1 / $this->exponent);
     }
 }
