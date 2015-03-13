@@ -522,7 +522,7 @@ class Regression
      * @param LinkingInterface $linking
      * @return self
      */
-    public function setDependentLinking(Linking $linking)
+    public function setDependentLinking(LinkingInterface $linking)
     {
         $this->dependentLinking = $linking;
         
@@ -541,7 +541,7 @@ class Regression
      * @param int|null $index If specified, use this linking only for independent variables at the specified index
      * @return self
      */
-    public function setIndependentLinking(Linking $linking, $index = null)
+    public function setIndependentLinking(LinkingInterface $linking, $index = null)
     {
         if (is_null($index)) {
             $this->independentLinking = $linking;
