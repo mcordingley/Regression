@@ -28,6 +28,12 @@ class SimpleRegression
         return call_user_func_array([$this->regression, $name], $arguments);
     }
     
+    // Proxy through static function calls to `Regression`
+    public static function __callStatic($name, $arguments)
+    {
+        return call_user_func_array(['Regression', $name], $arguments);
+    }
+    
     /**
      * addData
      * 
