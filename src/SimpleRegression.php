@@ -36,12 +36,11 @@ class SimpleRegression
      * 
      *     y = a + b1 * ln(x1) + b2 * ln(x2) + ... + bn * ln(xn)
      * 
-     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
      * @return static
      */
-    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makeLogRegression()
     {
-        $regression = Regression::makeLogRegression($regressionStrategy);
+        $regression = Regression::makeLogRegression();
         
         $simple = new static;
         $simple->regression = $regression;
@@ -57,12 +56,11 @@ class SimpleRegression
      * 
      *     y = a * b1^x1 * b2^x2 * ... * bn^xn
      * 
-     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
      * @return static
      */
-    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makeExpRegression()
     {
-        $regression = Regression::makeExpRegression($regressionStrategy);
+        $regression = Regression::makeExpRegression();
         
         $simple = new static;
         $simple->regression = $regression;
@@ -78,12 +76,11 @@ class SimpleRegression
      * 
      *     y = a * x1^b1 * x2^b2 * ... * xn^bn
      * 
-     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
      * @return static
      */
-    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makePowerRegression()
     {
-        $regression = Regression::makePowerRegression($regressionStrategy);
+        $regression = Regression::makePowerRegression();
         
         $simple = new static;
         $simple->regression = $regression;
