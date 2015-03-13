@@ -226,7 +226,7 @@ class Regression
     /**
      * __construct
      * 
-     * @param RegressionAlgorithmInterface A regression strategy to perform the calculations
+     * @param RegressionAlgorithmInterface|null A regression strategy to perform the calculations
      * @throws InvalidArgumentException
      */
     public function __construct(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -250,7 +250,7 @@ class Regression
      * Note that when using this, the identity value for any constant data points
      * is M_E, not 1 as is usually the case.
      * 
-     * @param RegressionAlgorithmInterface $regressionStrategy
+     * @param RegressionAlgorithmInterface|null $regressionStrategy
      * @return static
      */
     public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -270,7 +270,7 @@ class Regression
      * 
      *     y = b1^x1 * b2^x2 * ... * bn^xn
      * 
-     * @param RegressionAlgorithmInterface $regressionStrategy
+     * @param RegressionAlgorithmInterface|null $regressionStrategy
      * @return static
      */
     public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -293,7 +293,7 @@ class Regression
      * Note that when using this, the identity value for any constant data points
      * is M_E, not 1 as is usually the case.
      * 
-     * @param RegressionAlgorithmInterface $regressionStrategy
+     * @param RegressionAlgorithmInterface|null $regressionStrategy
      * @return static
      */
     public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
