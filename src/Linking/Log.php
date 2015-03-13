@@ -9,6 +9,9 @@ use InvalidArgumentException;
  * 
  * Linking implementation that transforms data that follows a logarithmic curve
  * into and out of linear space.
+ *
+ * Note that the identity value to use for constant independent data series with
+ * this linking is `0` instead of `1`.
  */
 class Log implements LinkingInterface
 {
