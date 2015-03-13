@@ -4,6 +4,7 @@ namespace mcordingley\Regression;
 
 use InvalidArgumentException;
 use LengthException;
+use mcordingley\Regression\Linking\Exponential;
 use mcordingley\Regression\Linking\Identity;
 use mcordingley\Regression\Linking\LinkingInterface;
 use mcordingley\Regression\RegressionAlgorithm\LinearLeastSquares;
@@ -225,7 +226,7 @@ class Regression
     /**
      * __construct
      * 
-     * @param RegressionStrategy A regression strategy to perform the calculations
+     * @param RegressionAlgorithm\RegressionAlgorithmInterface A regression strategy to perform the calculations
      * @throws InvalidArgumentException
      */
     public function __construct(RegressionAlgorithmInterface $regressionStrategy = null)
@@ -236,6 +237,68 @@ class Regression
         $identity = new Identity;
         $this->dependentLinking = $identity;
         $this->independentLinking = $identity;
+    }
+    
+    /**
+     * makeLogRegression
+     * 
+     * Factory function to return a regression object set up to perform
+     * regressions against data fitted with the equation
+     * 
+     *     y = a + b1 * ln(x1) + b2 * ln(x2) + ... + bn * ln(xn)
+     * 
+     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * @return static
+     */
+    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    {
+        $regression = new static($regressionStrategy);
+        
+        $regression->setIndependentLinking(new Exponential);
+        
+        return $regression;
+    }
+    
+    /**
+     * makeExpRegression
+     * 
+     * Factory function to return a regression object set up to perform
+     * regressions against data fitted with the equation
+     * 
+     *     y = a * b1^x1 * b2^x2 * ... * bn^xn
+     * 
+     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * @return static
+     */
+    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    {
+        $regression = new static($regressionStrategy);
+        
+        $regression->setDependentLinking(new Exponential);
+        
+        return $regression;
+    }
+    
+    /**
+     * makePowerRegression
+     * 
+     * Factory function to return a regression object set up to perform
+     * regressions against data fitted with the equation
+     * 
+     *     y = a * x1^b1 * x2^b2 * ... * xn^bn
+     * 
+     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * @return static
+     */
+    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    {
+        $linking = new Exponential;
+        $regression = new static($regressionStrategy);
+        
+        $regression->setIndependentLinking($linking);
+        $regression->setDependentLinking($linking);
+        
+        return $regression;
     }
     
     /**

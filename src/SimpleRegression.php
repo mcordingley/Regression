@@ -29,6 +29,69 @@ class SimpleRegression
     }
     
     /**
+     * makeLogRegression
+     * 
+     * Factory function to return a regression object set up to perform
+     * regressions against data fitted with the equation
+     * 
+     *     y = a + b1 * ln(x1) + b2 * ln(x2) + ... + bn * ln(xn)
+     * 
+     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * @return static
+     */
+    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    {
+        $regression = Regression::makeLogRegression($regressionStrategy);
+        
+        $simple = new static;
+        $simple->regression = $regression;
+        
+        return $simple;
+    }
+    
+    /**
+     * makeExpRegression
+     * 
+     * Factory function to return a regression object set up to perform
+     * regressions against data fitted with the equation
+     * 
+     *     y = a * b1^x1 * b2^x2 * ... * bn^xn
+     * 
+     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * @return static
+     */
+    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    {
+        $regression = Regression::makeExpRegression($regressionStrategy);
+        
+        $simple = new static;
+        $simple->regression = $regression;
+        
+        return $simple;
+    }
+    
+    /**
+     * makePowerRegression
+     * 
+     * Factory function to return a regression object set up to perform
+     * regressions against data fitted with the equation
+     * 
+     *     y = a * x1^b1 * x2^b2 * ... * xn^bn
+     * 
+     * @param RegressionAlgorithm\RegressionAlgorithmInterface $regressionStrategy
+     * @return static
+     */
+    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    {
+        $regression = Regression::makePowerRegression($regressionStrategy);
+        
+        $simple = new static;
+        $simple->regression = $regression;
+        
+        return $simple;
+    }
+    
+    /**
      * addData
      * 
      * @param float $dependent The variable explained by $independentSeries.
