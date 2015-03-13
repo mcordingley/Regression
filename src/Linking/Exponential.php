@@ -2,6 +2,8 @@
 
 namespace mcordingley\Regression\Linking;
 
+use InvalidArgumentException;
+
 /**
  * Exponential
  * 
