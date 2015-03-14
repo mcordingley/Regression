@@ -157,12 +157,16 @@ class SimpleRegression
     /**
      * predict
      * 
-     * @param array $series Data with which to make a prediction.
+     * @param array|float $series Data with which to make a prediction.
      * @return float The predicted value.
      */
-    public function predict(array $data)
+    public function predict($series)
     {
+        if (!is_array($series)) {
+            $series = [$series];
+        }
+        
         $constantLinking = $this->regression->getIndependentLinking(0) ?: $this->regression->getIndependentLinking();
-        return $this->regression->predict(array_merge([$constantLinking->delinearize(1)], $data));
+        return $this->regression->predict(array_merge([$constantLinking->delinearize(1)], $series));
     }
 }
