@@ -375,6 +375,43 @@ class Regression
     }
     
     /**
+     * getDegreesOfFreedomError
+     * 
+     * Returns the degrees of freedom of the error for this regression.
+     * 
+     * @return int
+     */
+    public function getDegreesOfFreedomError()
+    {
+        if (is_null($this->degreesFreedomError)) {
+            $observationCount = count($this->independentSeries);
+            $explanatoryVariableCount = count($this->independentSeries[0]);
+        
+            $this->degreesFreedomError = $observationCount - $explanatoryVariableCount;
+        }
+        
+        return $this->degreesFreedomError;
+    }
+    
+    /**
+     * getDegreesOfFreedomModel
+     * 
+     * Returns the degrees of freedom of the model for this regression.
+     * 
+     * @return int
+     */
+    public function getDegreesOfFreedomModel()
+    {
+        if (is_null($this->degreesFreedomModel)) {
+            $explanatoryVariableCount = count($this->independentSeries[0]);
+        
+            $this->degreesFreedomModel = $explanatoryVariableCount - 1;
+        }
+        
+        return $this->degreesFreedomModel;
+    }
+    
+    /**
      * getDependentLinking
      * 
      * @return LinkingInterface
@@ -616,43 +653,6 @@ class Regression
         $this->r2 = null;
         $this->S = null;
         $this->F = null;
-    }
-    
-    /**
-     * getDegreesOfFreedomError
-     * 
-     * Returns the degrees of freedom of the error for this regression.
-     * 
-     * @return int
-     */
-    protected function getDegreesOfFreedomError()
-    {
-        if (is_null($this->degreesFreedomError)) {
-            $observationCount = count($this->independentSeries);
-            $explanatoryVariableCount = count($this->independentSeries[0]);
-        
-            $this->degreesFreedomError = $observationCount - $explanatoryVariableCount;
-        }
-        
-        return $this->degreesFreedomError;
-    }
-    
-    /**
-     * getDegreesOfFreedomModel
-     * 
-     * Returns the degrees of freedom of the model for this regression.
-     * 
-     * @return int
-     */
-    protected function getDegreesOfFreedomModel()
-    {
-        if (is_null($this->degreesFreedomModel)) {
-            $explanatoryVariableCount = count($this->independentSeries[0]);
-        
-            $this->degreesFreedomModel = $explanatoryVariableCount - 1;
-        }
-        
-        return $this->degreesFreedomModel;
     }
     
     /**
