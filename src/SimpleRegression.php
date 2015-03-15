@@ -2,6 +2,8 @@
 
 namespace mcordingley\Regression;
 
+use mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface;
+
 /**
  * SimpleRegression
  * 
@@ -17,9 +19,9 @@ class SimpleRegression
     /**
      * __construct
      */
-    public function __construct()
+    public function __construct(RegressionAlgorithmInterface $regressionStrategy = null)
     {
-        $this->regression = new Regression;
+        $this->regression = new Regression($regressionStrategy);
     }
     
     // Proxy unmodified functions through to the wrapped `Regression` object.
@@ -38,9 +40,9 @@ class SimpleRegression
      * 
      * @return static
      */
-    public static function makeLogRegression()
+    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
     {
-        $regression = Regression::makeLogRegression();
+        $regression = Regression::makeLogRegression($regressionStrategy);
         
         $simple = new static;
         $simple->regression = $regression;
@@ -58,9 +60,9 @@ class SimpleRegression
      * 
      * @return static
      */
-    public static function makeExpRegression()
+    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
     {
-        $regression = Regression::makeExpRegression();
+        $regression = Regression::makeExpRegression($regressionStrategy);
         
         $simple = new static;
         $simple->regression = $regression;
@@ -78,9 +80,9 @@ class SimpleRegression
      * 
      * @return static
      */
-    public static function makePowerRegression()
+    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
     {
-        $regression = Regression::makePowerRegression();
+        $regression = Regression::makePowerRegression($regressionStrategy);
         
         $simple = new static;
         $simple->regression = $regression;
