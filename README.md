@@ -19,7 +19,7 @@ Note: The library is largely stable and appears to be functioning well, but test
 
 Add this line to your composer.json file and update:
 
-    "mcordingley/regression": "~0.9.4"
+    "mcordingley/regression": "~0.9.6"
 
 That's it!
 
