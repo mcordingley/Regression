@@ -129,7 +129,7 @@ class SimpleRegression
     public function getIntercept()
     {
         $constantLinking = $this->regression->getIndependentLinking(0) ?: $this->regression->getIndependentLinking();
-        return $constantLinking->linearize($this->regression->getCoefficients()[0]);
+        return $constantLinking->delinearize($this->regression->getCoefficients()[0]);
     }
     
     /**
