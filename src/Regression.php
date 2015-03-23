@@ -564,25 +564,37 @@ class Regression
     /**
      * predict
      * 
+     * Uses the calculated coefficients from this regression to make a
+     * prediction. If the optional `$coefficients` argument is supplied, uses
+     * that instead of the calculated values. This would be useful for reusing
+     * stored coefficients from a previous regression.
+     * 
      * @param array $series Data with which to make a prediction.
+     * @param array|null $coefficients Alternate set of coefficients to use.
      * @return float The predicted value.
      */
-    public function predict(array $series)
+    public function predict(array $series, array $coefficients = null)
     {
         $transformed = [];
+        $coefficients = $coefficients ?: $this->getCoefficients();
         
+        // Convert `$series` into linear space for computation.
         foreach ($series as $index => $datum) {
             $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
         }
         
+        // Multiply the datums from the series with the predictors and then sum
+        // up to get the predicted value.
+        
         $products = array_map(function ($predictor, $datum) {
             return $predictor * $datum;
-        }, $this->getCoefficients(), $transformed);
+        }, $coefficients, $transformed);
         
         $sumProduct = array_reduce($products, function($memo, $product) {
             return $memo + $product;
         }, 0);
         
+        // Transform back out of linear space for the answer to be meaningful.
         return $this->dependentLinking->delinearize($sumProduct);
     }
 

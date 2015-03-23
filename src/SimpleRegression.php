@@ -160,15 +160,16 @@ class SimpleRegression
      * predict
      * 
      * @param array|float $series Data with which to make a prediction.
+     * @param array|null $coefficients Alternate set of coefficients to use.
      * @return float The predicted value.
      */
-    public function predict($series)
+    public function predict($series, array $coefficients = null)
     {
         if (!is_array($series)) {
             $series = [$series];
         }
         
         $constantLinking = $this->regression->getIndependentLinking(0) ?: $this->regression->getIndependentLinking();
-        return $this->regression->predict(array_merge([$constantLinking->delinearize(1)], $series));
+        return $this->regression->predict(array_merge([$constantLinking->delinearize(1)], $series), $coefficients);
     }
 }
