@@ -364,24 +364,12 @@ class Regression
             $this->SCoefficients = [];
             
             $observationCount = count($this->dependentSeries);
-            $variableCount = count($this->independentSeries[0]);
             $meanError = sqrt($this->getMeanSquaredError());
             
-            for ($variableIndex = 0; $variableIndex < $variableCount; $variableIndex++) {
-                $sumX = 0;
+            for ($i = 0, $len = count($this->independentSeries[0]); $i < $len; $i++) {
+                $independents = static::array_pluck($this->independentSeries, $i);
                 
-                for ($observationIndex = 0; $observationIndex < $observationCount; $observationIndex++) {
-                    $sumX += $this->independentSeries[$observationIndex][$variableIndex];
-                }
-                
-                $averageX = $sumX / $observationCount;
-                $sseX = 0;
-                
-                for ($observationIndex = 0; $observationIndex < $observationCount; $observationIndex++) {
-                    $sseX += pow($this->independentSeries[$observationIndex][$variableIndex] - $averageX, 2);
-                }
-                
-                $this->SCoefficients[] = $meanError / sqrt($sseX);
+                $this->SCoefficients[] = $meanError / sqrt(static::sumSquaredDifference($independents, array_sum($independents) / $observationCount));
             }
         }
         
@@ -472,6 +460,34 @@ class Regression
         }
         
         return $this;
+    }
+    
+    /**
+     * array_pluck
+     * 
+     * @param array $source
+     * @param int|string $index
+     * @return mixed
+     */
+    protected static function array_pluck(array $source, $index)
+    {
+        return array_map(function ($element) use ($index) {
+            return $element[$index];
+        }, $source);
+    }
+    
+    /**
+     * sumSquaredDifference
+     * 
+     * @param array $series
+     * @param float $baseline
+     * @return float
+     */
+    protected static function sumSquaredDifference(array $series, $baseline)
+    {
+        return array_sum(array_map(function ($element) use ($baseline) {
+            return pow($element - $baseline, 2);
+        }, $series));
     }
     
     /**
@@ -606,11 +622,7 @@ class Regression
     protected function getSumSquaredModel()
     {
         if (is_null($this->sumSquaredModel)) {
-            $mean = array_sum($this->dependentSeries) / count($this->dependentSeries);
-            
-            $this->sumSquaredModel = array_reduce($this->getPredictedValues(), function ($memo, $value) use ($mean) {
-                return $memo + pow($value - $mean, 2);
-            }, 0);
+            $this->sumSquaredModel = static::sumSquaredDifference($this->getPredictedValues(), array_sum($this->dependentSeries) / count($this->dependentSeries));
         }
         
         return $this->sumSquaredModel;
@@ -629,11 +641,7 @@ class Regression
     protected function getSumSquaredTotal()
     {
         if (is_null($this->sumSquaredTotal)) {
-            $mean = array_sum($this->dependentSeries) / count($this->dependentSeries);
-            
-            $this->sumSquaredTotal = array_reduce($this->dependentSeries, function ($memo, $value) use ($mean) {
-                return $memo + pow($value - $mean, 2);
-            }, 0);
+            $this->sumSquaredTotal = static::sumSquaredDifference($this->dependentSeries, array_sum($this->dependentSeries) / count($this->dependentSeries));
         }
         
         return $this->sumSquaredTotal;
