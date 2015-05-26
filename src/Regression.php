@@ -275,32 +275,6 @@ class Regression
     }
     
     /**
-     * getDegreesOfFreedomError
-     * 
-     * Returns the degrees of freedom of the error for this regression.
-     * 
-     * @return int
-     */
-    public function getDegreesOfFreedomError()
-    {
-        // Obervations minus explanatory variables
-        return count($this->independentSeries) - count($this->independentSeries[0]);
-    }
-    
-    /**
-     * getDegreesOfFreedomModel
-     * 
-     * Returns the degrees of freedom of the model for this regression.
-     * 
-     * @return int
-     */
-    public function getDegreesOfFreedomModel()
-    {
-        // One less than the number of explanatory variables
-        return count($this->independentSeries[0]) - 1;
-    }
-    
-    /**
      * getDependentLinking
      * 
      * @return LinkingInterface
@@ -516,6 +490,32 @@ class Regression
         $this->sumSquaredError = null;
         $this->sumSquaredModel = null;
         $this->sumSquaredTotal = null;
+    }
+    
+    /**
+     * getDegreesOfFreedomError
+     * 
+     * Returns the degrees of freedom of the error for this regression.
+     * 
+     * @return int
+     */
+    protected function getDegreesOfFreedomError()
+    {
+        // Obervations minus explanatory variables
+        return count($this->independentSeries) - count($this->independentSeries[0]);
+    }
+    
+    /**
+     * getDegreesOfFreedomModel
+     * 
+     * Returns the degrees of freedom of the model for this regression.
+     * 
+     * @return int
+     */
+    protected function getDegreesOfFreedomModel()
+    {
+        // One less than the number of explanatory variables
+        return count($this->independentSeries[0]) - 1;
     }
     
     /**
