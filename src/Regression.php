@@ -424,14 +424,9 @@ class Regression
     public function getTStatistics()
     {
         if (is_null($this->tStatistics)) {
-            $predictors = $this->getCoefficients();
-            $SCoefficients = $this->getStandardErrorCoefficients();
-            
-            $this->tStatistics = [];
-
-            for ($i = 0, $len = count($predictors); $i < $len; $i++) {
-                $this->tStatistics[] = $predictors[$i] / $SCoefficients[$i];
-            }
+            $this->tStatistics = array_map(function ($predictor, $SCoefficient) {
+                return $predictor / $SCoefficient;
+            }, $this->getCoefficients(), $this->getStandardErrorCoefficients());
         }
         
         return $this->tStatistics;
@@ -454,24 +449,15 @@ class Regression
         $transformed = [];
         $coefficients = $coefficients ?: $this->getCoefficients();
         
-        // Convert `$series` into linear space for computation.
         foreach ($series as $index => $datum) {
             $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
         }
-        
-        // Multiply the datums from the series with the predictors and then sum
-        // up to get the predicted value.
         
         $products = array_map(function ($predictor, $datum) {
             return $predictor * $datum;
         }, $coefficients, $transformed);
         
-        $sumProduct = array_reduce($products, function($memo, $product) {
-            return $memo + $product;
-        }, 0);
-        
-        // Transform back out of linear space for the answer to be meaningful.
-        return $this->dependentLinking->delinearize($sumProduct);
+        return $this->dependentLinking->delinearize(array_sum($products));
     }
 
     /**
@@ -581,11 +567,9 @@ class Regression
     protected function getPredictedValues()
     {
         if (is_null($this->predictedValues)) {
-            $this->predictedValues = [];
-            
-            foreach ($this->independentSeries as $series) {
-                $this->predictedValues[] = $this->predict($series);
-            }
+            $this->predictedValues = array_map(function ($observations) {
+                return $this->predict($observations);
+            }, $this->independentSeries);
         }
         
         return $this->predictedValues;
@@ -603,13 +587,9 @@ class Regression
     protected function getSumSquaredError()
     {
         if (is_null($this->sumSquaredError)) {
-            $predictedValues = $this->getPredictedValues();
-        
-            $this->sumSquaredError = 0;
-            
-            foreach ($this->dependentSeries as $index => $observation) {
-                $this->sumSquaredError += pow($observation - $predictedValues[$index], 2);
-            }
+            $this->sumSquaredError = array_sum(array_map(function ($predicted, $observed) {
+                return pow($predicted - $observed, 2);
+            }, $this->getPredictedValues(), $this->dependentSeries));
         }
         
         return $this->sumSquaredError;
@@ -618,17 +598,15 @@ class Regression
     /**
      * getSumSquaredModel
      * 
-     * Calculates the mean-squared error of the regression. This is the sum
-     * of the squared distances of observations from their average.
+     * Calculates the sum-squared error of the regression. This is the sum
+     * of the squared distances of predicted values from their average.
      * 
      * @return float
      */
     protected function getSumSquaredModel()
     {
         if (is_null($this->sumSquaredModel)) {
-            $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
-                return $memo + $value;
-            }) / count($this->dependentSeries);
+            $mean = array_sum($this->dependentSeries) / count($this->dependentSeries);
             
             $this->sumSquaredModel = array_reduce($this->getPredictedValues(), function ($memo, $value) use ($mean) {
                 return $memo + pow($value - $mean, 2);
@@ -651,9 +629,7 @@ class Regression
     protected function getSumSquaredTotal()
     {
         if (is_null($this->sumSquaredTotal)) {
-            $mean = array_reduce($this->dependentSeries, function ($memo, $value) {
-                return $memo + $value;
-            }) / count($this->dependentSeries);
+            $mean = array_sum($this->dependentSeries) / count($this->dependentSeries);
             
             $this->sumSquaredTotal = array_reduce($this->dependentSeries, function ($memo, $value) use ($mean) {
                 return $memo + pow($value - $mean, 2);
