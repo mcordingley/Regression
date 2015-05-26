@@ -3,7 +3,6 @@
 namespace mcordingley\Regression;
 
 use InvalidArgumentException;
-use LengthException;
 use mcordingley\Regression\Linking\Exponential;
 use mcordingley\Regression\Linking\Identity;
 use mcordingley\Regression\Linking\LinkingInterface;
