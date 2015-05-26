@@ -414,8 +414,7 @@ class Regression
             
             $observationCount = count($this->dependentSeries);
             $variableCount = count($this->independentSeries[0]);
-            
-            $k = sqrt($this->getSumSquaredError() / $this->getDegreesOfFreedomError());
+            $meanError = sqrt($this->getMeanSquaredError());
             
             for ($variableIndex = 0; $variableIndex < $variableCount; $variableIndex++) {
                 $sumX = 0;
@@ -425,14 +424,13 @@ class Regression
                 }
                 
                 $averageX = $sumX / $observationCount;
-                
                 $sseX = 0;
                 
                 for ($observationIndex = 0; $observationIndex < $observationCount; $observationIndex++) {
                     $sseX += pow($this->independentSeries[$observationIndex][$variableIndex] - $averageX, 2);
                 }
                 
-                $this->SCoefficients[] = $k / sqrt($sseX);
+                $this->SCoefficients[] = $meanError / sqrt($sseX);
             }
         }
         
