@@ -59,15 +59,6 @@ class Regression
     protected $dependentSeries = [];
     
     /**
-     * F
-     * 
-     * The F statistic of the regression, a measure of its significance.
-     * 
-     * @var float
-     */
-    protected $F;
-    
-    /**
      * independentLinking
      * 
      * Strategy object to use by default to linearize independent variables.
@@ -104,27 +95,6 @@ class Regression
      * @var array
      */
     protected $predictedValues;
-    
-    /**
-     * r2
-     * 
-     * Value in the range [0, 1] that shows how well the fitted curve fits the
-     * data.
-     * 
-     * @var float
-     */
-    protected $r2;
-    
-    /**
-     * S
-     * 
-     * The S statistic is also known as the Standard Error of the regression,
-     * which is the average distance of observed values from the regression
-     * line.
-     * 
-     * @var float 
-     */
-    protected $S;
     
     /**
      * SCoefficients
@@ -373,11 +343,7 @@ class Regression
      */
     public function getFStatistic()
     {
-        if (is_null($this->F)) {
-            $this->F = $this->getMeanSquaredModel() / $this->getMeanSquaredError();
-        }
-        
-        return $this->F;
+        return $this->getMeanSquaredModel() / $this->getMeanSquaredError();
     }
     
     /**
@@ -411,16 +377,13 @@ class Regression
      */
     public function getRSquared()
     {
-        if (is_null($this->r2)) {
-            $sumSquaredTotal = $this->getSumSquaredTotal();
-            if ($sumSquaredTotal === 0) {
-                $this->r2 = 0;
-            } else {
-                $this->r2 = 1 - $this->getSumSquaredError() / $sumSquaredTotal;
-            }
+        $sumSquaredTotal = $this->getSumSquaredTotal();
+        
+        if ($sumSquaredTotal === 0) {
+            return 0;
         }
         
-        return $this->r2;
+        return 1 - $this->getSumSquaredError() / $sumSquaredTotal;
     }
     
     /**
@@ -434,11 +397,7 @@ class Regression
      */
     public function getStandardError()
     {
-        if (is_null($this->S)) {
-            $this->S = sqrt($this->getSumSquaredError() / count($this->dependentSeries));
-        }
-        
-        return $this->S;
+        return sqrt($this->getSumSquaredError() / count($this->dependentSeries));
     }
     
     /**
@@ -596,10 +555,6 @@ class Regression
         $this->sumSquaredError = null;
         $this->sumSquaredModel = null;
         $this->sumSquaredTotal = null;
-        
-        $this->r2 = null;
-        $this->S = null;
-        $this->F = null;
     }
     
     /**
