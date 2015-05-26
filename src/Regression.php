@@ -384,10 +384,8 @@ class Regression
     public function getDegreesOfFreedomError()
     {
         if (is_null($this->degreesFreedomError)) {
-            $observationCount = count($this->independentSeries);
-            $explanatoryVariableCount = count($this->independentSeries[0]);
-        
-            $this->degreesFreedomError = $observationCount - $explanatoryVariableCount;
+            // Obervations minus explanatory variables
+            $this->degreesFreedomError = count($this->independentSeries) - count($this->independentSeries[0]);
         }
         
         return $this->degreesFreedomError;
@@ -403,9 +401,8 @@ class Regression
     public function getDegreesOfFreedomModel()
     {
         if (is_null($this->degreesFreedomModel)) {
-            $explanatoryVariableCount = count($this->independentSeries[0]);
-        
-            $this->degreesFreedomModel = $explanatoryVariableCount - 1;
+            // One less than the number of explanatory variables
+            $this->degreesFreedomModel = count($this->independentSeries[0]) - 1;
         }
         
         return $this->degreesFreedomModel;
