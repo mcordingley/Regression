@@ -583,9 +583,7 @@ class Regression
     protected function getPredictedValues()
     {
         if (is_null($this->predictedValues)) {
-            $this->predictedValues = array_map(function ($observations) {
-                return $this->predict($observations);
-            }, $this->independentSeries);
+            $this->predictedValues = array_map([$this, 'predict'], $this->independentSeries);
         }
         
         return $this->predictedValues;
