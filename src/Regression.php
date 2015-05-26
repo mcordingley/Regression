@@ -97,26 +97,6 @@ class Regression
     protected $independentSeries = [];
     
     /**
-     * meanSquaredError
-     * 
-     * The mean-squared error, effectively the "average" of the corresponding sum of
-     * squares.
-     * 
-     * @var float
-     */
-    protected $meanSquaredError;
-    
-    /**
-     * meanSquaredModel
-     * 
-     * The mean-squared model, effectively the "average" of the corresponding sum of
-     * squares.
-     * 
-     * @var float
-     */
-    protected $meanSquaredModel;
-    
-    /**
      * predictedValues
      * 
      * What the observed values would be if predicted by the model.
@@ -617,9 +597,6 @@ class Regression
         $this->sumSquaredModel = null;
         $this->sumSquaredTotal = null;
         
-        $this->meanSquaredError = null;
-        $this->meanSquaredModel = null;
-        
         $this->r2 = null;
         $this->S = null;
         $this->F = null;
@@ -648,11 +625,7 @@ class Regression
      */
     protected function getMeanSquaredError()
     {
-        if (is_null($this->meanSquaredError)) {
-            $this->meanSquaredError = $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
-        }
-        
-        return $this->meanSquaredError;
+        return $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
     }
     
     /**
@@ -665,11 +638,7 @@ class Regression
      */
     protected function getMeanSquaredModel()
     {
-        if (is_null($this->meanSquaredModel)) {
-            $this->meanSquaredModel = $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
-        }
-        
-        return $this->meanSquaredModel;
+        return $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
     }
 
     /**
