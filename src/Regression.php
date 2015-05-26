@@ -257,39 +257,17 @@ class Regression
     public function getCoefficients()
     {
         if (is_null($this->coefficients)) {
-            if (!count($this->independentSeries)) {
-                throw new LengthException('Cannot perform regression; no data provided.');
-            }
-
-            $length = count($this->independentSeries[0]);
-
-            if (!$length) {
-                throw new LengthException('Cannot perform regression; no data points in the first independent data series.');
-            }
-
-            for ($i = 1, $len = count($this->independentSeries); $i < $len; $i++) {
-                if (count($this->independentSeries[$i]) != $length) {
-                    throw new LengthException('Cannot perform regression; every provided independent data series must be of the same length.');
-                }
-            }
-
-            // Perform transformations
-
             $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
-
-            $linearIndependents = [];
-
-            foreach ($this->independentSeries as $series) {
+            
+            $linearIndependents = array_map(function ($series) {
                 $transformed = [];
 
                 foreach ($series as $index => $datum) {
                     $transformed[] = isset($this->independentLinkings[$index]) ? $this->independentLinkings[$index]->linearize($datum) : $this->independentLinking->linearize($datum);
                 }
 
-                $linearIndependents[] = $transformed;
-            }
-
-            // Now that everything has been linearized, regress it.
+                return $transformed;
+            }, $this->independentSeries);
 
             $this->coefficients = $this->algorithm->regress($linearDependents, $linearIndependents);
         }
