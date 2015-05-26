@@ -41,33 +41,6 @@ class Regression
     protected $coefficients;
     
     /**
-     * degreesFreedomError
-     * 
-     * The number of degrees of freedom of error for the model.
-     * 
-     * @var int
-     */
-    protected $degreesFreedomError;
-    
-    /**
-     * degreesFreedomModel
-     * 
-     * The number of degrees of freedom of the model.
-     * 
-     * @var int
-     */
-    protected $degreesFreedomModel;
-    
-    /**
-     * degreesFreedomTotal
-     * 
-     * The number of degrees of freedom.
-     * 
-     * @var int
-     */
-    protected $degreesFreedomTotal;
-    
-    /**
      * dependentLinking
      * 
      * Strategy object to transform Y values into and out of linear form.
@@ -383,12 +356,8 @@ class Regression
      */
     public function getDegreesOfFreedomError()
     {
-        if (is_null($this->degreesFreedomError)) {
-            // Obervations minus explanatory variables
-            $this->degreesFreedomError = count($this->independentSeries) - count($this->independentSeries[0]);
-        }
-        
-        return $this->degreesFreedomError;
+        // Obervations minus explanatory variables
+        return count($this->independentSeries) - count($this->independentSeries[0]);
     }
     
     /**
@@ -400,12 +369,8 @@ class Regression
      */
     public function getDegreesOfFreedomModel()
     {
-        if (is_null($this->degreesFreedomModel)) {
-            // One less than the number of explanatory variables
-            $this->degreesFreedomModel = count($this->independentSeries[0]) - 1;
-        }
-        
-        return $this->degreesFreedomModel;
+        // One less than the number of explanatory variables
+        return count($this->independentSeries[0]) - 1;
     }
     
     /**
@@ -652,10 +617,6 @@ class Regression
         $this->sumSquaredModel = null;
         $this->sumSquaredTotal = null;
         
-        $this->degreesFreedomError = null;
-        $this->degreesFreedomModel = null;
-        $this->degreesFreedomTotal = null;
-        
         $this->meanSquaredError = null;
         $this->meanSquaredModel = null;
         
@@ -673,13 +634,8 @@ class Regression
      */
     protected function getDegreesOfFreedomTotal()
     {
-        if (is_null($this->degreesFreedomTotal)) {
-            $observationCount = count($this->independentSeries);
-        
-            $this->degreesFreedomTotal = $observationCount - 1;
-        }
-        
-        return $this->degreesFreedomTotal;
+        // One less than observations
+        return count($this->independentSeries) - 1;
     }
     
     /**
