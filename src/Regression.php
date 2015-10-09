@@ -570,7 +570,7 @@ class Regression
      */
     protected function getMeanSquaredModel()
     {
-        return $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
+        return $this->getSumSquaredModel() / $this->getDegreesOfFreedomModel();
     }
 
     /**
