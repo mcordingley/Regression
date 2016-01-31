@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mcordingley\Regression;
 
 use mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface;
@@ -40,7 +42,7 @@ final class SimpleRegression
      * 
      * @return static
      */
-    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null): self
     {
         $regression = Regression::makeLogRegression($regressionStrategy);
         
@@ -60,7 +62,7 @@ final class SimpleRegression
      * 
      * @return static
      */
-    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null): self
     {
         $regression = Regression::makeExpRegression($regressionStrategy);
         
@@ -80,7 +82,7 @@ final class SimpleRegression
      * 
      * @return static
      */
-    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null): self
     {
         $regression = Regression::makePowerRegression($regressionStrategy);
         
@@ -97,7 +99,7 @@ final class SimpleRegression
      * @param array|float $independentSeries Array of explanatory variables or a single such variable.
      * @return self
      */
-    public function addData($dependent, $independentSeries)
+    public function addData(float $dependent, $independentSeries): self
     {
         if (!is_array($independentSeries)){
             $independentSeries = [$independentSeries];
@@ -116,7 +118,7 @@ final class SimpleRegression
      * 
      * @return array
      */
-    public function getCoefficients()
+    public function getCoefficients(): array
     {
         return array_slice($this->regression->getCoefficients(), 1);
     }
@@ -126,7 +128,7 @@ final class SimpleRegression
      * 
      * @return float
      */
-    public function getIntercept()
+    public function getIntercept(): float
     {
         $constantLinking = $this->regression->getIndependentLinking(0) ?: $this->regression->getIndependentLinking();
         return $constantLinking->delinearize($this->regression->getCoefficients()[0]);
@@ -139,7 +141,7 @@ final class SimpleRegression
      * 
      * @return array
      */
-    public function getStandardErrorCoefficients()
+    public function getStandardErrorCoefficients(): array
     {
         return array_slice($this->regression->getStandardErrorCoefficients(), 1);
     }
@@ -151,7 +153,7 @@ final class SimpleRegression
      * 
      * @return array
      */
-    public function getTStatistics()
+    public function getTStatistics(): array
     {
         return array_slice($this->regression->getTStatistics(), 1);
     }
@@ -163,7 +165,7 @@ final class SimpleRegression
      * @param array|null $coefficients Alternate set of coefficients to use.
      * @return float The predicted value.
      */
-    public function predict($series, array $coefficients = null)
+    public function predict($series, array $coefficients = null): float
     {
         if (!is_array($series)) {
             $series = [$series];
