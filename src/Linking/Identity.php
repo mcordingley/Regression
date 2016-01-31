@@ -10,7 +10,7 @@ namespace mcordingley\Regression\Linking;
  * Default implementation of Linking that returns data untransformed. Used for
  * data that is already linear.
  */
-class Identity implements LinkingInterface
+final class Identity implements LinkingInterface
 {
     public function delinearize(float $value): float
     {

@@ -9,9 +9,9 @@ namespace mcordingley\Regression\Linking;
  * 
  * Linking implementation that transforms data that follows a geometric curve.
  */
-class Power implements LinkingInterface
+final class Power implements LinkingInterface
 {
-    protected $exponent;
+    private $exponent;
     
     /**
      * __construct

@@ -15,9 +15,9 @@ use InvalidArgumentException;
  * Note that the identity value to use for constant independent data series with
  * this linking is `0` instead of `1`.
  */
-class Log implements LinkingInterface
+final class Log implements LinkingInterface
 {
-    protected $base;
+    private $base;
 
     /**
      * __construct

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression\Linking;
 
-class Logistic implements LinkingInterface
+final class Logistic implements LinkingInterface
 {
     public function delinearize(float $value): float
     {

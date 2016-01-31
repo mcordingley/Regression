@@ -16,9 +16,9 @@ use InvalidArgumentException;
  * Note that the identity value to use for constant independent data series with
  * this linking is the base of the exponent instead of `1`.
  */
-class Exponential implements LinkingInterface
+final class Exponential implements LinkingInterface
 {
-    protected $base;
+    private $base;
 
     /**
      * __construct
