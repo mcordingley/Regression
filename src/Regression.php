@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mcordingley\Regression;
 
 use InvalidArgumentException;
@@ -175,7 +177,7 @@ final class Regression
      * @param RegressionAlgorithmInterface|null $regressionStrategy
      * @return static
      */
-    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makeLogRegression(RegressionAlgorithmInterface $regressionStrategy = null): self
     {
         $regression = new static($regressionStrategy);
         
@@ -195,7 +197,7 @@ final class Regression
      * @param RegressionAlgorithmInterface|null $regressionStrategy
      * @return static
      */
-    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makeExpRegression(RegressionAlgorithmInterface $regressionStrategy = null): self
     {
         $regression = new static($regressionStrategy);
         
@@ -218,7 +220,7 @@ final class Regression
      * @param RegressionAlgorithmInterface|null $regressionStrategy
      * @return static
      */
-    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null)
+    public static function makePowerRegression(RegressionAlgorithmInterface $regressionStrategy = null): self
     {
         $linking = new Exponential;
         $regression = new static($regressionStrategy);
@@ -236,7 +238,7 @@ final class Regression
      * @param array $independentSeries Array of explanatory variables.
      * @return self
      */
-    public function addData($dependent, array $independentSeries)
+    public function addData($dependent, array $independentSeries): self
     {
         $this->dependentSeries[] = $dependent;
         $this->independentSeries[] = $independentSeries;
@@ -253,7 +255,7 @@ final class Regression
      * 
      * @return array
      */
-    public function getCoefficients()
+    public function getCoefficients(): array
     {
         if (is_null($this->coefficients)) {
             $linearDependents = array_map([$this->dependentLinking, 'linearize'], $this->dependentSeries);
@@ -279,7 +281,7 @@ final class Regression
      * 
      * @return LinkingInterface
      */
-    public function getDependentLinking()
+    public function getDependentLinking(): LinkingInterface
     {
         return $this->dependentLinking;
     }
@@ -292,7 +294,7 @@ final class Regression
      * 
      * @return float
      */
-    public function getFStatistic()
+    public function getFStatistic(): float
     {
         return $this->getMeanSquaredModel() / $this->getMeanSquaredError();
     }
@@ -326,12 +328,12 @@ final class Regression
      * 
      * @return float
      */
-    public function getRSquared()
+    public function getRSquared(): float
     {
         $sumSquaredTotal = $this->getSumSquaredTotal();
         
-        if ($sumSquaredTotal === 0) {
-            return 0;
+        if ($sumSquaredTotal === 0.0) {
+            return 0.0;
         }
         
         return 1 - $this->getSumSquaredError() / $sumSquaredTotal;
@@ -346,7 +348,7 @@ final class Regression
      * 
      * @return float
      */
-    public function getStandardError()
+    public function getStandardError(): float
     {
         return sqrt($this->getSumSquaredError() / count($this->dependentSeries));
     }
@@ -358,7 +360,7 @@ final class Regression
      * 
      * @return array
      */
-    public function getStandardErrorCoefficients()
+    public function getStandardErrorCoefficients(): array
     {
         if (is_null($this->SCoefficients)) {
             $this->SCoefficients = [];
@@ -383,7 +385,7 @@ final class Regression
      * 
      * @return array
      */
-    public function getTStatistics()
+    public function getTStatistics(): array
     {
         if (is_null($this->tStatistics)) {
             $this->tStatistics = array_map(function ($predictor, $SCoefficient) {
@@ -406,7 +408,7 @@ final class Regression
      * @param array|null $coefficients Alternate set of coefficients to use.
      * @return float The predicted value.
      */
-    public function predict(array $series, array $coefficients = null)
+    public function predict(array $series, array $coefficients = null): float
     {
         $transformed = [];
         $coefficients = $coefficients ?: $this->getCoefficients();
@@ -432,7 +434,7 @@ final class Regression
      * @param LinkingInterface $linking
      * @return self
      */
-    public function setDependentLinking(LinkingInterface $linking)
+    public function setDependentLinking(LinkingInterface $linking): self
     {
         $this->dependentLinking = $linking;
         
@@ -451,7 +453,7 @@ final class Regression
      * @param int|null $index If specified, use this linking only for independent variables at the specified index
      * @return self
      */
-    public function setIndependentLinking(LinkingInterface $linking, $index = null)
+    public function setIndependentLinking(LinkingInterface $linking, int $index = null): self
     {
         if (is_null($index)) {
             $this->independentLinking = $linking;
@@ -483,7 +485,7 @@ final class Regression
      * @param float $baseline
      * @return float
      */
-    private static function sumSquaredDifference(array $series, $baseline)
+    private static function sumSquaredDifference(array $series, float $baseline): float
     {
         return array_sum(array_map(function ($element) use ($baseline) {
             return pow($element - $baseline, 2);
@@ -515,7 +517,7 @@ final class Regression
      * 
      * @return int
      */
-    private function getDegreesOfFreedomError()
+    private function getDegreesOfFreedomError(): int
     {
         // Obervations minus explanatory variables
         return count($this->independentSeries) - count($this->independentSeries[0]);
@@ -528,7 +530,7 @@ final class Regression
      * 
      * @return int
      */
-    private function getDegreesOfFreedomModel()
+    private function getDegreesOfFreedomModel(): int
     {
         // One less than the number of explanatory variables
         return count($this->independentSeries[0]) - 1;
@@ -541,7 +543,7 @@ final class Regression
      * 
      * @return int
      */
-    private function getDegreesOfFreedomTotal()
+    private function getDegreesOfFreedomTotal(): int
     {
         // One less than observations
         return count($this->independentSeries) - 1;
@@ -555,7 +557,7 @@ final class Regression
      * 
      * @return float
      */
-    private function getMeanSquaredError()
+    private function getMeanSquaredError(): float
     {
         return $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
     }
@@ -568,7 +570,7 @@ final class Regression
      * 
      * @return float
      */
-    private function getMeanSquaredModel()
+    private function getMeanSquaredModel(): float
     {
         return $this->getSumSquaredModel() / $this->getDegreesOfFreedomModel();
     }
@@ -580,7 +582,7 @@ final class Regression
      * 
      * @return array
      */
-    private function getPredictedValues()
+    private function getPredictedValues(): array
     {
         if (is_null($this->predictedValues)) {
             $this->predictedValues = array_map([$this, 'predict'], $this->independentSeries);
@@ -598,7 +600,7 @@ final class Regression
      * 
      * @return float
      */
-    private function getSumSquaredError()
+    private function getSumSquaredError(): float
     {
         if (is_null($this->sumSquaredError)) {
             $this->sumSquaredError = array_sum(array_map(function ($predicted, $observed) {
@@ -617,7 +619,7 @@ final class Regression
      * 
      * @return float
      */
-    private function getSumSquaredModel()
+    private function getSumSquaredModel(): float
     {
         if (is_null($this->sumSquaredModel)) {
             $this->sumSquaredModel = static::sumSquaredDifference($this->getPredictedValues(), array_sum($this->dependentSeries) / count($this->dependentSeries));
@@ -636,7 +638,7 @@ final class Regression
      * 
      * @return float
      */
-    private function getSumSquaredTotal()
+    private function getSumSquaredTotal(): float
     {
         if (is_null($this->sumSquaredTotal)) {
             $this->sumSquaredTotal = static::sumSquaredDifference($this->dependentSeries, array_sum($this->dependentSeries) / count($this->dependentSeries));
