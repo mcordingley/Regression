@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mcordingley\Regression\RegressionAlgorithm;
 
 use InvalidArgumentException;
@@ -7,7 +9,7 @@ use mcordingley\LinearAlgebra\Matrix;
 
 class LinearLeastSquares implements RegressionAlgorithmInterface
 {
-    public function regress(array $dependentData, array $independentData)
+    public function regress(array $dependentData, array $independentData): array
     {
         $design = new Matrix($independentData);
         $observed = (new Matrix([ $dependentData ]))->transpose();
