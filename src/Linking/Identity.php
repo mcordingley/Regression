@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mcordingley\Regression\Linking;
 
 /**
@@ -10,12 +12,12 @@ namespace mcordingley\Regression\Linking;
  */
 class Identity implements LinkingInterface
 {
-    public function delinearize($value)
+    public function delinearize(float $value): float
     {
         return $value;
     }
     
-    public function linearize($value)
+    public function linearize(float $value): float
     {
         return $value;
     }

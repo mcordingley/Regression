@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mcordingley\Regression\Linking;
 
 /**
@@ -16,17 +18,17 @@ interface LinkingInterface
      * i.e. This function should be the inverse of `linearize`.
      * 
      * @param float $value
-     * @return mixed
+     * @return float
      */
-    public function delinearize($value);
+    public function delinearize(float $value): float;
     
     /**
      * linearize
      * 
      * Transforms the datum to a linear form.
      * 
-     * @param mixed $value
+     * @param float $value
      * @return float
      */
-    public function linearize($value);
+    public function linearize(float $value): float;
 }
