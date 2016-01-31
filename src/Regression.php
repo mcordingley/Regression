@@ -15,7 +15,7 @@ use mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface;
  * Represents a regression analysis. Each instance maps to a particular 
  * regression analysis.
  */
-class Regression
+final class Regression
 {
     // Great reference for most of these members:
     // http://facweb.cs.depaul.edu/sjost/csc423/documents/f-test-reg.htm
@@ -27,7 +27,7 @@ class Regression
      * 
      * @var RegressionAlgorithmInterface 
      */
-    protected $algorithm;
+    private $algorithm;
     
     /**
      * coefficients
@@ -37,7 +37,7 @@ class Regression
      * 
      * @var array
      */
-    protected $coefficients;
+    private $coefficients;
     
     /**
      * dependentLinking
@@ -46,7 +46,7 @@ class Regression
      * 
      * @var LinkingInterface 
      */
-    protected $dependentLinking;
+    private $dependentLinking;
     
     /**
      * dependentSeries
@@ -55,7 +55,7 @@ class Regression
      * 
      * @var array
      */
-    protected $dependentSeries = [];
+    private $dependentSeries = [];
     
     /**
      * independentLinking
@@ -64,7 +64,7 @@ class Regression
      * 
      * @var LinkingInterface
      */
-    protected $independentLinking;
+    private $independentLinking;
     
     /**
      * independentLinkings
@@ -74,7 +74,7 @@ class Regression
      * 
      * @var array 
      */
-    protected $independentLinkings = [];
+    private $independentLinkings = [];
     
     /**
      * independentSeries
@@ -84,7 +84,7 @@ class Regression
      * 
      * @var array
      */
-    protected $independentSeries = [];
+    private $independentSeries = [];
     
     /**
      * predictedValues
@@ -93,7 +93,7 @@ class Regression
      * 
      * @var array
      */
-    protected $predictedValues;
+    private $predictedValues;
     
     /**
      * SCoefficients
@@ -102,7 +102,7 @@ class Regression
      * 
      * @var array
      */
-    protected $SCoefficients;
+    private $SCoefficients;
     
     /**
      * sumSquaredError
@@ -112,7 +112,7 @@ class Regression
      * 
      * @var float
      */
-    protected $sumSquaredError;
+    private $sumSquaredError;
     
     /**
      * sumSquaredModel
@@ -123,7 +123,7 @@ class Regression
      * 
      * @var float
      */
-    protected $sumSquaredModel;
+    private $sumSquaredModel;
     
     /**
      * sumSquaredTotal
@@ -134,7 +134,7 @@ class Regression
      * 
      * @var float
      */
-    protected $sumSquaredTotal;
+    private $sumSquaredTotal;
     
     /**
      * tStatistics
@@ -143,7 +143,7 @@ class Regression
      * 
      * @var array
      */
-    protected $tStatistics;
+    private $tStatistics;
     
     /**
      * __construct
@@ -469,7 +469,7 @@ class Regression
      * @param int|string $index
      * @return mixed
      */
-    protected static function array_pluck(array $source, $index)
+    private static function array_pluck(array $source, $index)
     {
         return array_map(function ($element) use ($index) {
             return $element[$index];
@@ -483,7 +483,7 @@ class Regression
      * @param float $baseline
      * @return float
      */
-    protected static function sumSquaredDifference(array $series, $baseline)
+    private static function sumSquaredDifference(array $series, $baseline)
     {
         return array_sum(array_map(function ($element) use ($baseline) {
             return pow($element - $baseline, 2);
@@ -496,7 +496,7 @@ class Regression
      * Clears out all of the derived data about this regression, as it has
      * been rendered no longer accurate.
      */
-    protected function clearCalculations()
+    private function clearCalculations()
     {
         $this->coefficients = null;
         $this->predictedValues = null;
@@ -515,7 +515,7 @@ class Regression
      * 
      * @return int
      */
-    protected function getDegreesOfFreedomError()
+    private function getDegreesOfFreedomError()
     {
         // Obervations minus explanatory variables
         return count($this->independentSeries) - count($this->independentSeries[0]);
@@ -528,7 +528,7 @@ class Regression
      * 
      * @return int
      */
-    protected function getDegreesOfFreedomModel()
+    private function getDegreesOfFreedomModel()
     {
         // One less than the number of explanatory variables
         return count($this->independentSeries[0]) - 1;
@@ -541,7 +541,7 @@ class Regression
      * 
      * @return int
      */
-    protected function getDegreesOfFreedomTotal()
+    private function getDegreesOfFreedomTotal()
     {
         // One less than observations
         return count($this->independentSeries) - 1;
@@ -555,7 +555,7 @@ class Regression
      * 
      * @return float
      */
-    protected function getMeanSquaredError()
+    private function getMeanSquaredError()
     {
         return $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
     }
@@ -568,7 +568,7 @@ class Regression
      * 
      * @return float
      */
-    protected function getMeanSquaredModel()
+    private function getMeanSquaredModel()
     {
         return $this->getSumSquaredModel() / $this->getDegreesOfFreedomModel();
     }
@@ -580,7 +580,7 @@ class Regression
      * 
      * @return array
      */
-    protected function getPredictedValues()
+    private function getPredictedValues()
     {
         if (is_null($this->predictedValues)) {
             $this->predictedValues = array_map([$this, 'predict'], $this->independentSeries);
@@ -598,7 +598,7 @@ class Regression
      * 
      * @return float
      */
-    protected function getSumSquaredError()
+    private function getSumSquaredError()
     {
         if (is_null($this->sumSquaredError)) {
             $this->sumSquaredError = array_sum(array_map(function ($predicted, $observed) {
@@ -617,7 +617,7 @@ class Regression
      * 
      * @return float
      */
-    protected function getSumSquaredModel()
+    private function getSumSquaredModel()
     {
         if (is_null($this->sumSquaredModel)) {
             $this->sumSquaredModel = static::sumSquaredDifference($this->getPredictedValues(), array_sum($this->dependentSeries) / count($this->dependentSeries));
@@ -636,7 +636,7 @@ class Regression
      * 
      * @return float
      */
-    protected function getSumSquaredTotal()
+    private function getSumSquaredTotal()
     {
         if (is_null($this->sumSquaredTotal)) {
             $this->sumSquaredTotal = static::sumSquaredDifference($this->dependentSeries, array_sum($this->dependentSeries) / count($this->dependentSeries));

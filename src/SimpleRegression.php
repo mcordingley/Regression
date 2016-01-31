@@ -12,9 +12,9 @@ use mcordingley\Regression\RegressionAlgorithm\RegressionAlgorithmInterface;
  * digging through the documentation. Includes special handling of the intercept
  * apart from the other predictors.
  */
-class SimpleRegression
+final class SimpleRegression
 {
-    protected $regression;
+    private $regression;
 
     /**
      * __construct
