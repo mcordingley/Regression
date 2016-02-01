@@ -6,8 +6,9 @@ namespace mcordingley\Regression\RegressionAlgorithm;
 
 use InvalidArgumentException;
 use mcordingley\LinearAlgebra\Matrix;
+use mcordingley\Regression\RegressionAlgorithm;
 
-final class LinearLeastSquares implements RegressionAlgorithmInterface
+final class LinearLeastSquares implements RegressionAlgorithm
 {
     public function regress(array $dependentData, array $independentData): array
     {
