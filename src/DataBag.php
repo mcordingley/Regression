@@ -18,7 +18,7 @@ final class DataBag
     public function addObservation(float $dependent, array $independent): self
     {
         $this->dependent[] = $dependent;
-        $this->independent[] = array_merge([1], $independent); // Prepend dummy variable for intercepts.
+        $this->independent[] = $independent;
     }
 
     /**
