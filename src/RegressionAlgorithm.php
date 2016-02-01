@@ -15,9 +15,8 @@ interface RegressionAlgorithm
     /**
      * regress
      *
-     * @param array $dependentData Array of values explained by $independentData
-     * @param array $independentData Array of arrays of explanatory variables
-     * @return array Single array of predictor coefficients
+     * @param DataBag $data
+     * @return CoefficientSet
      */
-    public function regress(array $dependentData, array $independentData): array;
+    public function regress(DataBag $data): CoefficientSet;
 }
