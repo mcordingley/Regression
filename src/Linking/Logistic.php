@@ -4,7 +4,17 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression\Linking;
 
-final class Logistic implements LinkingInterface
+use InvalidArgumentException;
+use mcordingley\Regression\InputTransformer;
+use mcordingley\Regression\OutputTransformer;
+
+/**
+ * Logistic
+ *
+ * Linking implementation that transforms data into out and out of logistic
+ * form.
+ */
+final class Logistic implements InputTransformer, OutputTransformer
 {
     public function delinearize(float $value): float
     {
@@ -13,6 +23,10 @@ final class Logistic implements LinkingInterface
 
     public function linearize(float $value): float
     {
-        return -log(1.0 / $value - 1);
+        if ($value <= 0 || $value >= 1) {
+            throw new InvalidArgumentException('Unable to linearize values outside of the range (0, 1).');
+        }
+
+        return -log(1.0 / $value - 1.0);
     }
 }
