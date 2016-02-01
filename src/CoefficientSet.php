@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression;
 
-final class CoefficientSet
+use ArrayIterator;
+use IteratorAggregate;
+
+final class CoefficientSet implements IteratorAggregate
 {
     private $coefficients;
 
@@ -16,6 +19,11 @@ final class CoefficientSet
     public function __construct(array $coefficients)
     {
         $this->coefficients = $coefficients;
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->coefficients);
     }
 
     /**
