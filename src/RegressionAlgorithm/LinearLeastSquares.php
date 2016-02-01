@@ -17,6 +17,11 @@ final class LinearLeastSquares implements RegressionAlgorithm
         $dependentData = $data->getDependents();
         $independentData = $data->getIndependents();
         
+        // Prepend dummies.
+        $independentData = array_map(function ($row) {
+            return array_merge([1], $row);
+        }, $independentData);
+        
         $design = new Matrix($independentData);
         $observed = (new Matrix([ $dependentData ]))->transpose();
         
