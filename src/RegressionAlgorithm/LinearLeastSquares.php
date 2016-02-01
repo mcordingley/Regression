@@ -16,26 +16,26 @@ final class LinearLeastSquares implements RegressionAlgorithm
     {
         $dependentData = $data->getDependents();
         $independentData = $data->getIndependents();
-        
+
         // Prepend dummies.
         $independentData = array_map(function ($row) {
             return array_merge([1], $row);
         }, $independentData);
-        
+
         $design = new Matrix($independentData);
-        $observed = (new Matrix([ $dependentData ]))->transpose();
-        
+        $observed = (new Matrix([$dependentData]))->transpose();
+
         if ($design->columns >= $design->rows) {
             throw new InvalidArgumentException('Not enough observations to perform regression. You need to have more observations than explanatory variables.');
         }
-        
+
         $designTranspose = $design->transpose();
 
         $prediction = $designTranspose
                              ->multiply($design)
                              ->inverse()
                              ->multiply($designTranspose->multiply($observed));
-        
+
         // Extract the vertical vector as a simple array.
         return new CoefficientSet($prediction->transpose()->toArray()[0]);
     }
