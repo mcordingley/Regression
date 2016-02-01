@@ -35,6 +35,15 @@ final class StatisticsGatherer
     private $observations;
 
     /**
+     * predictor
+     *
+     * Object used to derive predicted outcomes.
+     *
+     * @var Predictor
+     */
+    private $predictor;
+
+    /**
      * predictedOutcomes
      *
      * What the observed outcomes would be if predicted by the model.
@@ -93,12 +102,18 @@ final class StatisticsGatherer
      */
     private $tStatistics;
 
-
-    public function __construct(DataBag $observations, CoefficientSet $coefficients, array $predictedOutcomes)
+    /**
+     * __construct
+     *
+     * @param DataBag $observations
+     * @param CoefficientSet $coefficients
+     * @param Predictor $predictor
+     */
+    public function __construct(DataBag $observations, CoefficientSet $coefficients, Predictor $predictor)
     {
         $this->observations = $observations;
         $this->coefficients = $coefficients;
-        $this->predictedOutcomes = $predictedOutcomes;
+        $this->predictor = $predictor;
     }
 
     /**
@@ -151,6 +166,27 @@ final class StatisticsGatherer
     public function getFStatistic(): float
     {
         return $this->getMeanSquaredModel() / $this->getMeanSquaredError();
+    }
+
+    /**
+     * getPredictedOutcomes
+     *
+     * Lazily determines what the outcomes would be if predicted. i.e. the y-hat
+     * values.
+     *
+     * @return array
+     */
+    private function getPredictedOutcomes(): array
+    {
+        if (!$this->predictedOutcomes) {
+            $this->predictedOutcomes = [];
+
+            foreach ($this->observations->getIndependents() as $observed) {
+                $this->predictedOutcomes[] = $this->predictor->predict($observed, $this->coefficients);
+            }
+        }
+
+        return $this->predictedOutcomes;
     }
 
     /**
@@ -269,7 +305,7 @@ final class StatisticsGatherer
         if (is_null($this->sumSquaredError)) {
             $this->sumSquaredError = array_sum(array_map(function ($predicted, $observed) {
                 return pow($predicted - $observed, 2);
-            }, $this->predictedOutcomes, $this->observations->getDependents()));
+            }, $this->getPredictedOutcomes(), $this->observations->getDependents()));
         }
 
         return $this->sumSquaredError;
@@ -286,7 +322,7 @@ final class StatisticsGatherer
     private function getSumSquaredModel(): float
     {
         if (is_null($this->sumSquaredModel)) {
-            $this->sumSquaredModel = static::sumSquaredDifference($this->predictedOutcomes, array_sum($this->observations->getDependents()) / count($this->observations->getDependents()));
+            $this->sumSquaredModel = static::sumSquaredDifference($this->getPredictedOutcomes(), array_sum($this->observations->getDependents()) / count($this->observations->getDependents()));
         }
 
         return $this->sumSquaredModel;
