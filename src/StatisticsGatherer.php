@@ -190,20 +190,6 @@ final class StatisticsGatherer
     }
 
     /**
-     * sumSquaredDifference
-     *
-     * @param array $series
-     * @param float $baseline
-     * @return float
-     */
-    private static function sumSquaredDifference(array $series, float $baseline): float
-    {
-        return array_sum(array_map(function ($element) use ($baseline) {
-            return pow($element - $baseline, 2);
-        }, $series));
-    }
-
-    /**
      * getMeanSquaredError
      *
      * Returns the mean-squared error of the regression, which is effectively
@@ -363,5 +349,19 @@ final class StatisticsGatherer
         }
 
         return $this->tStatistics;
+    }
+
+    /**
+     * sumSquaredDifference
+     *
+     * @param array $series
+     * @param float $baseline
+     * @return float
+     */
+    private static function sumSquaredDifference(array $series, float $baseline): float
+    {
+        return array_sum(array_map(function ($element) use ($baseline) {
+            return pow($element - $baseline, 2);
+        }, $series));
     }
 }
