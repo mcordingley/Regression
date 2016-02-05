@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace mcordingley\Regression\Linkings;
 
 use InvalidArgumentException;
+use mcordingley\Regression\Gradient;
+use mcordingley\Regression\Helpers;
 
 /**
  * Logistic
@@ -12,7 +14,7 @@ use InvalidArgumentException;
  * Linking implementation that transforms data into out and out of logistic
  * form.
  */
-final class Logistic extends Linking
+final class Logistic extends Linking implements Gradient
 {
     public function delinearize(float $value): float
     {
@@ -26,5 +28,13 @@ final class Logistic extends Linking
         }
 
         return -log(1.0 / $value - 1.0);
+    }
+
+    public function loss(CoefficientSet $coefficients, array $observations, float $outcome, int $index): float
+    {
+        $sumProduct = Helpers::sumProduct($coefficients->toArray(), $observations);
+        $hypothesis = $this->delinearize($sumProduct);
+
+        return ($outcome - $hypothesis) * $hypothesis * (1.0 - $hypothesis) * $observations[$i];
     }
 }
