@@ -8,12 +8,6 @@ use InvalidArgumentException;
 use mcordingley\Regression\Gradient;
 use mcordingley\Regression\Helpers;
 
-/**
- * Logistic
- *
- * Linking implementation that transforms data into out and out of logistic
- * form.
- */
 final class Logistic extends Linking implements Gradient
 {
     public function delinearize(float $value): float
