@@ -35,6 +35,6 @@ final class Logistic extends Linking implements Gradient
         $sumProduct = Helpers::sumProduct($coefficients->toArray(), $observations);
         $hypothesis = $this->delinearize($sumProduct);
 
-        return ($outcome - $hypothesis) * $hypothesis * (1.0 - $hypothesis) * $observations[$i];
+        return -($outcome - $hypothesis) * $hypothesis * (1.0 - $hypothesis) * $observations[$i];
     }
 }

@@ -40,7 +40,7 @@ final class GradientDescent implements RegressionAlgorithm
             $oldCoefficients = $coefficients;
 
             for ($i = 0; $i < $explanatoryCount; $i++) {
-                $coefficients[$j] += $stepSize * $this->gradient->loss($oldCoefficients, $independentData[$observationIndex], $dependentData[$observationIndex], $i);
+                $coefficients[$j] -= $stepSize * $this->gradient->loss($oldCoefficients, $independentData[$observationIndex], $dependentData[$observationIndex], $i);
             }
         }
 
