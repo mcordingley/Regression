@@ -16,11 +16,6 @@ final class LinearLeastSquares implements RegressionAlgorithm
         $dependentData = $data->getDependents();
         $independentData = $data->getIndependents();
 
-        // Prepend dummies.
-        $independentData = array_map(function ($row) {
-            return array_merge([1], $row);
-        }, $independentData);
-
         $design = new Matrix($independentData);
         $observed = (new Matrix([$dependentData]))->transpose();
 
@@ -35,7 +30,6 @@ final class LinearLeastSquares implements RegressionAlgorithm
                              ->inverse()
                              ->multiply($designTranspose->multiply($observed));
 
-        // Extract the vertical vector as a simple array.
         return new CoefficientSet($prediction->transpose()->toArray()[0]);
     }
 }
