@@ -15,8 +15,8 @@ interface RegressionAlgorithm
     /**
      * regress
      *
-     * @param DataBag $data
+     * @param Observations $data
      * @return CoefficientSet
      */
-    public function regress(DataBag $data): CoefficientSet;
+    public function regress(Observations $data): CoefficientSet;
 }

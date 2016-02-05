@@ -30,7 +30,7 @@ final class StatisticsGatherer
      *
      * The data used to perform the regression.
      *
-     * @var DataBag
+     * @var Observations
      */
     private $observations;
 
@@ -105,11 +105,11 @@ final class StatisticsGatherer
     /**
      * __construct
      *
-     * @param DataBag $observations
+     * @param Observations $observations
      * @param CoefficientSet $coefficients
      * @param Predictor $predictor
      */
-    public function __construct(DataBag $observations, CoefficientSet $coefficients, Predictor $predictor)
+    public function __construct(Observations $observations, CoefficientSet $coefficients, Predictor $predictor)
     {
         $this->observations = $observations;
         $this->coefficients = $coefficients;
