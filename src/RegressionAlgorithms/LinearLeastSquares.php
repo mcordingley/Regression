@@ -13,11 +13,8 @@ final class LinearLeastSquares implements RegressionAlgorithm
 {
     public function regress(DataBag $data): CoefficientSet
     {
-        $dependentData = $data->getDependents();
-        $independentData = $data->getIndependents();
-
-        $design = new Matrix($independentData);
-        $observed = (new Matrix([$dependentData]))->transpose();
+        $design = new Matrix($data->getIndependents());
+        $observed = (new Matrix([$data->getDependents()]))->transpose();
 
         if ($design->columns >= $design->rows) {
             throw new InvalidArgumentException('Not enough observations to perform regression. You need to have more observations than explanatory variables.');
