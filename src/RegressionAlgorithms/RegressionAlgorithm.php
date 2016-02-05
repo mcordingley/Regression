@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace mcordingley\Regression;
+namespace mcordingley\Regression\RegressionAlgorithms;
 
 /**
  * RegressionAlgorithmInterface

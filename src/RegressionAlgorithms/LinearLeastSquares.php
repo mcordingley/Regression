@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use mcordingley\LinearAlgebra\Matrix;
 use mcordingley\Regression\CoefficientSet;
 use mcordingley\Regression\DataBag;
-use mcordingley\Regression\RegressionAlgorithm;
 
 final class LinearLeastSquares implements RegressionAlgorithm
 {
