@@ -16,11 +16,11 @@ interface Gradient
      * In technical terms, this is the partial derivative of the error function
      * with respect to the coefficient at `$index`.
      *
-     * @param CoefficientSet $coefficients
+     * @param array $coefficients
      * @param array $observation
      * @param float $outcome
      * @param int $index
      * @return float
      */
-    public function loss(CoefficientSet $coefficients, array $observation, float $outcome, int $index): float;
+    public function loss(array $coefficients, array $observation, float $outcome, int $index): float;
 }

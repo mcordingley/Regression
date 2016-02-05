@@ -11,10 +11,10 @@ final class Predictor
     
     /**
      * 
-     * @param CoefficientSet $coefficients The returned coefficients from a regression
+     * @param array $coefficients The returned coefficients from a regression
      * @param OutputTransformer $outputTransformer
      */
-    public function __construct(CoefficientSet $coefficients, OutputTransformer $outputTransformer = null)
+    public function __construct(array $coefficients, OutputTransformer $outputTransformer = null)
     {
         $this->coefficients = $coefficients;
         $this->outputTransformer = $outputTransformer;

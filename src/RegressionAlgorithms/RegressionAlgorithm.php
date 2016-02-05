@@ -16,7 +16,7 @@ interface RegressionAlgorithm
      * regress
      *
      * @param Observations $data
-     * @return CoefficientSet
+     * @return array
      */
-    public function regress(Observations $data): CoefficientSet;
+    public function regress(Observations $data): array;
 }

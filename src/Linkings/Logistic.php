@@ -30,7 +30,7 @@ final class Logistic extends Linking implements Gradient
         return -log(1.0 / $value - 1.0);
     }
 
-    public function loss(CoefficientSet $coefficients, array $observations, float $outcome, int $index): float
+    public function loss(array $coefficients, array $observations, float $outcome, int $index): float
     {
         $sumProduct = Helpers::sumProduct($coefficients->toArray(), $observations);
         $hypothesis = $this->delinearize($sumProduct);

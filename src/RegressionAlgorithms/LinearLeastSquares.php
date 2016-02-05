@@ -6,12 +6,11 @@ namespace mcordingley\Regression\RegressionAlgorithms;
 
 use InvalidArgumentException;
 use mcordingley\LinearAlgebra\Matrix;
-use mcordingley\Regression\CoefficientSet;
 use mcordingley\Regression\Observations;
 
 final class LinearLeastSquares implements RegressionAlgorithm
 {
-    public function regress(Observations $data): CoefficientSet
+    public function regress(Observations $data): array
     {
         $design = new Matrix($data->getIndependents());
         $observed = (new Matrix([$data->getDependents()]))->transpose();
@@ -27,6 +26,6 @@ final class LinearLeastSquares implements RegressionAlgorithm
                              ->inverse()
                              ->multiply($designTranspose->multiply($observed));
 
-        return new CoefficientSet($prediction->transpose()->toArray()[0]);
+        return $prediction->transpose()->toArray()[0];
     }
 }

@@ -21,7 +21,7 @@ final class StatisticsGatherer
      * The calculated beta values that show what the contribution of each
      * explanatory variable is to the overall fitted curve.
      *
-     * @var CoefficientSet
+     * @var array
      */
     private $coefficients;
 
@@ -106,10 +106,10 @@ final class StatisticsGatherer
      * __construct
      *
      * @param Observations $observations
-     * @param CoefficientSet $coefficients
+     * @param array $coefficients
      * @param Predictor $predictor
      */
-    public function __construct(Observations $observations, CoefficientSet $coefficients, Predictor $predictor)
+    public function __construct(Observations $observations, array $coefficients, Predictor $predictor)
     {
         $this->observations = $observations;
         $this->coefficients = $coefficients;
