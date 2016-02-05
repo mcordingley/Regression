@@ -182,7 +182,7 @@ final class StatisticsGatherer
             $this->predictedOutcomes = [];
 
             foreach ($this->observations->getIndependents() as $observed) {
-                $this->predictedOutcomes[] = $this->predictor->predict($observed, $this->coefficients);
+                $this->predictedOutcomes[] = $this->predictor->predict($observed);
             }
         }
 

@@ -6,32 +6,39 @@ namespace mcordingley\Regression;
 
 final class Predictor
 {
-    private $inputTransformer;
+    private $coefficients;
     private $outputTransformer;
     
-    public function __construct(InputTransformer $inputTransformer, OutputTransformer $outputTransformer)
+    /**
+     * 
+     * @param CoefficientSet $coefficients The returned coefficients from a regression
+     * @param OutputTransformer $outputTransformer
+     */
+    public function __construct(CoefficientSet $coefficients, OutputTransformer $outputTransformer = null)
     {
+        $this->coefficients = $coefficients;
         $this->outputTransformer = $outputTransformer;
-        $this->inputTransformer = $inputTransformer;
     }
     
     /**
      * predict
      * 
      * @param array $independents A set of observed independent variables
-     * @param CoefficientSet $coefficients The returned coefficients from a regression
      * @return float
      */
-    public function predict(array $independents, CoefficientSet $coefficients): float
+    public function predict(array $independents): float
     {
-        $transformedInputs = array_merge([1], array_map([$this->inputTransformer, 'linearize'], $independents);
+        $transformedInputs = array_merge([1], $independents);
+        $output = 0;
         
-        $sumProduct = 0;
-        
-        foreach ($coefficients as $i => $coefficient) {
-            $sumProduct += $transformedInputs[$i] * $coefficient;
+        foreach ($this->coefficients as $i => $coefficient) {
+            $output += $transformedInputs[$i] * $coefficient;
         }
         
-        return $this->outputTransformer->delinearize($sumProduct);
+        if ($this->outputTransformer) {
+            $output = $this->outputTransformer->delinearize($output);
+        }
+        
+        return $output;
     }
 }
