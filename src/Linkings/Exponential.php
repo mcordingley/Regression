@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace mcordingley\Regression\Linking;
+namespace mcordingley\Regression\Linkings;
 
 use InvalidArgumentException;
 use mcordingley\Regression\OutputTransformer;
