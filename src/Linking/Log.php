@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace mcordingley\Regression\Linking;
 
 use InvalidArgumentException;
-use mcordingley\Regression\InputTransformer;
 use mcordingley\Regression\OutputTransformer;
 
 /**
@@ -14,7 +13,7 @@ use mcordingley\Regression\OutputTransformer;
  * Linking implementation that transforms data that follows a logarithmic curve
  * into and out of linear space.
  */
-final class Log implements InputTransformer, OutputTransformer
+final class Log implements OutputTransformer
 {
     private $base;
 

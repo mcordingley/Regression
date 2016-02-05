@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression\Linking;
 
-use mcordingley\Regression\InputTransformer;
 use mcordingley\Regression\OutputTransformer;
 
 /**
@@ -12,7 +11,7 @@ use mcordingley\Regression\OutputTransformer;
  *
  * Linking implementation that transforms data that follows a geometric curve.
  */
-final class Power implements InputTransformer, OutputTransformer
+final class Power implements OutputTransformer
 {
     private $exponent;
 

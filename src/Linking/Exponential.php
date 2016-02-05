@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace mcordingley\Regression\Linking;
 
 use InvalidArgumentException;
-use mcordingley\Regression\InputTransformer;
 use mcordingley\Regression\OutputTransformer;
 
 /**
@@ -15,7 +14,7 @@ use mcordingley\Regression\OutputTransformer;
  * into and back out of linear space. No data points may have values that are
  * less than or equal to zero.
  */
-final class Exponential implements InputTransformer, OutputTransformer
+final class Exponential implements OutputTransformer
 {
     private $base;
 
