@@ -28,12 +28,7 @@ final class Predictor
      */
     public function predict(array $independents): float
     {
-        $transformedInputs = array_merge([1], $independents);
-        $output = 0;
-        
-        foreach ($this->coefficients as $i => $coefficient) {
-            $output += $transformedInputs[$i] * $coefficient;
-        }
+        $output = Helpers::sumProduct($coefficients->toArray(), array_merge([1], $independents));
         
         if ($this->outputTransformer) {
             $output = $this->outputTransformer->delinearize($output);
