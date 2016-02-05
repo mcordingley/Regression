@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace mcordingley\Regression\Linkings;
 
 use InvalidArgumentException;
-use mcordingley\Regression\OutputTransformer;
 
 /**
  * Logistic
@@ -13,7 +12,7 @@ use mcordingley\Regression\OutputTransformer;
  * Linking implementation that transforms data into out and out of logistic
  * form.
  */
-final class Logistic implements OutputTransformer
+final class Logistic extends Linking
 {
     public function delinearize(float $value): float
     {
