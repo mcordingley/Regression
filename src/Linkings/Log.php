@@ -33,4 +33,12 @@ final class Log extends Linking
 
         return log($value, $this->base);
     }
+
+    public function loss(array $coefficients, array $observations, float $outcome, int $index): float
+    {
+        $sumProduct = Helpers::sumProduct($coefficients->toArray(), $observations);
+        $hypothesis = $this->delinearize($sumProduct);
+
+        return -($outcome - $hypothesis) * $hypothesis * log($this->base);
+    }
 }
