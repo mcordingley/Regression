@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression\RegressionAlgorithm;
 
+use mcordingley\Regression\Gradient;
 use mcordingley\Regression\Observations;
 
 /**
