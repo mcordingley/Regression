@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression\Linkings;
 
+use mcordingley\Regression\Gradient;
 use mcordingley\Regression\OutputTransformer;
 
 /**
@@ -17,7 +18,7 @@ use mcordingley\Regression\OutputTransformer;
  * the mean function is used directly by this library. The link function is
  * provided for completeness and convenience.
  */
-abstract class Linking implements OutputTransformer
+abstract class Linking implements Gradient, OutputTransformer
 {
     /**
      * delinearize
@@ -38,4 +39,6 @@ abstract class Linking implements OutputTransformer
      * @return float
      */
     abstract public function linearize(float $value): float;
+
+    abstract public function loss(array $coefficients, array $observation, float $outcome, int $index): float;
 }

@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace mcordingley\Regression\Linkings;
 
 use InvalidArgumentException;
-use mcordingley\Regression\Gradient;
 use mcordingley\Regression\Helpers;
 
-final class Logistic extends Linking implements Gradient
+final class Logistic extends Linking
 {
     public function delinearize(float $value): float
     {
