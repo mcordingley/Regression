@@ -123,7 +123,7 @@ final class StatisticsGatherer
      *
      * @return int
      */
-    private function getDegreesOfFreedomError(): int
+    public function getDegreesOfFreedomError(): int
     {
         // Obervations minus explanatory variables
         return count($this->observations->getIndependents()) - count($this->observations->getIndependents()[0]);
@@ -136,7 +136,7 @@ final class StatisticsGatherer
      *
      * @return int
      */
-    private function getDegreesOfFreedomModel(): int
+    public function getDegreesOfFreedomModel(): int
     {
         // One less than the number of explanatory variables
         return count($this->observations->getIndependents()[0]) - 1;
