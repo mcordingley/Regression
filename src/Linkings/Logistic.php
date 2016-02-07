@@ -27,6 +27,6 @@ final class Logistic extends Linking
     {
         $hypothesis = $this->delinearize(Helpers::sumProduct($coefficients->toArray(), $observations));
 
-        return -($outcome - $hypothesis) * $hypothesis * (1.0 - $hypothesis) * $observations[$i];
+        return -2 * ($outcome - $hypothesis) * $hypothesis * (1.0 - $hypothesis) * $observations[$i];
     }
 }
