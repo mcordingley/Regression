@@ -28,7 +28,7 @@ final class Predictor
      */
     public function predict(array $independents): float
     {
-        $output = Helpers::sumProduct($coefficients->toArray(), array_merge([1], $independents));
+        $output = Helpers::sumProduct($this->coefficients, array_merge([1], $independents));
         
         if ($this->outputTransformer) {
             $output = $this->outputTransformer->delinearize($output);
