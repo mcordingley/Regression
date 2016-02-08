@@ -39,7 +39,7 @@ final class ZeroCorrelationRegressionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, round($this->predictor->predict([4])));
     }
     
-    public function testRSquaredForZeroCorrelation()
+    public function testStatistics()
     {
         $this->assertEquals(0.0, round($this->statisticsGatherer->getRSquared(), 1));
     }
