@@ -1,45 +1,53 @@
 <?php
 
-use mcordingley\Regression\Regression;
-use mcordingley\Regression\RegressionAlgorithm\LinearLeastSquares;
+use mcordingley\Regression\Observations;
+use mcordingley\Regression\Predictor;
+use mcordingley\Regression\RegressionAlgorithms\LinearLeastSquares;
+use mcordingley\Regression\StatisticsGatherer;
 
-class RegressionTest extends PHPUnit_Framework_TestCase
+final class RegressionTest extends PHPUnit_Framework_TestCase
 {
-    protected $regression;
+    private $observations;
+    private $predictor;
+    private $regression;
     
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         
-        $this->regression = new Regression(new LinearLeastSquares);
+        $this->observations = new Observations;
 
-        $this->regression->addData(1, [1, 1]);
-        $this->regression->addData(2, [1, 2]);
-        $this->regression->addData(3, [1, 1.3]);
-        $this->regression->addData(4, [1, 3.75]);
-        $this->regression->addData(5, [1, 2.25]);
+        $this->observations->addObservation(1, [1]);
+        $this->observations->addObservation(2, [2]);
+        $this->observations->addObservation(3, [1.3]);
+        $this->observations->addObservation(4, [3.75]);
+        $this->observations->addObservation(5, [2.25]);
+        
+        $this->regression = new LinearLeastSquares;
+        $this->coefficients = $this->regression->regress($this->observations);
+        
+        $this->predictor = new Predictor($this->coefficients);
+        $this->statisticsGatherer = new StatisticsGatherer($this->observations, $this->coefficients, $this->predictor);
     }
     
     public function testCoefficients()
     {
-        $coefficients = $this->regression->getCoefficients();
-        
-        $this->assertEquals(1.095497063, round($coefficients[0], 9));
-        $this->assertEquals(0.924515989, round($coefficients[1], 9));
+        $this->assertEquals(1.095497063, round($this->coefficients[0], 9));
+        $this->assertEquals(0.924515989, round($this->coefficients[1], 9));
     }
     
     public function testFStatistic()
     {
-        $this->assertEquals(1.94, round($this->regression->getFStatistic(), 2));
+        $this->assertEquals(1.94, round($this->statisticsGatherer->getFStatistic(), 2));
     }
     
     public function testPredict()
     {
-        $this->assertEquals(5.72, round($this->regression->predict([1, 5]), 2));
+        $this->assertEquals(5.72, round($this->predictor->predict([5]), 2));
     }
     
     public function testRSquared()
     {
-        $this->assertEquals(0.39, round($this->regression->getRSquared(), 2));
+        $this->assertEquals(0.39, round($this->statisticsGatherer->getRSquared(), 2));
     }
 }
