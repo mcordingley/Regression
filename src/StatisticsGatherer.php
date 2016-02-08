@@ -308,7 +308,8 @@ final class StatisticsGatherer
     private function getSumSquaredModel(): float
     {
         if (is_null($this->sumSquaredModel)) {
-            $this->sumSquaredModel = static::sumSquaredDifference($this->getPredictedOutcomes(), array_sum($this->observations->getDependents()) / count($this->observations->getDependents()));
+            $average = array_sum($this->observations->getDependents()) / count($this->observations->getDependents());
+            $this->sumSquaredModel = static::sumSquaredDifference($this->getPredictedOutcomes(), $average);
         }
 
         return $this->sumSquaredModel;
@@ -327,7 +328,8 @@ final class StatisticsGatherer
     private function getSumSquaredTotal(): float
     {
         if (is_null($this->sumSquaredTotal)) {
-            $this->sumSquaredTotal = static::sumSquaredDifference($this->observations->getDependents(), array_sum($this->observations->getDependents()) / count($this->observations->getDependents()));
+            $average = array_sum($this->observations->getDependents()) / count($this->observations->getDependents());
+            $this->sumSquaredTotal = static::sumSquaredDifference($this->observations->getDependents(), $average);
         }
 
         return $this->sumSquaredTotal;
