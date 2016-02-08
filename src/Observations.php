@@ -14,11 +14,14 @@ final class Observations
      *
      * @param float $dependent The outcome of this observation.
      * @param array $independent The predictive variables for this observation, as floats.
+     * @return self
      */
     public function addObservation(float $dependent, array $independent): self
     {
         $this->dependent[] = $dependent;
         $this->independent[] = array_merge([1], $independent);
+
+        return $this;
     }
 
     /**
