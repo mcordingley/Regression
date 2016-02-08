@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression\RegressionAlgorithms;
 
+use mcordingley\Regression\Observations;
+
 /**
  * RegressionAlgorithmInterface
  *
