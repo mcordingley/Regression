@@ -36,18 +36,16 @@ final class RegressionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0.924515989, round($this->coefficients[1], 9));
     }
     
-    public function testFStatistic()
-    {
-        $this->assertEquals(1.94, round($this->statisticsGatherer->getFStatistic(), 2));
-    }
-    
     public function testPredict()
     {
         $this->assertEquals(5.72, round($this->predictor->predict([5]), 2));
     }
     
-    public function testRSquared()
+    public function testStatistics()
     {
+        $this->assertEquals(3, $this->statisticsGatherer->getDegreesOfFreedomError());
+        $this->assertEquals(1, $this->statisticsGatherer->getDegreesOfFreedomModel());
+        $this->assertEquals(1.94, round($this->statisticsGatherer->getFStatistic(), 2));
         $this->assertEquals(0.39, round($this->statisticsGatherer->getRSquared(), 2));
     }
 }
