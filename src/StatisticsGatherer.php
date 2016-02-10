@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression;
 
+use mcordingley\LinearAlgebra\Matrix;
+
 /**
  * StatisticsGatherer
  *
@@ -258,20 +260,17 @@ final class StatisticsGatherer
     public function getStandardErrorCoefficients(): array
     {
         if (is_null($this->SCoefficients)) {
-            $this->SCoefficients = [];
-
-            $observationCount = count($this->observations->getDependents());
-            $meanError = sqrt($this->getMeanSquaredError());
-
-            for ($i = 0, $len = count($this->observations->getIndependents()[0]); $i < $len; $i++) {
-                $independents = [];
-
-                foreach ($this->observations->getIndependents() as $independent) {
-                    $independents[] = $independent[$i];
-                }
-
-                $this->SCoefficients[] = $meanError / sqrt(static::sumSquaredDifference($independents, array_sum($independents) / $observationCount));
-            }
+            $design = new Matrix($this->observations->getIndependents());
+            
+            $this->SCoefficients = $design->transpose()
+                    ->multiply($design)
+                    ->inverse()
+                    ->diagonal()
+                    ->multiply($this->getMeanSquaredError())
+                    ->map(function ($element) {
+                        return sqrt($element);
+                    })
+                    ->toArray()[0];
         }
 
         return $this->SCoefficients;
