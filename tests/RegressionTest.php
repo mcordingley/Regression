@@ -5,7 +5,7 @@ use mcordingley\Regression\Predictor;
 use mcordingley\Regression\RegressionAlgorithms\LinearLeastSquares;
 use mcordingley\Regression\StatisticsGatherer;
 
-final class RegressionTest extends PHPUnit_Framework_TestCase
+class RegressionTest extends PHPUnit_Framework_TestCase
 {
     private $observations;
     private $predictor;
