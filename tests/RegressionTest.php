@@ -23,11 +23,16 @@ final class RegressionTest extends PHPUnit_Framework_TestCase
         $this->observations->addObservation(4, [3.75]);
         $this->observations->addObservation(5, [2.25]);
         
-        $this->regression = new LinearLeastSquares;
+        $this->makeRegression();
         $this->coefficients = $this->regression->regress($this->observations);
         
         $this->predictor = new Predictor($this->coefficients);
         $this->statisticsGatherer = new StatisticsGatherer($this->observations, $this->coefficients, $this->predictor);
+    }
+    
+    protected function makeRegression()
+    {
+        $this->regression = new LinearLeastSquares;
     }
     
     public function testCoefficients()
@@ -51,5 +56,6 @@ final class RegressionTest extends PHPUnit_Framework_TestCase
         $stdErrorCoefficients = $this->statisticsGatherer->getStandardErrorCoefficients();
         $this->assertEquals(1.51, round($stdErrorCoefficients[0], 2));
         $this->assertEquals(0.66, round($stdErrorCoefficients[1], 2));
+        $this->assertEquals(1.42, round($this->statisticsGatherer->getStandardError()));
     }
 }
