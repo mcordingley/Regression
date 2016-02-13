@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace mcordingley\Regression\RegressionAlgorithm;
+namespace mcordingley\Regression\RegressionAlgorithms;
 
 use mcordingley\Regression\Gradient;
 use mcordingley\Regression\Observations;
