@@ -40,8 +40,8 @@ class RegressionTest extends PHPUnit_Framework_TestCase
     
     public function testCoefficients()
     {
-        $this->assertEquals(1.095497063, round($this->coefficients[0], 9));
-        $this->assertEquals(0.924515989, round($this->coefficients[1], 9));
+        $this->assertEquals(1.09550, round($this->coefficients[0], 5));
+        $this->assertEquals(0.92452, round($this->coefficients[1], 5));
     }
     
     public function testPredict()
