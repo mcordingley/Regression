@@ -20,7 +20,7 @@ final class Identity extends Linking
 
     public function loss(array $coefficients, array $observations, float $outcome, int $index): float
     {
-        $sumProduct = Helpers::sumProduct($coefficients->toArray(), $observations);
+        $sumProduct = Helpers::sumProduct($coefficients, $observations);
         $hypothesis = $this->delinearize($sumProduct);
 
         return -2 * ($outcome - $hypothesis) * $observations[$i];
