@@ -16,24 +16,26 @@ use mcordingley\Regression\Observations;
  */
 final class GradientDescent implements RegressionAlgorithm
 {
+    private $coefficientEpsilon = 0.0000001;
     private $gradient;
+    private $maxIterations = INF;
 
     public function __construct(Gradient $gradient)
     {
         $this->gradient = $gradient;
     }
-    
-    private function fuzzilyEquals(array $first, array $second, float $epsilon): bool
+
+    private function fuzzilyEquals(array $first, array $second): bool
     {
         for ($i = count($first); $i--; ) {
-            if (abs($first[$i] - $second[$i]) > $epsilon) {
+            if (abs(($first[$i] - $second[$i]) / ($first[$i] + $second[$i])) > $this->coefficientEpsilon) {
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     public function regress(Observations $data): array
     {
         // Adagrad reference:
@@ -49,7 +51,7 @@ final class GradientDescent implements RegressionAlgorithm
         $coefficients = array_fill(0, $explanatoryCount, 1.0);
         $coefficientStepSizes = array_fill(0, $explanatoryCount, 0.0);
 
-        for ($iteration = 0; !$this->fuzzilyEquals($coefficients, $oldCoefficients, 0.000001); $iteration++) {
+        for ($iteration = 0; !$this->fuzzilyEquals($coefficients, $oldCoefficients) && $iteration < $this->maxIterations; $iteration++) {
             $observationIndex = $iteration % $observationCount;
             $oldCoefficients = $coefficients;
 
@@ -63,5 +65,15 @@ final class GradientDescent implements RegressionAlgorithm
         }
 
         return $coefficients;
+    }
+
+    public function setCoefficientEpsilon(float $epsilon)
+    {
+        $this->coefficientEpsilon = $epsilon;
+    }
+
+    public function setMaxIterations(float $maxIterations)
+    {
+        $this->maxIterations = $maxIterations;
     }
 }
