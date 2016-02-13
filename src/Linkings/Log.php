@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace mcordingley\Regression\Linkings;
 
 use InvalidArgumentException;
+use mcordingley\Regression\Helpers;
 
 final class Log extends Linking
 {

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace mcordingley\Regression\Linkings;
 
+use mcordingley\Regression\Helpers;
+
 final class Identity extends Linking
 {
     public function delinearize(float $value): float
