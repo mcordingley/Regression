@@ -1,15 +1,18 @@
 <?php
 
+namespace mcordingley\Regression\Tests;
+
 use mcordingley\Regression\Observations;
 use mcordingley\Regression\Predictor;
 use mcordingley\Regression\RegressionAlgorithms\LinearLeastSquares;
 use mcordingley\Regression\StatisticsGatherer;
+use PHPUnit_Framework_TestCase;
 
 class RegressionTest extends PHPUnit_Framework_TestCase
 {
     private $observations;
     private $predictor;
-    private $regression;
+    protected $regression;
     
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
