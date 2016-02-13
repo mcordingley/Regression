@@ -247,7 +247,7 @@ final class StatisticsGatherer
      */
     public function getStandardError(): float
     {
-        return sqrt($this->getSumSquaredError() / $this->getDegreesOfFreedomError());
+        return sqrt($this->getMeanSquaredError());
     }
 
     /**
