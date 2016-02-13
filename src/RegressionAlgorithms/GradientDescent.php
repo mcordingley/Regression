@@ -20,11 +20,23 @@ final class GradientDescent implements RegressionAlgorithm
     private $gradient;
     private $maxIterations = INF;
 
+    /**
+     * __construct
+     *
+     * @param Gradient $gradient
+     */
     public function __construct(Gradient $gradient)
     {
         $this->gradient = $gradient;
     }
 
+    /**
+     * fuzzilyEquals
+     *
+     * @param array $first
+     * @param array $second
+     * @return bool
+     */
     private function fuzzilyEquals(array $first, array $second): bool
     {
         for ($i = count($first); $i--; ) {
@@ -67,12 +79,22 @@ final class GradientDescent implements RegressionAlgorithm
         return $coefficients;
     }
 
+    /**
+     * setCoefficientEpsilon
+     *
+     * @param float $epsilon
+     */
     public function setCoefficientEpsilon(float $epsilon)
     {
         $this->coefficientEpsilon = $epsilon;
     }
 
-    public function setMaxIterations(float $maxIterations)
+    /**
+     * setMaxIterations
+     *
+     * @param int $maxIterations
+     */
+    public function setMaxIterations(int $maxIterations)
     {
         $this->maxIterations = $maxIterations;
     }
