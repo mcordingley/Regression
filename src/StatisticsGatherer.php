@@ -261,7 +261,7 @@ final class StatisticsGatherer
     {
         if (is_null($this->SCoefficients)) {
             $design = new Matrix($this->observations->getIndependents());
-            
+
             $this->SCoefficients = $design->transpose()
                     ->multiply($design)
                     ->inverse()
