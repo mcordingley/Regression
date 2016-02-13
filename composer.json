@@ -20,5 +20,10 @@
         "psr-4": {
             "mcordingley\\Regression\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "mcordingley\\Regression\\Tests\\": "tests/"
+        }
     }
 }
