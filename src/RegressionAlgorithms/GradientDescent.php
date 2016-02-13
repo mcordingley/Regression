@@ -16,7 +16,7 @@ use mcordingley\Regression\Observations;
  */
 final class GradientDescent implements RegressionAlgorithm
 {
-    private $coefficientEpsilon = 0.0000001;
+    private $coefficientEpsilon = 0.000001;
     private $gradient;
     private $maxIterations = INF;
 
