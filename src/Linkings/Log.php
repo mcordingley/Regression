@@ -40,6 +40,6 @@ final class Log extends Linking
         $sumProduct = Helpers::sumProduct($coefficients, $observations);
         $hypothesis = $this->delinearize($sumProduct);
 
-        return -2 * ($outcome - $hypothesis) * $hypothesis * log($this->base) * $observations[$i];
+        return -2 * ($outcome - $hypothesis) * $hypothesis * log($this->base) * $observations[$index];
     }
 }
