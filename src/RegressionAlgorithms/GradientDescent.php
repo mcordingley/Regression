@@ -22,7 +22,18 @@ final class GradientDescent implements RegressionAlgorithm
     {
         $this->gradient = $gradient;
     }
-
+    
+    private function fuzzilyEquals(array $first, array $second, float $epsilon): bool
+    {
+        for ($i = count($first); $i--; ) {
+            if (abs($first[$i] - $second[$i]) > $epsilon) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
     public function regress(Observations $data): array
     {
         // Adagrad reference:
@@ -34,12 +45,11 @@ final class GradientDescent implements RegressionAlgorithm
         $observationCount = count($independentData);
         $explanatoryCount = count($independentData[0]);
 
-        // Starting guess is that everything contributes equally.
-        $oldCoefficients = null;
+        $oldCoefficients = array_fill(0, $explanatoryCount, 5.0);
         $coefficients = array_fill(0, $explanatoryCount, 1.0);
         $coefficientStepSizes = array_fill(0, $explanatoryCount, 0.0);
 
-        for ($iteration = 0; $coefficients !== $oldCoefficients; $iteration++) {
+        for ($iteration = 0; !$this->fuzzilyEquals($coefficients, $oldCoefficients, 0.000001); $iteration++) {
             $observationIndex = $iteration % $observationCount;
             $oldCoefficients = $coefficients;
 
