@@ -60,5 +60,9 @@ class RegressionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1.51, round($stdErrorCoefficients[0], 2));
         $this->assertEquals(0.66, round($stdErrorCoefficients[1], 2));
         $this->assertEquals(1.42, round($this->statisticsGatherer->getStandardError(), 2));
+        
+        $tStatistics = $this->statisticsGatherer->getTStatistics();
+        $this->assertEquals(0.73, round($tStatistics[0], 2));
+        $this->assertEquals(1.39, round($tStatistics[1], 2));
     }
 }
