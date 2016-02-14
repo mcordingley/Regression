@@ -7,9 +7,11 @@ use mcordingley\Regression\StatisticsGatherer;
 
 final class ZeroCorrelationRegressionTest extends PHPUnit_Framework_TestCase
 {
+    private $coefficients;
     private $observations;
     private $predictor;
     private $regression;
+    private $statisticsGatherer;
     
     public function __construct($name = null, array $data = array(), $dataName = '')
     {

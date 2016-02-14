@@ -10,9 +10,11 @@ use PHPUnit_Framework_TestCase;
 
 class RegressionTest extends PHPUnit_Framework_TestCase
 {
+    private $coefficients;
     private $observations;
     private $predictor;
     protected $regression;
+    private $statisticsGatherer;
     
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
