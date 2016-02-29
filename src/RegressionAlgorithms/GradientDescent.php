@@ -16,7 +16,6 @@ use mcordingley\Regression\Observations;
  */
 final class GradientDescent implements RegressionAlgorithm
 {
-    private $coefficientEpsilon = 0.000001;
     private $gradient;
     private $maxIterations = INF;
 
@@ -30,24 +29,6 @@ final class GradientDescent implements RegressionAlgorithm
         $this->gradient = $gradient;
     }
 
-    /**
-     * fuzzilyEquals
-     *
-     * @param array $first
-     * @param array $second
-     * @return bool
-     */
-    private function fuzzilyEquals(array $first, array $second): bool
-    {
-        for ($i = count($first); $i--; ) {
-            if (abs(($first[$i] - $second[$i]) / ($first[$i] + $second[$i])) > $this->coefficientEpsilon) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public function regress(Observations $data): array
     {
         $dependentData = $data->getDependents();
@@ -56,19 +37,23 @@ final class GradientDescent implements RegressionAlgorithm
         $observationCount = count($independentData);
         $explanatoryCount = count($independentData[0]);
 
-        $oldCoefficients = array_fill(0, $explanatoryCount, 5.0);
-        $coefficients = array_fill(0, $explanatoryCount, 1.0);
+        $oldCoefficients = null;
+        $coefficients = array_fill(0, $explanatoryCount, 0.0);
         $coefficientStepSizes = array_fill(0, $explanatoryCount, 0.0);
 
-        for ($iteration = 0; !$this->fuzzilyEquals($coefficients, $oldCoefficients) && $iteration < $this->maxIterations; $iteration++) {
-            $observationIndex = $iteration % $observationCount;
+        for ($iteration = 0; $coefficients !== $oldCoefficients && $iteration < $this->maxIterations; $iteration++) {
             $oldCoefficients = $coefficients;
+            $gradient = array_fill(0, $explanatoryCount, 0.0);
 
             for ($i = 0; $i < $explanatoryCount; $i++) {
-                $gradient = $this->gradient->loss($oldCoefficients, $independentData[$observationIndex], $dependentData[$observationIndex], $i);
-                $coefficientStepSizes[$i] += pow($gradient, 2.0);
+                for ($observationIndex = 0; $observationIndex < $observationCount; $observationIndex++) {
+                    $gradient[$i] += $this->gradient->loss($oldCoefficients, $independentData[$observationIndex], $dependentData[$observationIndex], $i);
+                }
+
+                $coefficientStepSizes[$i] += pow($gradient[$i], 2.0);
                 $stepSize = 0.01 / (0.000001 + sqrt($coefficientStepSizes[$i]));
-                $coefficients[$i] -= $stepSize * $gradient;
+
+                $coefficients[$i] -= $stepSize * $gradient[$i];
             }
         }
 
@@ -76,17 +61,11 @@ final class GradientDescent implements RegressionAlgorithm
     }
 
     /**
-     * setCoefficientEpsilon
-     *
-     * @param float $epsilon
-     */
-    public function setCoefficientEpsilon(float $epsilon)
-    {
-        $this->coefficientEpsilon = $epsilon;
-    }
-
-    /**
      * setMaxIterations
+     *
+     * Sets the maximum number of iterations through the training data that the
+     * descent will make. If not set, the descent will continue until it
+     * converges.
      *
      * @param int $maxIterations
      */
