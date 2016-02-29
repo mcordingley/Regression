@@ -40,10 +40,7 @@ final class GradientDescent implements RegressionAlgorithm
     private function fuzzilyEquals(array $first, array $second): bool
     {
         for ($i = count($first); $i--; ) {
-            if (
-                $first[$i] + $second[$i] == 0.0
-                || abs(($first[$i] - $second[$i]) / ($first[$i] + $second[$i])) > $this->coefficientEpsilon
-            ) {
+            if (abs(($first[$i] - $second[$i]) / ($first[$i] + $second[$i])) > $this->coefficientEpsilon) {
                 return false;
             }
         }
@@ -69,9 +66,8 @@ final class GradientDescent implements RegressionAlgorithm
 
             for ($i = 0; $i < $explanatoryCount; $i++) {
                 $gradient = $this->gradient->loss($oldCoefficients, $independentData[$observationIndex], $dependentData[$observationIndex], $i);
-                $stepSize = 1.00 / (1.00 + sqrt($coefficientStepSizes[$i]));
-                
                 $coefficientStepSizes[$i] += pow($gradient, 2.0);
+                $stepSize = 0.01 / (0.000001 + sqrt($coefficientStepSizes[$i]));
                 $coefficients[$i] -= $stepSize * $gradient;
             }
         }
