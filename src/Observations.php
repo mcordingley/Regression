@@ -19,7 +19,10 @@ final class Observations
     public function addObservation(float $dependent, array $independent): self
     {
         $this->dependent[] = $dependent;
-        $this->independent[] = array_merge([1], $independent);
+
+        $this->independent[] = array_merge([1], array_map(function($element) {
+            return (float) $element;
+        }, $independent));
 
         return $this;
     }
