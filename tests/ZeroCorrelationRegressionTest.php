@@ -1,9 +1,12 @@
 <?php
 
+namespace mcordingley\Regression\Tests;
+
 use mcordingley\Regression\Observations;
 use mcordingley\Regression\Predictor;
 use mcordingley\Regression\RegressionAlgorithms\LinearLeastSquares;
 use mcordingley\Regression\StatisticsGatherer;
+use PHPUnit_Framework_TestCase;
 
 final class ZeroCorrelationRegressionTest extends PHPUnit_Framework_TestCase
 {
