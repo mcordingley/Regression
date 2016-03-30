@@ -17,7 +17,7 @@ use mcordingley\Regression\Observations;
 final class GradientDescent implements RegressionAlgorithm
 {
     private $gradient;
-    private $maxIterations = INF;
+    private $maxIterations = 1000000;
 
     /**
      * __construct
@@ -64,13 +64,12 @@ final class GradientDescent implements RegressionAlgorithm
      * setMaxIterations
      *
      * Sets the maximum number of iterations through the training data that the
-     * descent will make. If not set, the descent will continue until it
-     * converges.
+     * descent will make.
      *
-     * @param int $maxIterations
+     * @param int $maxIterations Set to 0 for unlimited iterations.
      */
     public function setMaxIterations(int $maxIterations)
     {
-        $this->maxIterations = $maxIterations;
+        $this->maxIterations = $maxIterations ?: INF;
     }
 }
