@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\GradientDescent\Gradient;
+namespace mcordingley\Regression\Algorithm\GradientDescent\Gradient;
 
 class Logistic implements Gradient
 {

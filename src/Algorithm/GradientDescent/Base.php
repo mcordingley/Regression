@@ -3,7 +3,7 @@
 namespace mcordingley\Regression\Algorithm\GradientDescent;
 
 use mcordingley\Regression\Algorithm\Algorithm;
-use mcordingley\Regression\GradientDescent\Gradient\Gradient;
+use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
 use mcordingley\Regression\Observations;
 
