@@ -2,8 +2,9 @@
 
 namespace mcordingley\Regression\Tests;
 
-use mcordingley\Regression\Linkings\Identity;
-use mcordingley\Regression\RegressionAlgorithms\GradientDescent;
+use mcordingley\Regression\Algorithm\GradientDescent\Batch;
+use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Linear;
+use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
 
 class GradientDescentTest extends RegressionTest
 {
@@ -11,6 +12,6 @@ class GradientDescentTest extends RegressionTest
     // different route.
     protected function makeRegression()
     {
-        $this->regression = new GradientDescent(new Identity);
+        $this->regression = new Batch(new Linear, new Fixed);
     }
 }
