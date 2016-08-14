@@ -22,11 +22,11 @@ class RegressionTest extends PHPUnit_Framework_TestCase
 
         $this->observations = new Observations;
 
-        $this->observations->add([1], 1);
-        $this->observations->add([2], 2);
-        $this->observations->add([1.3], 3);
-        $this->observations->add([3.75], 4);
-        $this->observations->add([2.25], 5);
+        $this->observations->add([1, 1], 1);
+        $this->observations->add([1, 2], 2);
+        $this->observations->add([1, 1.3], 3);
+        $this->observations->add([1, 3.75], 4);
+        $this->observations->add([1, 2.25], 5);
 
         $this->regression = new LeastSquares;
         $this->coefficients = $this->regression->regress($this->observations);
@@ -48,7 +48,7 @@ class RegressionTest extends PHPUnit_Framework_TestCase
 
     public function testPredict()
     {
-        $this->assertEquals(5.72, round($this->predictor->predict([5]), 2));
+        $this->assertEquals(5.72, round($this->predictor->predict([1, 5]), 2));
     }
 
     public function testStatistics()
