@@ -1,49 +1,78 @@
 <?php
 
-declare(strict_types=1);
-
 namespace mcordingley\Regression;
+
+use InvalidArgumentException;
 
 final class Observations
 {
-    private $dependent = [];
-    private $independent = [];
+    /** @var array */
+    private $observations = [];
 
     /**
-     * addObservation
-     *
-     * @param float $dependent The outcome of this observation.
-     * @param array $independent The predictive variables for this observation, as floats.
-     * @return self
+     * @param array $features
+     * @param array $outcomes
+     * @return Observations
      */
-    public function addObservation(float $dependent, array $independent): self
+    public static function fromArray(array $features, array $outcomes)
     {
-        $this->dependent[] = $dependent;
+        $observationCount = count($outcomes);
 
-        $this->independent[] = array_merge([1], array_map(function($element) {
-            return (float) $element;
-        }, $independent));
+        if (count($features) !== $observationCount) {
+            throw new InvalidArgumentException('Must have as many outcomes as observations.');
+        }
 
-        return $this;
+        $observations = new self;
+
+        for ($i = 0; $i < $observationCount; $i++) {
+            $observations->add($features[$i], $outcomes[$i]);
+        }
+
+        return $observations;
     }
 
     /**
-     * getDependents
-     *
-     * @return array All of the observed outcomes, in order of addition.
+     * @param array $features
+     * @param float $outcome
      */
-    public function getDependents(): array
+    public function add(array $features, $outcome)
     {
-        return $this->dependent;
+        $this->addObservation(new Observation($features, $outcome));
     }
 
     /**
-     * getIndependents
-     *
-     * @return array Array of arrays of the predictive variables, in order of addition.
+     * @param Observation $observation
      */
-    public function getIndependents(): array
+    public function addObservation(Observation $observation)
     {
-        return $this->independent;
+        $this->observations[] = $observation;
+    }
+
+    /**
+     * @return void
+     */
+    public function shuffle()
+    {
+        shuffle($this->observations);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFeatures()
+    {
+        return array_map(function (Observation $observation) {
+            return $observation->getFeatures();
+        }, $this->observations);
+    }
+
+    /**
+     * @return array
+     */
+    public function getOutcomes()
+    {
+        return array_map(function (Observation $observation) {
+            return $observation->getOutcome();
+        }, $this->observations);
     }
 }
