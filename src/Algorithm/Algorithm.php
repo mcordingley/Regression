@@ -7,8 +7,8 @@ use mcordingley\Regression\Observations;
 interface Algorithm
 {
     /**
-     * @param Observations $data
+     * @param Observations $observations
      * @return array
      */
-    public function regress(Observations $data);
+    public function regress(Observations $observations);
 }

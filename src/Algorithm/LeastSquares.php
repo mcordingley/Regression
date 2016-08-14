@@ -20,14 +20,14 @@ final class LeastSquares implements Algorithm
     }
 
     /**
-     * @param Observations $data
+     * @param Observations $observations
      * @return array
      * @throws InvalidArgumentException
      */
-    public function regress(Observations $data)
+    public function regress(Observations $observations)
     {
-        $design = new Matrix($data->getFeatures());
-        $observed = (new Matrix([$data->getOutcomes()]))->transpose();
+        $design = new Matrix($observations->getFeatures());
+        $observed = (new Matrix([$observations->getOutcomes()]))->transpose();
 
         if ($design->getRowCount() < $design->getColumnCount()) {
             throw new InvalidArgumentException('Not enough observations to perform regression. You need to have more observations than explanatory variables.');
