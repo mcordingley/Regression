@@ -9,10 +9,9 @@ class Logistic implements Gradient
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
      * @return float
      */
-    public function cost(array $coefficients, array $observation, $outcome, $featureIndex)
+    public function cost(array $coefficients, array $observation, $outcome)
     {
         $predicted = $this->predicted($coefficients, $observation);
 
@@ -35,11 +34,17 @@ class Logistic implements Gradient
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
-     * @return float
+     * @return array
      */
-    public function gradient(array $coefficients, array $observation, $outcome, $featureIndex)
+    public function gradient(array $coefficients, array $observation, $outcome)
     {
-        return ($this->predicted($coefficients, $observation) - $outcome) * $observation[$featureIndex];
+        $gradient = [];
+        $predicted = $this->predicted($coefficients, $observation);
+
+        for ($i = 0; $i < count($observation); $i++) {
+            $gradient[] = ($predicted - $outcome) * $observation[$i];
+        }
+
+        return $gradient;
     }
 }

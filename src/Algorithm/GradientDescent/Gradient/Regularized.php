@@ -51,7 +51,7 @@ final class Regularized implements Gradient
     }
 
     /**
-     * Sets regularization level. e.g. L1 and L2 Default value is 2.
+     * Sets regularization level. e.g. L1 and L2. The default value is 2.
      *
      * @param int $level
      * @return Regularized
@@ -67,27 +67,27 @@ final class Regularized implements Gradient
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
      * @return float
      */
-    public function cost(array $coefficients, array $observation, $outcome, $featureIndex)
+    public function cost(array $coefficients, array $observation, $outcome)
     {
-        $penalty = pow(abs($coefficients[$featureIndex]), $this->level);
+        $penalty = array_sum(array_map(function ($coefficient) {
+            pow(abs($coefficient), $this->level);
+        }, $coefficients));
 
-        return $this->gradient->cost($coefficients, $observation, $outcome, $featureIndex) + $this->lambda * $penalty / $this->level;
+        return $this->gradient->cost($coefficients, $observation, $outcome) + $this->lambda * $penalty / $this->level;
     }
 
     /**
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
-     * @return float
+     * @return array
      */
-    public function gradient(array $coefficients, array $observation, $outcome, $featureIndex)
+    public function gradient(array $coefficients, array $observation, $outcome)
     {
-        $penalty = $this->level * pow(abs($coefficients[$featureIndex]), $this->level - 1);
-
-        return $this->gradient->gradient($coefficients, $observation, $outcome, $featureIndex) + $this->lambda * $penalty;
+        return array_map(function ($slope, $coefficient) {
+            return $slope + $this->lambda * pow(abs($coefficient), $this->level - 1);
+        }, $this->gradient->gradient($coefficients, $observation, $outcome), $coefficients);
     }
 }

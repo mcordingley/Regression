@@ -19,10 +19,9 @@ final class Linear implements Gradient
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
      * @return float
      */
-    public function cost(array $coefficients, array $observation, $outcome, $featureIndex)
+    public function cost(array $coefficients, array $observation, $outcome)
     {
         return abs(pow($this->predicted($coefficients, $observation) - $outcome, $this->power));
     }
@@ -43,13 +42,17 @@ final class Linear implements Gradient
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
-     * @return float
+     * @return array
      */
-    public function gradient(array $coefficients, array $observation, $outcome, $featureIndex)
+    public function gradient(array $coefficients, array $observation, $outcome)
     {
+        $gradient = [];
         $predicted = $this->predicted($coefficients, $observation);
 
-        return $this->power * pow($predicted, $this->power - 1) * $observation[$featureIndex];
+        for ($i = 0; $i < count($observation); $i++) {
+            $gradient[] = $this->power * pow($predicted, $this->power - 1) * $observation[$i];
+        }
+
+        return $gradient;
     }
 }

@@ -8,17 +8,15 @@ interface Gradient
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
      * @return float
      */
-    public function cost(array $coefficients, array $observation, $outcome, $featureIndex);
+    public function cost(array $coefficients, array $observation, $outcome);
 
     /**
      * @param array $coefficients
      * @param array $observation
      * @param float $outcome
-     * @param int $featureIndex
-     * @return float
+     * @return array
      */
-    public function gradient(array $coefficients, array $observation, $outcome, $featureIndex);
+    public function gradient(array $coefficients, array $observation, $outcome);
 }
