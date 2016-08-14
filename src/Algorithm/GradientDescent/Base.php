@@ -41,6 +41,7 @@ abstract class Base implements Algorithm
             $oldCoefficients = $coefficients;
             $gradient = $this->calculateGradient($observations, $coefficients);
             $coefficients = $this->updateCoefficients($coefficients, $gradient);
+            $this->schedule->update($gradient);
         }
 
         return $coefficients;
