@@ -9,8 +9,8 @@ use InvalidArgumentException;
 use Traversable;
 
 final class Observations implements
-    IteratorAggregate,
-    Countable
+    Countable,
+    IteratorAggregate
 {
     /** @var array */
     private $observations = [];
@@ -96,5 +96,14 @@ final class Observations implements
     public function count()
     {
         return count($this->observations);
+    }
+
+    /**
+     * @param int $index
+     * @return Observation
+     */
+    public function getObservation($index)
+    {
+        return $this->observations[$index];
     }
 }
