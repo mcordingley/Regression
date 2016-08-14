@@ -2,9 +2,9 @@
 
 namespace mcordingley\Regression\Tests;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Batch;
 use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Linear;
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
+use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Adagrad;
+use mcordingley\Regression\Algorithm\GradientDescent\Stochastic;
 
 class GradientDescentTest extends RegressionTest
 {
@@ -12,6 +12,6 @@ class GradientDescentTest extends RegressionTest
     // different route.
     protected function makeRegression()
     {
-        $this->regression = new Batch(new Linear, new Fixed);
+        $this->regression = new Stochastic(new Linear, new Adagrad);
     }
 }
