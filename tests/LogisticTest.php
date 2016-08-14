@@ -2,10 +2,11 @@
 
 namespace mcordingley\Regression\Tests;
 
-use mcordingley\Regression\Linkings\Logistic;
+use mcordingley\Regression\Algorithm\GradientDescent\Batch;
+use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
+use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Adagrad;
 use mcordingley\Regression\Observations;
-use mcordingley\Regression\Predictor;
-use mcordingley\Regression\RegressionAlgorithms\GradientDescent;
+use mcordingley\Regression\Predictor\Logistic as LogisticPredictor;
 use PHPUnit_Framework_TestCase;
 
 final class LogisticTest extends PHPUnit_Framework_TestCase
@@ -30,20 +31,15 @@ final class LogisticTest extends PHPUnit_Framework_TestCase
             $rank3 = $line[3] == 3 ? 1 : 0;
             $rank4 = $line[3] == 4 ? 1 : 0;
 
-            //                                          Admitted  [GRE,      GPA,      Rank2,  Rank3,  Rank4]
-            $this->observations->addObservation((float) $line[0], [$line[1], $line[2], $rank2, $rank3, $rank4]);
+            //                       [GRE,      GPA,      Rank2,  Rank3,  Rank4]   Admitted
+            $this->observations->add([$line[1], $line[2], $rank2, $rank3, $rank4], (float) $line[0]);
         }
 
         fclose($csv);
 
-        $linking = new Logistic;
-
-        $this->regression = new GradientDescent($linking);
-        $this->regression->setMaxIterations(0); // Run until convergence.
-
+        $this->regression = new Batch(new LogisticGradient, new Adagrad);
         $this->coefficients = $this->regression->regress($this->observations);
-
-        $this->predictor = new Predictor($this->coefficients, $linking);
+        $this->predictor = new LogisticPredictor($this->coefficients);
     }
 
     public function testPredict()
