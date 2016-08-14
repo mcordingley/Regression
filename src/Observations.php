@@ -2,10 +2,15 @@
 
 namespace mcordingley\Regression;
 
+use ArrayIterator;
+use IteratorAggregate;
 use Countable;
 use InvalidArgumentException;
+use Traversable;
 
-final class Observations implements Countable
+final class Observations implements
+    IteratorAggregate,
+    Countable
 {
     /** @var array */
     private $observations = [];
@@ -75,6 +80,14 @@ final class Observations implements Countable
         return array_map(function (Observation $observation) {
             return $observation->getOutcome();
         }, $this->observations);
+    }
+
+    /**
+     * @return Traversable
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->observations);
     }
 
     /**
