@@ -2,9 +2,10 @@
 
 namespace mcordingley\Regression;
 
+use Countable;
 use InvalidArgumentException;
 
-final class Observations
+final class Observations implements Countable
 {
     /** @var array */
     private $observations = [];
@@ -74,5 +75,13 @@ final class Observations
         return array_map(function (Observation $observation) {
             return $observation->getOutcome();
         }, $this->observations);
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->observations);
     }
 }
