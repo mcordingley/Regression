@@ -17,40 +17,40 @@ final class Linear implements Gradient
 
     /**
      * @param array $coefficients
-     * @param array $observation
+     * @param array $features
      * @param float $outcome
      * @return float
      */
-    public function cost(array $coefficients, array $observation, $outcome)
+    public function cost(array $coefficients, array $features, $outcome)
     {
-        return abs(pow($this->predicted($coefficients, $observation) - $outcome, $this->power));
+        return abs(pow($this->predicted($coefficients, $features) - $outcome, $this->power));
     }
 
     /**
      * @param array $coefficients
-     * @param array $observation
+     * @param array $features
      * @return float
      */
-    private function predicted(array $coefficients, array $observation)
+    private function predicted(array $coefficients, array $features)
     {
         return array_sum(array_map(function ($coefficient, $feature) {
             return $coefficient * $feature;
-        }, $coefficients, $observation));
+        }, $coefficients, $features));
     }
 
     /**
      * @param array $coefficients
-     * @param array $observation
+     * @param array $features
      * @param float $outcome
      * @return array
      */
-    public function gradient(array $coefficients, array $observation, $outcome)
+    public function gradient(array $coefficients, array $features, $outcome)
     {
         $gradient = [];
-        $predicted = $this->predicted($coefficients, $observation);
+        $predicted = $this->predicted($coefficients, $features);
 
-        for ($i = 0; $i < count($observation); $i++) {
-            $gradient[] = $this->power * pow($predicted, $this->power - 1) * $observation[$i];
+        for ($i = 0; $i < count($features); $i++) {
+            $gradient[] = $this->power * pow($predicted, $this->power - 1) * $features[$i];
         }
 
         return $gradient;

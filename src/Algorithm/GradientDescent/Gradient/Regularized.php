@@ -65,29 +65,29 @@ final class Regularized implements Gradient
 
     /**
      * @param array $coefficients
-     * @param array $observation
+     * @param array $features
      * @param float $outcome
      * @return float
      */
-    public function cost(array $coefficients, array $observation, $outcome)
+    public function cost(array $coefficients, array $features, $outcome)
     {
         $penalty = array_sum(array_map(function ($coefficient) {
             pow(abs($coefficient), $this->level);
         }, $coefficients));
 
-        return $this->gradient->cost($coefficients, $observation, $outcome) + $this->lambda * $penalty / $this->level;
+        return $this->gradient->cost($coefficients, $features, $outcome) + $this->lambda * $penalty / $this->level;
     }
 
     /**
      * @param array $coefficients
-     * @param array $observation
+     * @param array $features
      * @param float $outcome
      * @return array
      */
-    public function gradient(array $coefficients, array $observation, $outcome)
+    public function gradient(array $coefficients, array $features, $outcome)
     {
         return array_map(function ($slope, $coefficient) {
             return $slope + $this->lambda * pow(abs($coefficient), $this->level - 1);
-        }, $this->gradient->gradient($coefficients, $observation, $outcome), $coefficients);
+        }, $this->gradient->gradient($coefficients, $features, $outcome), $coefficients);
     }
 }
