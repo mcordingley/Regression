@@ -5,7 +5,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent;
 use mcordingley\Regression\Observation;
 use mcordingley\Regression\Observations;
 
-final class Batch extends Base
+final class Batch extends GradientDescent
 {
     /**
      * @param Observations $observations

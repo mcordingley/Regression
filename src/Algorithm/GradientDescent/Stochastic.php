@@ -4,7 +4,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent;
 
 use mcordingley\Regression\Observations;
 
-final class Stochastic extends Base
+final class Stochastic extends GradientDescent
 {
     /**
      * @param Observations $observations

@@ -9,7 +9,7 @@ use mcordingley\Regression\Observation;
 use mcordingley\Regression\Observations;
 use SplObjectStorage;
 
-abstract class Base implements Algorithm
+abstract class GradientDescent implements Algorithm
 {
     /** @var Gradient */
     protected $gradient;
