@@ -34,10 +34,11 @@ final class LogisticTest extends PHPUnit_Framework_TestCase
 
         fclose($csv);
 
-        $regression = new Batch(new LogisticGradient, new Fixed(0.125));
+        $gradient = new LogisticGradient;
+        $regression = new Batch($gradient, new Fixed(0.125));
 
         // Example debug line for tuning the descent parameters.
-        //$regression->addDescentIterationListener(new DescentLogger);
+        //$regression->addDescentIterationListener(new DescentLogger($gradient, $observations));
 
         $coefficients = $regression->regress($observations);
 
