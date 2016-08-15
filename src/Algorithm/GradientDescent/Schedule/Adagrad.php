@@ -3,7 +3,6 @@
 namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 /**
- * @package mcordingley\Regression\Schedule
  * @link https://xcorr.net/2014/01/23/adagrad-eliminating-learning-rates-in-stochastic-gradient-descent/
  */
 final class Adagrad implements Schedule
