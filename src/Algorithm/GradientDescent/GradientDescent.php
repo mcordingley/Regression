@@ -5,7 +5,6 @@ namespace mcordingley\Regression\Algorithm\GradientDescent;
 use mcordingley\Regression\Algorithm\Algorithm;
 use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
-use mcordingley\Regression\Observation;
 use mcordingley\Regression\Observations;
 use SplObjectStorage;
 
@@ -49,10 +48,7 @@ abstract class GradientDescent implements Algorithm
             $coefficients = $this->updateCoefficients($coefficients, $gradient);
 
             $this->schedule->update($gradient);
-
-            if ($this->observers->count()) {
-                $this->notifyListeners($coefficients, $this->calculateAverageCost($observations, $coefficients));
-            }
+            $this->notifyListeners($coefficients);
         }
 
         return $coefficients;
@@ -81,31 +77,13 @@ abstract class GradientDescent implements Algorithm
 
     /**
      * @param array $coefficients
-     * @param float $cost
      */
-    private function notifyListeners(array $coefficients, $cost)
+    private function notifyListeners(array $coefficients)
     {
         /** @var DescentIterationListener $observer */
         foreach ($this->observers as $observer) {
-            $observer->onGradientDescentIteration($coefficients, $cost);
+            $observer->onGradientDescentIteration($coefficients);
         }
-    }
-
-    /**
-     * @param Observations $observations
-     * @param array $coefficients
-     * @return float
-     */
-    private function calculateAverageCost(Observations $observations, array $coefficients)
-    {
-        $cost = 0.0;
-
-        /** @var Observation $observation */
-        foreach ($observations as $observation) {
-            $cost += $this->gradient->cost($coefficients, $observation->getFeatures(), $observation->getOutcome()) / count($observations);
-        }
-
-        return $cost;
     }
 
     /**

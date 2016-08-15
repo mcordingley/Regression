@@ -6,8 +6,7 @@ interface DescentIterationListener
 {
     /**
      * @param array $coefficients
-     * @param float $averageCost
      * @return void
      */
-    public function onGradientDescentIteration(array $coefficients, $averageCost);
+    public function onGradientDescentIteration(array $coefficients);
 }
