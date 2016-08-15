@@ -2,7 +2,7 @@
 
 namespace mcordingley\Regression;
 
-class Observation
+final class Observation
 {
     /** @var array */
     private $features;
