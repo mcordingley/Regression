@@ -12,6 +12,8 @@ use PHPUnit_Framework_TestCase;
  * Integration test to demonstrate the equivalence of this method of regression to the analytic LinearLeastSquares.
  * This method is favored for extremely large data sets.
  *
+ * Note that this test can take a long time to execute and is therefore not included in the main test suite for CI.
+ *
  * @package mcordingley\Regression\Tests
  * @see mcordingley\Regression\Tests\Algorithm\LeastSquaresTest
  */
