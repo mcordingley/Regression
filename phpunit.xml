@@ -15,6 +15,9 @@
     <testsuites>
         <testsuite name="Regression Test Suite">
             <directory suffix="Test.php">./tests</directory>
+            <exclude>
+                <file>./tests/LogisticTest.php</file>
+            </exclude>
         </testsuite>
     </testsuites>
 

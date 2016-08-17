@@ -12,13 +12,12 @@ use PHPUnit_Framework_TestCase;
  * Puts the pieces together to show that a Logistic regression will converge. Note that the GRE feature has been
  * normalized. This leads to convergence in a matter of minutes, instead of hours/never.
  *
+ * Note that this test can take a long time to execute and is therefore not included in the main test suite for CI.
+ *
  * @package mcordingley\Regression\Tests
  */
 class LogisticTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @large
-     */
     public function testRegression()
     {
         $observations = $this->getLogisticObservations();
