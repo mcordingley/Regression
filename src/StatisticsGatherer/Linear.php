@@ -226,11 +226,7 @@ final class Linear
     {
         $sumSquaredTotal = $this->getSumSquaredTotal();
 
-        if ($sumSquaredTotal === 0.0) {
-            return 0.0;
-        }
-
-        return 1 - $this->getSumSquaredError() / $sumSquaredTotal;
+        return $sumSquaredTotal ? 1 - $this->getSumSquaredError() / $sumSquaredTotal : 0.0;
     }
 
     /**
