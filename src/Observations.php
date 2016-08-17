@@ -55,14 +55,6 @@ final class Observations implements
     }
 
     /**
-     * @return void
-     */
-    public function shuffle()
-    {
-        shuffle($this->observations);
-    }
-
-    /**
      * @return array
      */
     public function getFeatures()

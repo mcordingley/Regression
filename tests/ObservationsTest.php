@@ -37,18 +37,6 @@ class ObservationsTest extends PHPUnit_Framework_TestCase
         Observations::fromArray(static::$features, [1, 2, 3]);
     }
 
-    public function testShuffle()
-    {
-        $observations = Observations::fromArray(static::$features, static::$outcomes);
-
-        // Should be vanishingly rare that it shuffles to the same arrangement ten times in a row.
-        for ($i = 0; $i < 10 && $observations->getOutcomes() === static::$outcomes; $i++) {
-            $observations->shuffle();
-        }
-
-        static::assertNotEquals(static::$outcomes, $observations->getOutcomes());
-    }
-
     public function testGetIterator()
     {
         $observations = Observations::fromArray(static::$features, static::$outcomes);
