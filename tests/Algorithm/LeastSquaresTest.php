@@ -8,8 +8,6 @@ use PHPUnit_Framework_TestCase;
 
 class LeastSquaresTest extends PHPUnit_Framework_TestCase
 {
-    protected $regression;
-
     private static $features = [
         [1, 1],
         [1, 2],
