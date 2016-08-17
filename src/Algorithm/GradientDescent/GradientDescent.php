@@ -36,11 +36,8 @@ abstract class GradientDescent implements Algorithm
      */
     final public function regress(Observations $observations)
     {
-        $features = $observations->getFeatures();
-        $featureCount = count($features[0]);
-
         $oldCoefficients = [];
-        $coefficients = array_fill(0, $featureCount, 0.0);
+        $coefficients = array_fill(0, $observations->getFeatureCount(), 0.0);
 
         while (!$this->converged($coefficients, $oldCoefficients)) {
             $oldCoefficients = $coefficients;
