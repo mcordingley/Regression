@@ -39,10 +39,10 @@ abstract class GradientDescent implements Algorithm
         $features = $observations->getFeatures();
         $featureCount = count($features[0]);
 
-        $oldCoefficients = null;
+        $oldCoefficients = [];
         $coefficients = array_fill(0, $featureCount, 0.0);
 
-        while ($coefficients !== $oldCoefficients) {
+        while (!$this->converged($coefficients, $oldCoefficients)) {
             $oldCoefficients = $coefficients;
             $gradient = $this->calculateGradient($observations, $coefficients);
             $coefficients = $this->updateCoefficients($coefficients, $gradient);
@@ -52,6 +52,16 @@ abstract class GradientDescent implements Algorithm
         }
 
         return $coefficients;
+    }
+
+    /**
+     * @param array $coefficients
+     * @param array $oldCoefficients
+     * @return bool
+     */
+    protected function converged(array $coefficients, array $oldCoefficients)
+    {
+        return $coefficients === $oldCoefficients;
     }
 
     /**
