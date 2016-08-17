@@ -2,7 +2,7 @@
 
 namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Linear;
+use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Regularized;
 use PHPUnit_Framework_TestCase;
 
@@ -19,7 +19,14 @@ class RegularizedTest extends PHPUnit_Framework_TestCase
      */
     private function makeGradient()
     {
-        $gradient = new Regularized(new Linear(2));
+        $mock = $this->getMockBuilder(Gradient::class)
+            ->setMethods(['cost', 'gradient'])
+            ->getMock();
+
+        $mock->method('cost')->willReturn(1.0);
+        $mock->method('gradient')->willReturn([16.0, 16.0]);
+
+        $gradient = new Regularized($mock);
 
         return $gradient->ignoreFirstFeature(true)
                         ->setLambda(1.0)
