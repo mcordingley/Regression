@@ -12,6 +12,9 @@ final class Observations implements
     Countable,
     IteratorAggregate
 {
+    /** @var int */
+    private $featureCount = 0;
+
     /** @var array */
     private $observations = [];
 
@@ -51,6 +54,14 @@ final class Observations implements
      */
     public function addObservation(Observation $observation)
     {
+        $featureCount = count($observation->getFeatures());
+
+        if (!$this->featureCount) {
+            $this->featureCount = $featureCount;
+        } elseif ($this->featureCount !== $featureCount) {
+            throw new InvalidArgumentException('All observations must have the same number of features.');
+        }
+
         $this->observations[] = $observation;
     }
 
@@ -80,6 +91,14 @@ final class Observations implements
     public function getIterator()
     {
         return new ArrayIterator($this->observations);
+    }
+
+    /**
+     * @return int
+     */
+    public function getFeatureCount()
+    {
+        return $this->featureCount;
     }
 
     /**

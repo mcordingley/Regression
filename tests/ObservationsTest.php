@@ -26,6 +26,7 @@ class ObservationsTest extends PHPUnit_Framework_TestCase
     {
         $observations = Observations::fromArray(static::$features, static::$outcomes);
 
+        static::assertEquals(3, $observations->getFeatureCount());
         static::assertEquals(static::$features, $observations->getFeatures());
         static::assertEquals(static::$outcomes, $observations->getOutcomes());
     }
@@ -35,6 +36,16 @@ class ObservationsTest extends PHPUnit_Framework_TestCase
         static::setExpectedException('InvalidArgumentException');
 
         Observations::fromArray(static::$features, [1, 2, 3]);
+    }
+
+    public function testBadObservationsCount()
+    {
+        $observations = new Observations;
+        $observations->add([1, 2, 3], 4);
+
+        static::setExpectedException('InvalidArgumentException');
+
+        $observations->add([1, 2], 4);
     }
 
     public function testGetIterator()
