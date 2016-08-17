@@ -50,7 +50,7 @@ final class Linear implements Gradient
         $predicted = $this->predicted($coefficients, $features);
 
         for ($i = 0; $i < count($features); $i++) {
-            $gradient[] = $this->power * pow($predicted, $this->power - 1) * $features[$i];
+            $gradient[] = $this->power * pow(abs($predicted - $outcome), $this->power - 1) * $features[$i];
         }
 
         return $gradient;
