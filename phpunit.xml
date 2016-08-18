@@ -15,7 +15,6 @@
     <testsuites>
         <testsuite name="Regression Test Suite">
             <directory suffix="Test.php">./tests</directory>
-            <exclude>./tests/StochasticTest.php</exclude>
         </testsuite>
     </testsuites>
 
