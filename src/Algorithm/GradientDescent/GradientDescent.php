@@ -5,6 +5,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent;
 use mcordingley\Regression\Algorithm\Algorithm;
 use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
+use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
 use mcordingley\Regression\Observations;
 use SplObjectStorage;
 
@@ -19,14 +20,19 @@ abstract class GradientDescent implements Algorithm
     /** @var Schedule */
     private $schedule;
 
+    /** @var StoppingCriteria */
+    private $stoppingCriteria;
+
     /**
      * @param Gradient $gradient
      * @param Schedule $schedule
+     * @param StoppingCriteria $stoppingCriteria
      */
-    public function __construct(Gradient $gradient, Schedule $schedule)
+    public function __construct(Gradient $gradient, Schedule $schedule, StoppingCriteria $stoppingCriteria)
     {
         $this->gradient = $gradient;
         $this->schedule = $schedule;
+        $this->stoppingCriteria = $stoppingCriteria;
         $this->observers = new SplObjectStorage;
     }
 
@@ -36,29 +42,17 @@ abstract class GradientDescent implements Algorithm
      */
     final public function regress(Observations $observations)
     {
-        $oldCoefficients = [];
         $coefficients = array_fill(0, $observations->getFeatureCount(), 0.0);
 
-        while (!$this->converged($coefficients, $oldCoefficients)) {
-            $oldCoefficients = $coefficients;
+        do {
             $gradient = $this->calculateGradient($observations, $coefficients);
             $coefficients = $this->updateCoefficients($coefficients, $gradient);
 
             $this->schedule->update($gradient);
             $this->notifyListeners($coefficients);
-        }
+        } while (!$this->stoppingCriteria->converged($gradient, $coefficients));
 
         return $coefficients;
-    }
-
-    /**
-     * @param array $coefficients
-     * @param array $oldCoefficients
-     * @return bool
-     */
-    protected function converged(array $coefficients, array $oldCoefficients)
-    {
-        return $coefficients === $oldCoefficients;
     }
 
     /**
