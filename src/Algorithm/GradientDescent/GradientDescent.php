@@ -7,15 +7,11 @@ use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
 use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
 use mcordingley\Regression\Observations;
-use SplObjectStorage;
 
 abstract class GradientDescent implements Algorithm
 {
     /** @var Gradient */
     protected $gradient;
-
-    /** @var SplObjectStorage */
-    private $observers;
 
     /** @var Schedule */
     private $schedule;
@@ -33,7 +29,6 @@ abstract class GradientDescent implements Algorithm
         $this->gradient = $gradient;
         $this->schedule = $schedule;
         $this->stoppingCriteria = $stoppingCriteria;
-        $this->observers = new SplObjectStorage;
     }
 
     /**
@@ -47,9 +42,7 @@ abstract class GradientDescent implements Algorithm
         do {
             $gradient = $this->calculateGradient($observations, $coefficients);
             $coefficients = $this->updateCoefficients($coefficients, $gradient);
-
             $this->schedule->update($gradient);
-            $this->notifyListeners($coefficients);
         } while (!$this->stoppingCriteria->converged($gradient, $coefficients));
 
         return $coefficients;
@@ -74,24 +67,5 @@ abstract class GradientDescent implements Algorithm
         }
 
         return $coefficients;
-    }
-
-    /**
-     * @param array $coefficients
-     */
-    private function notifyListeners(array $coefficients)
-    {
-        /** @var DescentIterationListener $observer */
-        foreach ($this->observers as $observer) {
-            $observer->onGradientDescentIteration($coefficients);
-        }
-    }
-
-    /**
-     * @param DescentIterationListener $listener
-     */
-    final public function addDescentIterationListener(DescentIterationListener $listener)
-    {
-        $this->observers->attach($listener);
     }
 }
