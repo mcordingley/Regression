@@ -5,6 +5,7 @@ namespace mcordingley\Regression\Tests;
 use mcordingley\Regression\Algorithm\GradientDescent\Batch;
 use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
 use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
+use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
 use mcordingley\Regression\Observations;
 use PHPUnit_Framework_TestCase;
 
@@ -20,14 +21,11 @@ class LogisticTest extends PHPUnit_Framework_TestCase
 {
     public function testRegression()
     {
+        $regression = new Batch(new LogisticGradient, new Fixed(0.125), new GradientNorm);
         $observations = $this->getLogisticObservations();
-        $regression = new Batch(new LogisticGradient, new Fixed(0.125));
-
-        // Example debug line for tuning the descent parameters.
-        //$regression->addDescentIterationListener(new DescentLogger($gradient, $observations));
 
         static::assertEquals(
-            [-3.98997907333, 0.2264425786179, 0.80403754928, -0.67544292796369, -1.340203916468, -1.5514636769182],
+            [-3.9572690927850793, 0.22579298444865589, 0.79626535291848777, -0.67784339995776333, -1.3416834110939926, -1.55412650298527],
             $regression->regress($observations)
         );
     }
