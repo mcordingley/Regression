@@ -10,7 +10,7 @@ final class GradientNorm implements StoppingCriteria
     /**
      * @param float $eta
      */
-    public function __construct($eta)
+    public function __construct($eta = 6.103515625E-5)
     {
         $this->eta = $eta;
     }
