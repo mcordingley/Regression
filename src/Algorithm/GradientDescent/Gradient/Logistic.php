@@ -39,9 +39,10 @@ class Logistic implements Gradient
     {
         $gradient = [];
         $predicted = $this->predicted($coefficients, $features);
+        $iterationConstant = $predicted - $outcome;
 
-        for ($i = 0; $i < count($features); $i++) {
-            $gradient[] = ($predicted - $outcome) * $features[$i];
+        foreach ($features as $feature) {
+            $gradient[] = $iterationConstant * $feature;
         }
 
         return $gradient;
