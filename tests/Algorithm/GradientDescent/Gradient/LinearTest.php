@@ -16,6 +16,6 @@ class LinearTest extends PHPUnit_Framework_TestCase
     public function testGradient()
     {
         $gradient = new Linear(2);
-        static::assertEquals([4.0], $gradient->gradient([1.0], [2.0], 3.0));
+        static::assertEquals([-4.0], $gradient->gradient([1.0], [2.0], 3.0));
     }
 }
