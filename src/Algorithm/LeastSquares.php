@@ -8,17 +8,6 @@ use mcordingley\Regression\Observations;
 
 final class LeastSquares implements Algorithm
 {
-    /** @var float */
-    private $lambda;
-
-    /**
-     * @param float $lambda
-     */
-    public function __construct($lambda = 0.0)
-    {
-        $this->lambda = $lambda;
-    }
-
     /**
      * @param Observations $observations
      * @return array
@@ -35,11 +24,8 @@ final class LeastSquares implements Algorithm
 
         $designTranspose = $design->transpose();
 
-        $penalty = Matrix::identity($design->getColumnCount())->multiplyScalar($this->lambda);
-
         $prediction = $designTranspose
             ->multiplyMatrix($design)
-            ->addMatrix($penalty)
             ->inverse()
             ->multiplyMatrix($designTranspose->multiplyMatrix($observed));
 
