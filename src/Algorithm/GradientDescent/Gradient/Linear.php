@@ -23,7 +23,7 @@ final class Linear implements Gradient
      */
     public function cost(array $coefficients, array $features, $outcome)
     {
-        return abs(pow($this->predicted($coefficients, $features) - $outcome, $this->power));
+        return pow(abs($this->predicted($coefficients, $features) - $outcome), $this->power);
     }
 
     /**
@@ -50,7 +50,7 @@ final class Linear implements Gradient
         $predicted = $this->predicted($coefficients, $features);
 
         for ($i = 0; $i < count($features); $i++) {
-            $gradient[] = $this->power * abs(pow($predicted - $outcome, $this->power - 1)) * $features[$i];
+            $gradient[] = $this->power * pow(abs($predicted - $outcome), $this->power - 1) * $features[$i];
         }
 
         return $gradient;
