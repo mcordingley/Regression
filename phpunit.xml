@@ -10,6 +10,7 @@
          stopOnError="false"
          stopOnFailure="false"
          syntaxCheck="true"
+         timeoutForLargeTests="300"
          verbose="true"
 >
     <testsuites>
