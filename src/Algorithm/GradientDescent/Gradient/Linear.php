@@ -47,10 +47,10 @@ final class Linear implements Gradient
     public function gradient(array $coefficients, array $features, $outcome)
     {
         $gradient = [];
-        $predicted = $this->predicted($coefficients, $features);
+        $iterationConstant = $this->power * pow(abs($this->predicted($coefficients, $features) - $outcome), $this->power - 1);
 
         foreach ($features as $feature) {
-            $gradient[] = $this->power * pow(abs($predicted - $outcome), $this->power - 1) * $feature;
+            $gradient[] = $iterationConstant * $feature;
         }
 
         return $gradient;
