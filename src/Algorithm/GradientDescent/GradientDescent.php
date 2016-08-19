@@ -41,8 +41,8 @@ abstract class GradientDescent implements Algorithm
 
         do {
             $gradient = $this->calculateGradient($observations, $coefficients);
-            $coefficients = $this->updateCoefficients($coefficients, $gradient);
             $this->schedule->update($gradient);
+            $coefficients = $this->updateCoefficients($coefficients, $gradient);
         } while (!$this->stoppingCriteria->converged($gradient, $coefficients));
 
         return $coefficients;
