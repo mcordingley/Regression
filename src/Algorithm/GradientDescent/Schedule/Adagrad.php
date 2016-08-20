@@ -3,6 +3,11 @@
 namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 /**
+ * Automatically tunes the step size of for each feature. Features with steep
+ * slopes will get rapidly get smaller steps while features with shallow slopes
+ * will get larger steps. Either way, the step size for each feature is strictly
+ * decreasing over time.
+ *
  * @link https://xcorr.net/2014/01/23/adagrad-eliminating-learning-rates-in-stochastic-gradient-descent/
  */
 final class Adagrad implements Schedule
