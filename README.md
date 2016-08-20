@@ -143,9 +143,11 @@ be of use to others, please submit it with accompanying tests in a pull request.
 ## Change Log
 
 Future Plans
+
     - LeastSquares regularization.
     - Scalar and return type hints once PHP 5.6 reaches end-of-life.
     - Additional descent schedules and stopping criteria.
 
 1.0.0
+
     - First stable release.
