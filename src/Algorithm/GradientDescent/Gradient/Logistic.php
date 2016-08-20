@@ -37,13 +37,10 @@ class Logistic implements Gradient
      */
     public function gradient(array $coefficients, array $features, $outcome)
     {
-        $gradient = [];
         $iterationConstant = $this->predicted($coefficients, $features) - $outcome;
 
-        foreach ($features as $feature) {
-            $gradient[] = $iterationConstant * $feature;
-        }
-
-        return $gradient;
+        return array_map(function ($feature) use ($iterationConstant) {
+            return $iterationConstant * $feature;
+        }, $features);
     }
 }
