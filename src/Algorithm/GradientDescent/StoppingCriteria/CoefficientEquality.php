@@ -12,6 +12,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
  */
 final class CoefficientEquality implements StoppingCriteria
 {
+    /** @var array */
     private $oldCoefficients;
 
     /**
