@@ -37,7 +37,7 @@ final class GradientNorm implements StoppingCriteria
     public function converged(array $gradient, array $coefficients)
     {
         return pow(array_sum(array_map(function ($slope) {
-            return pow($slope, $this->pNorm);
+            return pow(abs($slope), $this->pNorm);
         }, $gradient)), 1 / $this->pNorm) <= $this->eta;
     }
 }
