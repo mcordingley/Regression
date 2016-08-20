@@ -12,6 +12,10 @@ use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCr
  */
 trait DescentDebugger
 {
+    /**
+     * @param StoppingCriteria $criteria
+     * @return DescentSpy
+     */
     private function getDescentSpy(StoppingCriteria $criteria)
     {
         $onIteration = function (array $gradient, array $coefficients) {
