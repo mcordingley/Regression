@@ -11,8 +11,6 @@ use PHPUnit_Framework_TestCase;
 
 class BatchTest extends PHPUnit_Framework_TestCase
 {
-    use DescentDebugger;
-
     private static $features = [
         [1, 1],
         [1, 2],
