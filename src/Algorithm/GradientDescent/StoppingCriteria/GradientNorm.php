@@ -2,6 +2,15 @@
 
 namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
+/**
+ * Stops when the normal of the gradient vector drops below some specified eta.
+ * Good for Batch descent, when the gradient is fairly stable from one iteration
+ * to the next. Not so good for Stochastic descent and MiniBatch with small
+ * batch sizes, as those gradients won't settle near zero even as the weights
+ * converge.
+ *
+ * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ */
 final class GradientNorm implements StoppingCriteria
 {
     /** @var float */
