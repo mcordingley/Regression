@@ -2,6 +2,14 @@
 
 namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
 
+/**
+ * Essentially takes a moving average of the squares of the gradient and uses
+ * that to calculate step sizes. As with Adagrad, steeper slopes lead to smaller
+ * step sizes while shallower slopes lead to larger step sizes. Unlike Adagrad,
+ * step sizes are not necessarily strictly decreasing.
+ *
+ * @package mcordingley\Regression\Algorithm\GradientDescent\Schedule
+ */
 class RmsProp implements Schedule
 {
     /** @var float */
