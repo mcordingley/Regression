@@ -2,6 +2,11 @@
 
 namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
+/**
+ * Checks for when any of a given list of stopping criteria is met.
+ *
+ * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ */
 final class Any implements StoppingCriteria
 {
     /** @var array */
