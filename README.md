@@ -110,7 +110,7 @@ iterations to run or amount of time to run the regression with `MaxIterations` o
 When starting with a new project, it helps to tinker with the different options to find the best fit for your data. The
 `DescentSpy` stopping criteria is supplied to aid in this process. It decorates another stopping criteria and will call
 a specified callback on each iteration before delegating to the decorated stopping criteria. There is an example use of
-this class in the GradientDescent folder with the `DescentDebugger` trait used to tune the descent test cases.
+this class in the GradientDescent test folder with the `DescentDebugger` trait used to tune the descent test cases.
 
 ## Over-Fitting and Regularization
 
