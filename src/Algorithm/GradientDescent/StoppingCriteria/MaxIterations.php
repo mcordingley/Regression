@@ -2,6 +2,17 @@
 
 namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
+/**
+ * Place a cap on the total number of iterations through the descent. It won't give
+ * actual convergence, but is good if "good enough" can be expected to be reached
+ * after a given number of times through the data. Note that each iteration does
+ * not necessarily correspond to a complete epoch of the data. Check your descent
+ * method for how many records are processed per iteration. Pairs well with a
+ * criteria that checks for actual convergence inside of an `Any` object to stop
+ * early if convergence has occurred.
+ *
+ * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ */
 final class MaxIterations implements StoppingCriteria
 {
     /** @var int */
