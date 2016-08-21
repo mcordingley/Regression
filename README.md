@@ -94,8 +94,9 @@ use mcordingley\Regression\Predictor\Logistic as LogisticPredictor;
 
 $regression = new Batch(new LogisticGradient, new Fixed(0.01), new GradientNorm);
 $coefficients = $regression->regress($observations);
+
 $predictor = new LogisticPredictor($coefficients);
-$predictor->predict($novelFeatures);
+$predictedOutcomeProbability = $predictor->predict($novelFeatures);
 ```
 
 ## Gradient Descent
