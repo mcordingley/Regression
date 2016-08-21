@@ -4,6 +4,14 @@
 [![Code Climate](https://codeclimate.com/github/mcordingley/Regression/badges/gpa.svg)](https://codeclimate.com/github/mcordingley/Regression)
 [![Code Climate](https://codeclimate.com/github/mcordingley/Regression/badges/coverage.svg)](https://codeclimate.com/github/mcordingley/Regression)
 
+## What Is This All About?
+
+This is a library for regression analysis of data. That is, it attempts to find the line of best fit to describe a relationship within the data. It takes in a series of training observations, each consisting of features and an outcome, and finds how much each feature contributes to the outcome.
+
+As a concrete example, consider house prices. Square footage, the number of bathrooms, the age of the house, and whether or not the house has a finished basement may all affect the final sale price of a home. For thoroughly contrived reasons, you want to start pricing houses in your area. You'd find a bunch of homes that had already sold and enter their square footage, etc. as features and their sale prices as outcomes and then run a regression with that data. You'd get on the other end of the process how much each square foot is worth, each bathroom is worth, etc. With that information, you could then start to predict the price of new homes that come onto the market and have not sold. If your model is solid, you'll find out which houses are overpriced or underpriced!
+
+This library also handles logistic regression, in which the outcomes are booleans. In this case, the regression would give you how much each feature contributes to the probability of the outcome and the prediction process would give you the probability of the outcome for a given new example.
+
 ## Quick Start
 
 As always, start with Composer:
@@ -62,7 +70,33 @@ use mcordingley\StatisticsGatherer\Linear;
 $gatherer = new Linear($observations, $coefficients, $predictor);
 
 $gatherer->getFStatistic(); // etc.
-``` 
+```
+
+## Logistic Regression
+
+Logistic regression is implemented by way of gradient descent, which is detailed below. The key things when doing a
+logistic regression are that you use an instance of the `GradientDescent` algorithm with the `Logistic` gradient to
+perform the regression. Your `Schedule` and `StoppingCriteria` should be picked to best match your data and which
+descent algorithm you've chosen.
+
+Given below is an example with what should be your default setup. This configuration is appropriate for most
+logistic regressions, though you may need to tune the value passed into the `Fixed` constructor. Too high, and your
+regression will never complete! Too low, and it'll take a very long time to complete. The optimal time will vary based
+on your number of features and number of observations, but it will take minutes in the best of cases, so make sure that
+this process is run off-line somehow.
+
+```
+use mcordingley\Regression\Algorithm\GradientDescent\Batch;
+use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
+use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
+use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
+use mcordingley\Regression\Predictor\Logistic as LogisticPredictor;
+
+$regression = new Batch(new LogisticGradient, new Fixed(0.01), new GradientNorm);
+$coefficients = $regression->regress($observations);
+$predictor = new LogisticPredictor($coefficients);
+$predictor->predict($novelFeatures);
+```
 
 ## Gradient Descent
 
@@ -71,9 +105,6 @@ through LeastSquares in a reasonable amount of time or if performing logistic re
 esoteric, reasons may exist. In these cases, we find an approximate solution through an iterative numeric process called
 "gradient descent". Putting together an effective descent regression can be a complicated process with many different
 options. These options are detailed below.
-
-For a quick start on logistic regression, refer to the LogisticTest as an example. The specific objects used there are
-good default options for getting started.
 
 ### Normalizing Features
 
