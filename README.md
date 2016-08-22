@@ -46,14 +46,14 @@ $observations = new Observations;
 // Load the data
 foreach ($data as $datum)
     // Note addition of a constant for the first feature.
-    $observations->add(array_merge([1.0], $datum->features, $datum->outcome);
+    $observations->add(array_merge([1.0], $datum->features, $datum->outcome));
 }
 
 $algorithm = new LeastSquares;
 $coefficients = $algorithm->regress($observations);
 
 $predictor = new Linear($coefficients);
-$predictedOutcome = $predictor->predict(array_merge([1.0], $hypotheticalFeatures);
+$predictedOutcome = $predictor->predict(array_merge([1.0], $hypotheticalFeatures));
 ```
 
 ## Gathering Regression Statistics
