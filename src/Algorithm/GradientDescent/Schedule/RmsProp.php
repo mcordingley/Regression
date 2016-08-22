@@ -9,6 +9,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
  * step sizes are not necessarily strictly decreasing.
  *
  * @package mcordingley\Regression\Algorithm\GradientDescent\Schedule
+ * @link http://sebastianruder.com/optimizing-gradient-descent/index.html#rmsprop
  */
 class RmsProp implements Schedule
 {
