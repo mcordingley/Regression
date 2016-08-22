@@ -30,7 +30,7 @@ class RmsProp implements Schedule
      * @param float $stepSize
      * @param float $eta
      */
-    public function __construct($rate = 0.9, $stepSize = 0.01, $eta = 0.000001)
+    public function __construct($rate = 0.9, $stepSize = 0.001, $eta = 0.000001)
     {
         $this->stepSize = $stepSize;
         $this->rate = $rate;
