@@ -1,33 +1,33 @@
 <?php
 
-namespace mcordingley\Regression\Tests;
+namespace mcordingley\Regression\Tests\Algorithm\GradientDescent;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Batch;
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
+use mcordingley\Regression\Algorithm\Algorithm;
 use mcordingley\Regression\Observations;
 use PHPUnit_Framework_TestCase;
 
-/**
- * Puts the pieces together to show that a Logistic regression will converge. Note that the GRE feature has been
- * normalized. This leads to convergence in a matter of minutes, instead of hours/never.
- */
-class LogisticTest extends PHPUnit_Framework_TestCase
+abstract class GradientDescent extends PHPUnit_Framework_TestCase
 {
     /**
      * @large
      */
     public function testRegression()
     {
-        $regression = new Batch(new LogisticGradient, new Fixed(0.125), new GradientNorm);
+        $regression = $this->makeRegression();
         $observations = $this->getLogisticObservations();
 
-        static::assertEquals(
-            [-3.9572690927850793, 0.22579298444865589, 0.79626535291848777, -0.67784339995776333, -1.3416834110939926, -1.55412650298527],
-            $regression->regress($observations)
-        );
+        static::assertEquals($this->getExpectedCoefficients(), $regression->regress($observations));
     }
+
+    /**
+     * @return Algorithm
+     */
+    abstract protected function makeRegression();
+
+    /**
+     * @return array
+     */
+    abstract protected function getExpectedCoefficients();
 
     /**
      * @return Observations
@@ -37,7 +37,7 @@ class LogisticTest extends PHPUnit_Framework_TestCase
         // Data from http://statistics.ats.ucla.edu/stat/r/dae/logit.htm
         $observations = new Observations;
 
-        $csv = fopen(__DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR . 'logistic.csv', 'r');
+        $csv = fopen(__DIR__ . '/../../fixtures/logistic.csv', 'r');
         fgetcsv($csv); // Throw away headers.
 
         while ($line = fgetcsv($csv)) {

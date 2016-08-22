@@ -115,7 +115,7 @@ means is altering your data so that each feature has an average of zero and unit
 the difference between a rapid convergence and a regression that fails to converge.
 
 While it isn't necessary to have the average and variance brought exactly to zero and one, respectively, it helps to
-bring them within an order of magnitude of these values. In the Logistic test, for example, the GRE scores are divided
+bring them within an order of magnitude of these values. In the GradientDescent tests, for example, the GRE scores are divided
 by 100 to bring them within the range of zero to ten. Boolean features are allowed to remain as `0.0` or `1.0`, as those
 values are very close, as is.
 

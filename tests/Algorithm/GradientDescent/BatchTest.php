@@ -2,40 +2,34 @@
 
 namespace mcordingley\Regression\Tests\Algorithm\GradientDescent;
 
+use mcordingley\Regression\Algorithm\Algorithm;
 use mcordingley\Regression\Algorithm\GradientDescent\Batch;
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Linear;
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Adagrad;
+use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
+use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
 use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
-use mcordingley\Regression\Observations;
-use PHPUnit_Framework_TestCase;
 
-class BatchTest extends PHPUnit_Framework_TestCase
+class BatchTest extends GradientDescent
 {
-    private static $features = [
-        [1, 1],
-        [1, 2],
-        [1, 1.3],
-        [1, 3.75],
-        [1, 2.25],
-    ];
-
-    private static $outcomes = [
-        1,
-        2,
-        3,
-        4,
-        5,
-    ];
+    /**
+     * @return Algorithm
+     */
+    protected function makeRegression()
+    {
+        return new Batch(new LogisticGradient, new Fixed(0.125), new GradientNorm);
+    }
 
     /**
-     * @large
+     * @return array
      */
-    public function testRegression()
+    protected function getExpectedCoefficients()
     {
-        $regression = new Batch(new Linear, new Adagrad, new GradientNorm);
-        $coefficients = $regression->regress(Observations::fromArray(static::$features, static::$outcomes));
-
-        $this->assertEquals(1.095, round($coefficients[0], 3));
-        $this->assertEquals(0.925, round($coefficients[1], 3));
+        return [
+            -3.9572690927850793,
+            0.22579298444865589,
+            0.79626535291848777,
+            -0.67784339995776333,
+            -1.3416834110939926,
+            -1.55412650298527
+        ];
     }
 }
