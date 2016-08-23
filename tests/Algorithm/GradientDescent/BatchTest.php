@@ -17,19 +17,4 @@ class BatchTest extends GradientDescent
     {
         return new Batch(new LogisticGradient, new Fixed(0.125), new GradientNorm);
     }
-
-    /**
-     * @return array
-     */
-    protected function getExpectedCoefficients()
-    {
-        return [
-            -3.9572690927850793,
-            0.22579298444865589,
-            0.79626535291848777,
-            -0.67784339995776333,
-            -1.3416834110939926,
-            -1.55412650298527
-        ];
-    }
 }
