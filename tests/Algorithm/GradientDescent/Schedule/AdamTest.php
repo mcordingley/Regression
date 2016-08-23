@@ -14,6 +14,6 @@ class AdamTest extends PHPUnit_Framework_TestCase
         $schedule->update([5.0]);
         $schedule->update([5.0]);
 
-        static::assertEquals(0.013438388840804524, $schedule->step(0));
+        static::assertEquals(0.0019999999959999857, $schedule->step(0));
     }
 }
