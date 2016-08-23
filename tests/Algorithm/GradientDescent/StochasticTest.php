@@ -19,4 +19,13 @@ class StochasticTest extends GradientDescent
 
         return new Stochastic(new LogisticGradient, new Adam, new GradientNorm);
     }
+
+    /**
+     * @return array
+     */
+    protected function getExpectedCoefficients()
+    {
+        return [
+        ];
+    }
 }

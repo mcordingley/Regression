@@ -19,4 +19,13 @@ class MiniBatchTest extends GradientDescent
 
         return new MiniBatch(new LogisticGradient, new Adam, new GradientNorm, 3);
     }
+
+    /**
+     * @return array
+     */
+    protected function getExpectedCoefficients()
+    {
+        return [
+        ];
+    }
 }
