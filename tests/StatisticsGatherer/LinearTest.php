@@ -5,29 +5,16 @@ namespace mcordingley\Regression\Tests\StatisticsGatherer;
 use mcordingley\Regression\Observations;
 use mcordingley\Regression\Predictor\Linear as LinearPredictor;
 use mcordingley\Regression\StatisticsGatherer\Linear as LinearStatisticsGatherer;
+use mcordingley\Regression\Tests\LeastSquaresFeatures;
 use PHPUnit_Framework_TestCase;
 
 class LinearTest extends PHPUnit_Framework_TestCase
 {
-    private static $features = [
-        [1, 1],
-        [1, 2],
-        [1, 1.3],
-        [1, 3.75],
-        [1, 2.25],
-    ];
-
-    private static $outcomes = [
-        1,
-        2,
-        3,
-        4,
-        5,
-    ];
+    use LeastSquaresFeatures;
 
     public function testStatistics()
     {
-        $observations = Observations::fromArray(static::$features, static::$outcomes);
+        $observations = Observations::fromArray($this->getFeatures(), $this->getOutcomes());
         $coefficients = [1.0954970633022, 0.92451598868827];
         $predictor = new LinearPredictor($coefficients);
 
