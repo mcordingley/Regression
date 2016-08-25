@@ -2,7 +2,7 @@
 
 namespace mcordingley\Regression\Algorithm\GradientDescent\Gradient;
 
-class Logistic implements Gradient
+final class Logistic implements Gradient
 {
     /**
      * @param array $coefficients
