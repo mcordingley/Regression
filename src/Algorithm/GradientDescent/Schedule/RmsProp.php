@@ -11,7 +11,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
  * @package mcordingley\Regression\Algorithm\GradientDescent\Schedule
  * @link http://sebastianruder.com/optimizing-gradient-descent/index.html#rmsprop
  */
-class RmsProp implements Schedule
+final class RmsProp implements Schedule
 {
     /** @var float */
     private $eta;
