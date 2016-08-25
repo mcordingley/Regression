@@ -5,7 +5,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
 
 /**
- * Decorates another StoppingCriteria and passed it the gradient as updated by the provided
+ * Decorates another StoppingCriteria and passes it the gradient as updated by the provided
  * Schedule object. This way, you can test your stopping criteria not against the current
  * gradient, but against the gradient as it is for coefficient updates. Useful for
  * Stochastic gradient descent and MiniBatch gradient descent with small batches, where the
