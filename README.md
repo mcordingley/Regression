@@ -190,10 +190,10 @@ Future Plans
 
 1.1.0
 
-    - Add `Adam` update schedule. This is now the recommended default update schedule.
-    - Tweak default values for `RmpsProp` to be more in line with expert recommendations.
-    - Add `NthIteration` criteria decorator to only call its decorated criteria every N iterations, for expensive criteria to calculate.
-    - Add `SteppedCriteria` criteria decorator to calculate stopping criteria based on the gradient as processed by the provided `Schedule`.
+    - Add `Adam` update schedule.
+    - Tweak default values for `RmpsProp`.
+    - Add `NthIteration` criteria decorator.
+    - Add `SteppedCriteria` criteria decorator.
 
 1.0.0
 
