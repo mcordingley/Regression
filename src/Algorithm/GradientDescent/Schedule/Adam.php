@@ -71,10 +71,6 @@ final class Adam implements Schedule
      */
     public function step($featureIndex)
     {
-        if (!$this->gradient[$featureIndex]) {
-            return 0.0;
-        }
-
         $correctedMean = $this->means[$featureIndex] / (1.0 - pow($this->meanBeta, $this->iteration));
         $correctedVariance = $this->variances[$featureIndex] / (1.0 - pow($this->varianceBeta, $this->iteration));
 
