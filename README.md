@@ -94,8 +94,8 @@ use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNo
 use mcordingley\Regression\Observations;
 use mcordingley\Regression\Predictor\Logistic as LogisticPredictor;
 
-$regression = new Batch(new LogisticGradient, new Adam, new GradientNorm);
-$coefficients = $regression->regress(Observations::fromArray($features, $outcomes));
+$algorithm = new Batch(new LogisticGradient, new Adam, new GradientNorm);
+$coefficients = $algorithm->regress(Observations::fromArray($features, $outcomes));
 
 $predictor = new LogisticPredictor($coefficients);
 $predictedOutcomeProbability = $predictor->predict($novelFeatures);
