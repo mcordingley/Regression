@@ -91,10 +91,11 @@ use mcordingley\Regression\Algorithm\GradientDescent\Batch;
 use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Adam;
 use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
 use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
+use mcordingley\Regression\Observations;
 use mcordingley\Regression\Predictor\Logistic as LogisticPredictor;
 
 $regression = new Batch(new LogisticGradient, new Adam, new GradientNorm);
-$coefficients = $regression->regress($observations);
+$coefficients = $regression->regress(Observations::fromArray($features, $outcomes));
 
 $predictor = new LogisticPredictor($coefficients);
 $predictedOutcomeProbability = $predictor->predict($novelFeatures);
