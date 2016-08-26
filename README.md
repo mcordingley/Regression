@@ -173,13 +173,6 @@ your own classes in place of the provided ones. In particular, the `Gradient`, `
 interfaces are intended points of extension. If you have written an implementation of one of these that you think would
 be of use to others, please submit it with accompanying tests in a pull request.
 
-## Notes on Test Coverage
-
-PHPUnit reports 100% test coverage. This is a lie! The `Stochastic` and `Minibatch` classes currently have no coverage,
-as they are random processes. There is currently no good convergence test for these algorithms and even if one were to
-be identified, they'd converge around slightly different values each time. From watching their progress through the
-`DescentSpy`, they do come to a relative convergence fairly quickly near the values that `Batch` returns.
-
 ## Change Log
 
 Future Plans
