@@ -50,7 +50,7 @@ $observations = new Observations;
 // Load the data
 foreach ($data as $datum)
     // Note addition of a constant for the first feature.
-    $observations->add(array_merge([1.0], $datum->features, $datum->outcome));
+    $observations->add(array_merge([1.0], $datum->features), $datum->outcome);
 }
 
 $algorithm = new LeastSquares;
