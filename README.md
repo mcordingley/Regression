@@ -84,7 +84,7 @@ perform the regression. Your `Schedule` and `StoppingCriteria` should be picked 
 descent algorithm you've chosen.
 
 Given below is an example with what should be your default setup. This configuration is appropriate for most
-logistic regressions.
+logistic regressions. Note that you will want to normalize your features before feeding them in.
 
 ```php
 use mcordingley\Regression\Algorithm\GradientDescent\Batch;
@@ -136,7 +136,7 @@ has the disadvantage of being much noisier on a per-iteration basis. `MiniBatch`
 in which random batches of a specified size are drawn from the set of training data. This leads to somewhat more stable
 data on each iteration than `Stochastic`, but still avoids having to deal with the entire data set with each iteration.
 
-As of right now, `Batch` appears to work best with the `Fixed` step schedule and the `GradientNorm` stopping criteria.
+As of right now, `Batch` appears to work best with the `Adam` step schedule and the `GradientNorm` stopping criteria.
 `Stochastic` and `MiniBatch` appear to work best with the `Adagrad` step schedule, but none of the current stopping
 criteria appear to accurately detect convergence. For now, the best option is to simply specify a maximum number of
 iterations to run or amount of time to run the regression with `MaxIterations` or `MaxTime`, respectively.
