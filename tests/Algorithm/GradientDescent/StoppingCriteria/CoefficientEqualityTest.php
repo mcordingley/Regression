@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
 
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\CoefficientEquality;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\CoefficientEquality;
 use PHPUnit_Framework_TestCase;
 
 class CoefficientEqualityTest extends PHPUnit_Framework_TestCase

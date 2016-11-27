@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
+namespace MCordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 /**
  * Automatically tunes the step size of for each feature. Features with steep

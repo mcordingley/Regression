@@ -1,12 +1,12 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent;
+namespace MCordingley\Regression\Algorithm\GradientDescent;
 
-use mcordingley\Regression\Algorithm\Algorithm;
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
-use mcordingley\Regression\Observations;
+use MCordingley\Regression\Algorithm\Algorithm;
+use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
+use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
+use MCordingley\Regression\Observations;
 
 abstract class GradientDescent implements Algorithm
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
 
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\NthIteration;
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\NthIteration;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
 use PHPUnit_Framework_TestCase;
 
 class NthIterationTest extends PHPUnit_Framework_TestCase

@@ -1,9 +1,9 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
 
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\DescentSpy;
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\DescentSpy;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
 use PHPUnit_Framework_TestCase;
 use stdClass;
 

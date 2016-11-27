@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
 /**
  * Place a cap on the total number of iterations through the descent. It won't give
@@ -11,7 +11,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
  * criteria that checks for actual convergence inside of an `Any` object to stop
  * early if convergence has occurred.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ * @package MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
  */
 final class MaxIterations implements StoppingCriteria
 {

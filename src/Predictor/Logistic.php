@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Predictor;
+namespace MCordingley\Regression\Predictor;
 
 final class Logistic implements Predictor
 {

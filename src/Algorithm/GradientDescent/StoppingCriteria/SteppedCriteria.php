@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
+use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
 
 /**
  * Decorates another StoppingCriteria and passes it the gradient as updated by the provided
@@ -11,7 +11,7 @@ use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
  * Stochastic gradient descent and MiniBatch gradient descent with small batches, where the
  * actual gradient never quite settles down, despite the descent itself converging.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ * @package MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
  */
 final class SteppedCriteria implements StoppingCriteria
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
 /**
  * Stops when the normal of the gradient vector drops below some specified eta.
@@ -9,7 +9,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
  * batch sizes, as those gradients won't settle near zero even as the weights
  * converge.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ * @package MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
  */
 final class GradientNorm implements StoppingCriteria
 {

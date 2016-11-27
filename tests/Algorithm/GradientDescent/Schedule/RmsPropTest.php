@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\Schedule;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Schedule;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\RmsProp;
+use MCordingley\Regression\Algorithm\GradientDescent\Schedule\RmsProp;
 use PHPUnit_Framework_TestCase;
 
 class RmsPropTest extends PHPUnit_Framework_TestCase

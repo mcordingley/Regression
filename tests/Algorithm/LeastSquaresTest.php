@@ -1,10 +1,10 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm;
+namespace MCordingley\Regression\Tests\Algorithm;
 
-use mcordingley\Regression\Observations;
-use mcordingley\Regression\Algorithm\LeastSquares;
-use mcordingley\Regression\Tests\LeastSquaresFeatures;
+use MCordingley\Regression\Observations;
+use MCordingley\Regression\Algorithm\LeastSquares;
+use MCordingley\Regression\Tests\LeastSquaresFeatures;
 use PHPUnit_Framework_TestCase;
 
 class LeastSquaresTest extends PHPUnit_Framework_TestCase

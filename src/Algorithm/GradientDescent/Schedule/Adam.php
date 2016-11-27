@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
+namespace MCordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 /**
  * Adam, or "Adaptive Moment Estimation", is another schedule that automatically tunes the step sizes for each
@@ -8,7 +8,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
  * Adagrad have. This is the currently recommended implementation for adaptive gradients and should be safe to
  * use without manual tuning of the constructor parameters.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\Schedule
+ * @package MCordingley\Regression\Algorithm\GradientDescent\Schedule
  * @link http://sebastianruder.com/optimizing-gradient-descent/index.html#adam
  */
 final class Adam implements Schedule

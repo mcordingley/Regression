@@ -1,13 +1,13 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
 /**
  * StoppingCriteria decorator that will call some callback on each iteration
  * before passing on to the delegated criteria. Useful for debugging gradient
  * descent convergence.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ * @package MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
  */
 final class DescentSpy implements StoppingCriteria
 {

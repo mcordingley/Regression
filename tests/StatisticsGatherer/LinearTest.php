@@ -1,11 +1,11 @@
 <?php
 
-namespace mcordingley\Regression\Tests\StatisticsGatherer;
+namespace MCordingley\Regression\Tests\StatisticsGatherer;
 
-use mcordingley\Regression\Observations;
-use mcordingley\Regression\Predictor\Linear as LinearPredictor;
-use mcordingley\Regression\StatisticsGatherer\Linear as LinearStatisticsGatherer;
-use mcordingley\Regression\Tests\LeastSquaresFeatures;
+use MCordingley\Regression\Observations;
+use MCordingley\Regression\Predictor\Linear as LinearPredictor;
+use MCordingley\Regression\StatisticsGatherer\Linear as LinearStatisticsGatherer;
+use MCordingley\Regression\Tests\LeastSquaresFeatures;
 use PHPUnit_Framework_TestCase;
 
 class LinearTest extends PHPUnit_Framework_TestCase

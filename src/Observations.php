@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression;
+namespace MCordingley\Regression;
 
 use ArrayIterator;
 use IteratorAggregate;

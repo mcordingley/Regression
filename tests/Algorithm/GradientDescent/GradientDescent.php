@@ -1,9 +1,9 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent;
 
-use mcordingley\Regression\Algorithm\Algorithm;
-use mcordingley\Regression\Observations;
+use MCordingley\Regression\Algorithm\Algorithm;
+use MCordingley\Regression\Observations;
 use PHPUnit_Framework_TestCase;
 
 abstract class GradientDescent extends PHPUnit_Framework_TestCase

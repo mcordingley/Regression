@@ -1,10 +1,10 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm;
+namespace MCordingley\Regression\Algorithm;
 
 use InvalidArgumentException;
 use MCordingley\LinearAlgebra\Matrix;
-use mcordingley\Regression\Observations;
+use MCordingley\Regression\Observations;
 
 final class LeastSquares implements Algorithm
 {

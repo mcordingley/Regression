@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
+namespace MCordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 /**
  * Simple step rule that always provides a fixed step size to the descent.
@@ -11,7 +11,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
  * long descent. Unfortunately, choosing a good step size is a matter of
  * trial and error.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\Schedule
+ * @package MCordingley\Regression\Algorithm\GradientDescent\Schedule
  */
 final class Fixed implements Schedule
 {

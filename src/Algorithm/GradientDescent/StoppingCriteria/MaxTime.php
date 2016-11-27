@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
 /**
  * Run the descent for a certain amount of time before stopping. Goes well with
@@ -8,7 +8,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
  * the amount of time that a descent can run. Nice to make sure that a descent
  * doesn't become runaway on a production server.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ * @package MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
  */
 final class MaxTime implements StoppingCriteria
 {

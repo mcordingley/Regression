@@ -1,9 +1,9 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm;
+namespace MCordingley\Regression\Algorithm;
 
 use InvalidArgumentException;
-use mcordingley\Regression\Observations;
+use MCordingley\Regression\Observations;
 
 interface Algorithm
 {

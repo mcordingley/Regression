@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Linear;
+use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Linear;
 use PHPUnit_Framework_TestCase;
 
 class LinearTest extends PHPUnit_Framework_TestCase

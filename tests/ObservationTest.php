@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Tests;
+namespace MCordingley\Regression\Tests;
 
-use mcordingley\Regression\Observation;
+use MCordingley\Regression\Observation;
 use PHPUnit_Framework_TestCase;
 
 class ObservationTest extends PHPUnit_Framework_TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Predictor;
+namespace MCordingley\Regression\Predictor;
 
 final class Linear implements Predictor
 {

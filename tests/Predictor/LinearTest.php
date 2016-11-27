@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Predictor;
+namespace MCordingley\Regression\Tests\Predictor;
 
-use mcordingley\Regression\Predictor\Linear;
+use MCordingley\Regression\Predictor\Linear;
 use PHPUnit_Framework_TestCase;
 
 class LinearTest extends PHPUnit_Framework_TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\Gradient;
+namespace MCordingley\Regression\Algorithm\GradientDescent\Gradient;
 
 interface Gradient
 {

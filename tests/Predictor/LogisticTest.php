@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Predictor;
+namespace MCordingley\Regression\Tests\Predictor;
 
-use mcordingley\Regression\Predictor\Logistic;
+use MCordingley\Regression\Predictor\Logistic;
 use PHPUnit_Framework_TestCase;
 
 class LogisticTest extends PHPUnit_Framework_TestCase

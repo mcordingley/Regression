@@ -1,9 +1,9 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent;
+namespace MCordingley\Regression\Algorithm\GradientDescent;
 
-use mcordingley\Regression\Observation;
-use mcordingley\Regression\Observations;
+use MCordingley\Regression\Observation;
+use MCordingley\Regression\Observations;
 
 final class Batch extends GradientDescent
 {

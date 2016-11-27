@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
+namespace MCordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 /**
  * Essentially takes a moving average of the squares of the gradient and uses
@@ -8,7 +8,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
  * step sizes while shallower slopes lead to larger step sizes. Unlike Adagrad,
  * step sizes are not necessarily strictly decreasing.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\Schedule
+ * @package MCordingley\Regression\Algorithm\GradientDescent\Schedule
  * @link http://sebastianruder.com/optimizing-gradient-descent/index.html#rmsprop
  */
 final class RmsProp implements Schedule

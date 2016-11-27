@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression;
+namespace MCordingley\Regression;
 
 final class Observation
 {

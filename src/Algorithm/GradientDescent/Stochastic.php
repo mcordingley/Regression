@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent;
+namespace MCordingley\Regression\Algorithm\GradientDescent;
 
-use mcordingley\Regression\Observations;
+use MCordingley\Regression\Observations;
 
 final class Stochastic extends GradientDescent
 {

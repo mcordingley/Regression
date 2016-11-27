@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
 
 /**
  * Decorator that calls the underlying StoppingCriteria only after every N
@@ -8,7 +8,7 @@ namespace mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria;
  * calculate, such as one that involves computing the cost of the entire
  * data-set given the current set of weights.
  *
- * @package mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
+ * @package MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria
  */
 final class NthIteration implements StoppingCriteria
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\SteppedCriteria;
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
+use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\SteppedCriteria;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
 use PHPUnit_Framework_TestCase;
 
 class SteppedCriteriaTest extends PHPUnit_Framework_TestCase

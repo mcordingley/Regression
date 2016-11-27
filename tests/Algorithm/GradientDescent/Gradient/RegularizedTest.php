@@ -1,9 +1,9 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Regularized;
+use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
+use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Regularized;
 use PHPUnit_Framework_TestCase;
 
 class RegularizedTest extends PHPUnit_Framework_TestCase

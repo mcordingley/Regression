@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Algorithm\GradientDescent\Schedule;
+namespace MCordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 interface Schedule
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent;
 
-use mcordingley\Regression\Algorithm\Algorithm;
-use mcordingley\Regression\Algorithm\GradientDescent\Batch;
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
-use mcordingley\Regression\Algorithm\GradientDescent\Schedule\Adam;
-use mcordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
+use MCordingley\Regression\Algorithm\Algorithm;
+use MCordingley\Regression\Algorithm\GradientDescent\Batch;
+use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic as LogisticGradient;
+use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Adam;
+use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
 
 class BatchTest extends GradientDescent
 {

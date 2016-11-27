@@ -1,8 +1,8 @@
 <?php
 
-namespace mcordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
+namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
 
-use mcordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic;
+use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Logistic;
 use PHPUnit_Framework_TestCase;
 
 class LogisticTest extends PHPUnit_Framework_TestCase

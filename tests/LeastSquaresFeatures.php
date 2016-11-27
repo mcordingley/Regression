@@ -1,6 +1,6 @@
 <?php
 
-namespace mcordingley\Regression\Tests;
+namespace MCordingley\Regression\Tests;
 
 trait LeastSquaresFeatures
 {

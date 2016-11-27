@@ -1,10 +1,10 @@
 <?php
 
-namespace mcordingley\Regression\StatisticsGatherer;
+namespace MCordingley\Regression\StatisticsGatherer;
 
-use mcordingley\LinearAlgebra\Matrix;
-use mcordingley\Regression\Observations;
-use mcordingley\Regression\Predictor\Predictor;
+use MCordingley\LinearAlgebra\Matrix;
+use MCordingley\Regression\Observations;
+use MCordingley\Regression\Predictor\Predictor;
 
 final class Linear
 {
