@@ -45,16 +45,18 @@ final class Observations implements
     /**
      * @param array $features
      * @param float $outcome
+     * @return self
      */
-    public function add(array $features, float $outcome)
+    public function add(array $features, float $outcome): self
     {
-        $this->addObservation(new Observation($features, $outcome));
+        return $this->addObservation(new Observation($features, $outcome));
     }
 
     /**
      * @param Observation $observation
+     * @return self
      */
-    public function addObservation(Observation $observation)
+    public function addObservation(Observation $observation): self
     {
         $featureCount = count($observation->getFeatures());
 
@@ -65,6 +67,8 @@ final class Observations implements
         }
 
         $this->observations[] = $observation;
+
+        return $this;
     }
 
     /**
