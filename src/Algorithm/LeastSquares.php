@@ -3,7 +3,7 @@
 namespace mcordingley\Regression\Algorithm;
 
 use InvalidArgumentException;
-use mcordingley\LinearAlgebra\Matrix;
+use MCordingley\LinearAlgebra\Matrix;
 use mcordingley\Regression\Observations;
 
 final class LeastSquares implements Algorithm

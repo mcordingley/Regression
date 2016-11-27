@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "mcordingley/linearalgebra": "^1.3.0"
+        "php": "^7.0.0",
+        "mcordingley/linearalgebra": "^2.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.5.3",
