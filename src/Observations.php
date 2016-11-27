@@ -119,7 +119,7 @@ final class Observations implements
      * @param int $index
      * @return Observation
      */
-    public function getObservation($index): Observation
+    public function getObservation(int $index): Observation
     {
         return $this->observations[$index];
     }
