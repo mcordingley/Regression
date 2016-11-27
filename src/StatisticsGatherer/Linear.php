@@ -285,10 +285,17 @@ final class Linear
         if (is_null($this->SCoefficients)) {
             $design = new Matrix($this->observations->getFeatures());
 
-            $this->SCoefficients = $design->transpose()
-                    ->multiplyMatrix($design)
-                    ->inverse()
-                    ->diagonal()
+            $inverted = $design->transpose()
+                ->multiplyMatrix($design)
+                ->inverse();
+
+            $diagonalVector = [];
+
+            for ($i = 0, $size = $inverted->getRowCount(); $i < $size; $i++) {
+                $diagonalVector[] = $inverted->get($i, $i);
+            }
+
+            $this->SCoefficients = (new Matrix([$diagonalVector]))
                     ->multiplyScalar($this->getMeanSquaredError())
                     ->map(function ($element) {
                         return sqrt($element);
