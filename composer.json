@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "mcordingley\\Regression\\": "src/"
+            "MCordingley\\Regression\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "mcordingley\\Regression\\Tests\\": "tests/"
+            "MCordingley\\Regression\\Tests\\": "tests/"
         }
     }
 }
