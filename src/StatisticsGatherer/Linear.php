@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace MCordingley\Regression\StatisticsGatherer;
 
 use MCordingley\LinearAlgebra\Matrix;

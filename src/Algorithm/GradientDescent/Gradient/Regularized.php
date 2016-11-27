@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace MCordingley\Regression\Algorithm\GradientDescent\Gradient;
 
 final class Regularized implements Gradient

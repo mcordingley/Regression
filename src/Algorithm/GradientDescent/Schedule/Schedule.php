@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace MCordingley\Regression\Algorithm\GradientDescent\Schedule;
 
 interface Schedule
