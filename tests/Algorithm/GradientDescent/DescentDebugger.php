@@ -18,11 +18,9 @@ trait DescentDebugger
      */
     private function getDescentSpy(StoppingCriteria $criteria)
     {
-        $onIteration = function (array $gradient, array $coefficients) {
+        return new DescentSpy($criteria, function (array $gradient, array $coefficients) {
             $output = '[[' . implode(',', $gradient) . '], [' . implode(',', $coefficients) . ']]' . "\n";
             fwrite(STDERR, $output);
-        };
-
-        return new DescentSpy($criteria, $onIteration);
+        });
     }
 }
