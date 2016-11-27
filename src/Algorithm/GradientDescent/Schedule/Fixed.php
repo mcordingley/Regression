@@ -23,7 +23,7 @@ final class Fixed implements Schedule
     /**
      * @param float $stepSize
      */
-    public function __construct($stepSize = 0.01)
+    public function __construct(float $stepSize = 0.01)
     {
         $this->stepSize = $stepSize;
     }
@@ -40,7 +40,7 @@ final class Fixed implements Schedule
      * @param int $featureIndex
      * @return float
      */
-    public function step($featureIndex)
+    public function step(int $featureIndex): float
     {
         return $this->stepSize;
     }

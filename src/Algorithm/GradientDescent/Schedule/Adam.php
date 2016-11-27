@@ -45,7 +45,7 @@ final class Adam implements Schedule
      * @param float $meanBeta
      * @param float $varianceBeta
      */
-    public function __construct($stepSize = 0.001, $eta = 0.00000001, $meanBeta = 0.9, $varianceBeta = 0.999)
+    public function __construct(float $stepSize = 0.001, float $eta = 0.00000001, float $meanBeta = 0.9, float $varianceBeta = 0.999)
     {
         $this->stepSize = $stepSize;
         $this->eta = $eta;
@@ -76,7 +76,7 @@ final class Adam implements Schedule
      * @param int $featureIndex
      * @return float
      */
-    public function step($featureIndex)
+    public function step(int $featureIndex): float
     {
         $correctedMean = $this->means[$featureIndex] / (1.0 - pow($this->meanBeta, $this->iteration));
         $correctedVariance = $this->variances[$featureIndex] / (1.0 - pow($this->varianceBeta, $this->iteration));

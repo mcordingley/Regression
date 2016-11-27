@@ -14,7 +14,7 @@ final class Batch extends GradientDescent
      * @param array $coefficients
      * @return array
      */
-    protected function calculateGradient(Observations $observations, array $coefficients)
+    protected function calculateGradient(Observations $observations, array $coefficients): array
     {
         $gradient = array_fill(0, count($observations->getObservation(0)->getFeatures()), 0.0);
         $batchSize = count($observations);

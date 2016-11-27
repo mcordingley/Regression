@@ -34,7 +34,7 @@ final class DescentSpy implements StoppingCriteria
      * @param array $coefficients
      * @return bool
      */
-    public function converged(array $gradient, array $coefficients)
+    public function converged(array $gradient, array $coefficients): bool
     {
         call_user_func_array($this->onIteration, func_get_args());
 

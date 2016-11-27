@@ -37,7 +37,7 @@ abstract class GradientDescent implements Algorithm
      * @param Observations $observations
      * @return array
      */
-    final public function regress(Observations $observations)
+    final public function regress(Observations $observations): array
     {
         $coefficients = array_fill(0, $observations->getFeatureCount(), 0.0);
 
@@ -55,14 +55,14 @@ abstract class GradientDescent implements Algorithm
      * @param array $coefficients
      * @return array
      */
-    abstract protected function calculateGradient(Observations $observations, array $coefficients);
+    abstract protected function calculateGradient(Observations $observations, array $coefficients): array;
 
     /**
      * @param array $coefficients
      * @param array $gradient
      * @return array
      */
-    private function updateCoefficients(array $coefficients, array $gradient)
+    private function updateCoefficients(array $coefficients, array $gradient): array
     {
         foreach ($gradient as $i => $slope) {
             $coefficients[$i] -= $this->schedule->step($i) * $slope;

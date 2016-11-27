@@ -15,7 +15,7 @@ final class LeastSquares implements Algorithm
      * @return array
      * @throws InvalidArgumentException
      */
-    public function regress(Observations $observations)
+    public function regress(Observations $observations): array
     {
         $design = new Matrix($observations->getFeatures());
         $observed = (new Matrix([$observations->getOutcomes()]))->transpose();

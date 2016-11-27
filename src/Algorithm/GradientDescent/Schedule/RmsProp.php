@@ -32,7 +32,7 @@ final class RmsProp implements Schedule
      * @param float $stepSize
      * @param float $eta
      */
-    public function __construct($rate = 0.9, $stepSize = 0.001, $eta = 0.000001)
+    public function __construct(float $rate = 0.9, float $stepSize = 0.001, float $eta = 0.000001)
     {
         $this->stepSize = $stepSize;
         $this->rate = $rate;
@@ -54,7 +54,7 @@ final class RmsProp implements Schedule
      * @param int $featureIndex
      * @return float
      */
-    public function step($featureIndex)
+    public function step(int $featureIndex): float
     {
         return $this->stepSize / sqrt($this->eta + $this->history[$featureIndex]);
     }

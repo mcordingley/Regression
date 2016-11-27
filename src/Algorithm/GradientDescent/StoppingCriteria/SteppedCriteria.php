@@ -38,7 +38,7 @@ final class SteppedCriteria implements StoppingCriteria
      * @param array $coefficients
      * @return bool
      */
-    public function converged(array $gradient, array $coefficients)
+    public function converged(array $gradient, array $coefficients): bool
     {
         $steppedGradient = [];
 

@@ -27,7 +27,7 @@ final class Adagrad implements Schedule
      * @param float $stepSize
      * @param float $eta
      */
-    public function __construct($stepSize = 0.01, $eta = 0.000001)
+    public function __construct(float $stepSize = 0.01, float $eta = 0.000001)
     {
         $this->stepSize = $stepSize;
         $this->eta = $eta;
@@ -51,7 +51,7 @@ final class Adagrad implements Schedule
      * @param int $featureIndex
      * @return float
      */
-    public function step($featureIndex)
+    public function step(int $featureIndex): float
     {
         return $this->stepSize / ($this->eta + sqrt($this->sumSquaredGradient[$featureIndex]));
     }

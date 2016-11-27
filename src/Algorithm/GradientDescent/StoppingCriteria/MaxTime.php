@@ -23,7 +23,7 @@ final class MaxTime implements StoppingCriteria
     /**
      * @param int $seconds
      */
-    public function __construct($seconds)
+    public function __construct(int $seconds)
     {
         $this->seconds = $seconds;
     }
@@ -33,7 +33,7 @@ final class MaxTime implements StoppingCriteria
      * @param array $coefficients
      * @return bool
      */
-    public function converged(array $gradient, array $coefficients)
+    public function converged(array $gradient, array $coefficients): bool
     {
         $time = time();
 

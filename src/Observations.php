@@ -23,9 +23,9 @@ final class Observations implements
     /**
      * @param array $features
      * @param array $outcomes
-     * @return Observations
+     * @return self
      */
-    public static function fromArray(array $features, array $outcomes)
+    public static function fromArray(array $features, array $outcomes): self
     {
         $observationCount = count($outcomes);
 
@@ -46,7 +46,7 @@ final class Observations implements
      * @param array $features
      * @param float $outcome
      */
-    public function add(array $features, $outcome)
+    public function add(array $features, float $outcome)
     {
         $this->addObservation(new Observation($features, $outcome));
     }
@@ -70,7 +70,7 @@ final class Observations implements
     /**
      * @return array
      */
-    public function getFeatures()
+    public function getFeatures(): array
     {
         return array_map(function (Observation $observation) {
             return $observation->getFeatures();
@@ -80,7 +80,7 @@ final class Observations implements
     /**
      * @return array
      */
-    public function getOutcomes()
+    public function getOutcomes(): array
     {
         return array_map(function (Observation $observation) {
             return $observation->getOutcome();
@@ -90,7 +90,7 @@ final class Observations implements
     /**
      * @return Traversable
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->observations);
     }
@@ -98,7 +98,7 @@ final class Observations implements
     /**
      * @return int
      */
-    public function getFeatureCount()
+    public function getFeatureCount(): int
     {
         return $this->featureCount;
     }
@@ -106,7 +106,7 @@ final class Observations implements
     /**
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->observations);
     }
@@ -115,7 +115,7 @@ final class Observations implements
      * @param int $index
      * @return Observation
      */
-    public function getObservation($index)
+    public function getObservation($index): Observation
     {
         return $this->observations[$index];
     }

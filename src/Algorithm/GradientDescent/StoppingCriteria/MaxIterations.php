@@ -26,7 +26,7 @@ final class MaxIterations implements StoppingCriteria
     /**
      * @param int $max
      */
-    public function __construct($max)
+    public function __construct(int $max)
     {
         $this->max = $max;
     }
@@ -36,7 +36,7 @@ final class MaxIterations implements StoppingCriteria
      * @param array $coefficients
      * @return bool
      */
-    public function converged(array $gradient, array $coefficients)
+    public function converged(array $gradient, array $coefficients): bool
     {
         $this->iterations++;
 

@@ -16,5 +16,5 @@ interface Schedule
      * @param int $featureIndex
      * @return float
      */
-    public function step($featureIndex);
+    public function step(int $featureIndex): float;
 }

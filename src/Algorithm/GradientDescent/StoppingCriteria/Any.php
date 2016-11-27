@@ -29,7 +29,7 @@ final class Any implements StoppingCriteria
      * @param array $coefficients
      * @return bool
      */
-    public function converged(array $gradient, array $coefficients)
+    public function converged(array $gradient, array $coefficients): bool
     {
         /** @var StoppingCriteria $criteria */
         foreach ($this->criteriaList as $criteria) {

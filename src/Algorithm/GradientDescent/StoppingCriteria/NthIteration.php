@@ -27,7 +27,7 @@ final class NthIteration implements StoppingCriteria
      * @param StoppingCriteria $criteria
      * @param int $n
      */
-    public function __construct(StoppingCriteria $criteria, $n)
+    public function __construct(StoppingCriteria $criteria, int $n)
     {
         $this->criteria = $criteria;
         $this->n = $n;
@@ -38,7 +38,7 @@ final class NthIteration implements StoppingCriteria
      * @param array $coefficients
      * @return bool
      */
-    public function converged(array $gradient, array $coefficients)
+    public function converged(array $gradient, array $coefficients): bool
     {
         $this->iteration++;
         $this->iteration %= $this->n;

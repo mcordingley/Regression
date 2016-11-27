@@ -14,5 +14,5 @@ interface Algorithm
      * @return array
      * @throws InvalidArgumentException
      */
-    public function regress(Observations $observations);
+    public function regress(Observations $observations): array;
 }

@@ -30,9 +30,9 @@ final class Regularized implements Gradient
      * Ignore the first feature when regularizing, as that is usually the bias (or intercept) term.
      *
      * @param boolean $ignoreFirst
-     * @return Regularized
+     * @return self
      */
-    public function ignoreFirstFeature($ignoreFirst = true)
+    public function ignoreFirstFeature(bool $ignoreFirst = true): self
     {
         $this->ignoreFirst = $ignoreFirst;
 
@@ -43,9 +43,9 @@ final class Regularized implements Gradient
      * Sets the regularization cost parameter. Default value is 1.0
      *
      * @param float $lambda
-     * @return Regularized
+     * @return self
      */
-    public function setLambda($lambda)
+    public function setLambda(float $lambda): self
     {
         $this->lambda = $lambda;
 
@@ -56,9 +56,9 @@ final class Regularized implements Gradient
      * Sets regularization level. e.g. L1 and L2. The default value is 2.
      *
      * @param int $level
-     * @return Regularized
+     * @return self
      */
-    public function setLevel($level)
+    public function setLevel(int $level): self
     {
         $this->level = $level;
 
@@ -71,7 +71,7 @@ final class Regularized implements Gradient
      * @param float $outcome
      * @return float
      */
-    public function cost(array $coefficients, array $features, $outcome)
+    public function cost(array $coefficients, array $features, float $outcome): float
     {
         $penalty = 0.0;
 
@@ -90,7 +90,7 @@ final class Regularized implements Gradient
      * @param float $outcome
      * @return array
      */
-    public function gradient(array $coefficients, array $features, $outcome)
+    public function gradient(array $coefficients, array $features, float $outcome): array
     {
         $gradient = [];
         $baseGradient = $this->gradient->gradient($coefficients, $features, $outcome);

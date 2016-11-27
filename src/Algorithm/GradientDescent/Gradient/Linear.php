@@ -12,7 +12,7 @@ final class Linear implements Gradient
     /**
      * @param int $power
      */
-    public function __construct($power = 2)
+    public function __construct(int $power = 2)
     {
         $this->power = $power;
     }
@@ -23,9 +23,9 @@ final class Linear implements Gradient
      * @param float $outcome
      * @return float
      */
-    public function cost(array $coefficients, array $features, $outcome)
+    public function cost(array $coefficients, array $features, float $outcome): float
     {
-        return pow(abs($this->predicted($coefficients, $features) - $outcome), $this->power);
+        return (float) pow(abs($this->predicted($coefficients, $features) - $outcome), $this->power);
     }
 
     /**
@@ -33,9 +33,9 @@ final class Linear implements Gradient
      * @param array $features
      * @return float
      */
-    private function predicted(array $coefficients, array $features)
+    private function predicted(array $coefficients, array $features): float
     {
-        return array_sum(array_map(function ($coefficient, $feature) {
+        return (float) array_sum(array_map(function ($coefficient, $feature) {
             return $coefficient * $feature;
         }, $coefficients, $features));
     }
@@ -46,7 +46,7 @@ final class Linear implements Gradient
      * @param float $outcome
      * @return array
      */
-    public function gradient(array $coefficients, array $features, $outcome)
+    public function gradient(array $coefficients, array $features, float $outcome): array
     {
         $error = $this->predicted($coefficients, $features) - $outcome;
         $errorSign = $error < 0 ? -1 : 1;

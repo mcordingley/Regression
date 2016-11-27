@@ -21,9 +21,9 @@ final class Linear implements Predictor
      * @param array $features
      * @return float
      */
-    public function predict(array $features)
+    public function predict(array $features): float
     {
-        return array_sum(array_map(function ($coefficient, $feature) {
+        return (float) array_sum(array_map(function ($coefficient, $feature) {
             return $coefficient * $feature;
         }, $this->coefficients, $features));
     }

@@ -13,7 +13,7 @@ final class Stochastic extends GradientDescent
      * @param array $coefficients
      * @return array
      */
-    protected function calculateGradient(Observations $observations, array $coefficients)
+    protected function calculateGradient(Observations $observations, array $coefficients): array
     {
         $observation = $observations->getObservation(mt_rand(0, count($observations) - 1));
 

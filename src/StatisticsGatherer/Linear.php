@@ -86,7 +86,7 @@ final class Linear
     /**
      * @return int
      */
-    public function getDegreesOfFreedomTotal()
+    public function getDegreesOfFreedomTotal(): int
     {
         return $this->getObservationCount() - 1;
     }
@@ -97,7 +97,7 @@ final class Linear
      *
      * @return float
      */
-    public function getFStatistic()
+    public function getFStatistic(): float
     {
         return $this->getMeanSquaredModel() / $this->getMeanSquaredError();
     }
@@ -108,7 +108,7 @@ final class Linear
      *
      * @return float
      */
-    private function getMeanSquaredModel()
+    private function getMeanSquaredModel(): float
     {
         return $this->getSumSquaredModel() / $this->getDegreesOfFreedomModel();
     }
@@ -119,7 +119,7 @@ final class Linear
      *
      * @return float
      */
-    private function getSumSquaredModel()
+    private function getSumSquaredModel(): float
     {
         if (is_null($this->sumSquaredModel)) {
             $average = array_sum($this->observations->getOutcomes()) / count($this->observations->getOutcomes());
@@ -134,9 +134,9 @@ final class Linear
      * @param float $baseline
      * @return float
      */
-    private static function sumSquaredDifference(array $series, $baseline)
+    private static function sumSquaredDifference(array $series, $baseline): float
     {
-        return array_sum(array_map(function ($element) use ($baseline) {
+        return (float) array_sum(array_map(function ($element) use ($baseline) {
             return pow($element - $baseline, 2);
         }, $series));
     }
@@ -144,7 +144,7 @@ final class Linear
     /**
      * @return array
      */
-    private function getPredictedOutcomes()
+    private function getPredictedOutcomes(): array
     {
         if (!$this->predictedOutcomes) {
             $this->predictedOutcomes = [];
@@ -160,7 +160,7 @@ final class Linear
     /**
      * @return int
      */
-    public function getDegreesOfFreedomModel()
+    public function getDegreesOfFreedomModel(): int
     {
         return $this->getFeatureCount() - 1;
     }
@@ -171,7 +171,7 @@ final class Linear
      *
      * @return float
      */
-    private function getMeanSquaredError()
+    private function getMeanSquaredError(): float
     {
         return $this->getSumSquaredError() / $this->getDegreesOfFreedomError();
     }
@@ -183,7 +183,7 @@ final class Linear
      *
      * @return float
      */
-    private function getSumSquaredError()
+    private function getSumSquaredError(): float
     {
         if (is_null($this->sumSquaredError)) {
             $this->sumSquaredError = array_sum(array_map(function ($predicted, $observed) {
@@ -197,7 +197,7 @@ final class Linear
     /**
      * @return int
      */
-    public function getDegreesOfFreedomError()
+    public function getDegreesOfFreedomError(): int
     {
         return $this->getObservationCount() - $this->getFeatureCount();
     }
@@ -205,7 +205,7 @@ final class Linear
     /**
      * @return int
      */
-    private function getObservationCount()
+    private function getObservationCount(): int
     {
         return count($this->observations);
     }
@@ -213,7 +213,7 @@ final class Linear
     /**
      * @return int
      */
-    private function getFeatureCount()
+    private function getFeatureCount(): int
     {
         return count($this->observations->getFeatures()[0]);
     }
@@ -224,7 +224,7 @@ final class Linear
      *
      * @return float
      */
-    public function getRSquared()
+    public function getRSquared(): float
     {
         $sumSquaredTotal = $this->getSumSquaredTotal();
 
@@ -239,7 +239,7 @@ final class Linear
      *
      * @return float
      */
-    private function getSumSquaredTotal()
+    private function getSumSquaredTotal(): float
     {
         if (is_null($this->sumSquaredTotal)) {
             $average = array_sum($this->observations->getOutcomes()) / count($this->observations->getOutcomes());
@@ -256,7 +256,7 @@ final class Linear
      *
      * @return float
      */
-    public function getStandardError()
+    public function getStandardError(): float
     {
         return sqrt($this->getMeanSquaredError());
     }
@@ -266,7 +266,7 @@ final class Linear
      *
      * @return array
      */
-    public function getTStatistics()
+    public function getTStatistics(): array
     {
         if (is_null($this->tStatistics)) {
             $this->tStatistics = array_map(function ($predictor, $SCoefficient) {
@@ -282,7 +282,7 @@ final class Linear
      *
      * @return array
      */
-    public function getStandardErrorCoefficients()
+    public function getStandardErrorCoefficients(): array
     {
         if (is_null($this->SCoefficients)) {
             $design = new Matrix($this->observations->getFeatures());
