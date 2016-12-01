@@ -85,6 +85,8 @@ final class Adam implements Schedule
          * Need to put the gradient in the denominator here to counter the one in GradientDescent, since Adam takes
          * the unusual approach of not having it at all in the coefficient update step.
          */
-        return $this->stepSize * $correctedMean / ((sqrt($correctedVariance) + $this->eta) * $this->gradient[$featureIndex]);
+        return $this->gradient[$featureIndex]
+            ? $this->stepSize * $correctedMean / ((sqrt($correctedVariance) + $this->eta) * $this->gradient[$featureIndex])
+            : 0;
     }
 }
