@@ -20,7 +20,7 @@ final class MiniBatch extends GradientDescent
      * @param StoppingCriteria $stoppingCriteria
      * @param int $batchSize
      */
-    public function __construct(Gradient $gradient, Schedule $schedule, StoppingCriteria $stoppingCriteria, $batchSize)
+    public function __construct(Gradient $gradient, Schedule $schedule, StoppingCriteria $stoppingCriteria, int $batchSize)
     {
         parent::__construct($gradient, $schedule, $stoppingCriteria);
 
