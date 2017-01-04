@@ -131,15 +131,17 @@ though if calculating the standard deviation is too much trouble, then
 Currently, there are three main descent algorithms to choose from: `Batch`, `Stochastic`, and `MiniBatch`. `Batch` will
 go through all of the data for each iteration. This can take longer, but leads to much more stable descent processes and
 should be your default choice. `Stochastic` uses just a single, randomly-drawn example from the training data for each
-iteration. In practice, this leads to faster convergence than the `Batch` process, particularly for large data sets, but
+iteration. For very large data sets, this can lead to faster convergence than the `Batch` process, but
 has the disadvantage of being much noisier on a per-iteration basis. `MiniBatch` is a blend of the other two approaches
 in which random batches of a specified size are drawn from the set of training data. This leads to somewhat more stable
 data on each iteration than `Stochastic`, but still avoids having to deal with the entire data set with each iteration.
 
-As of right now, `Batch` appears to work best with the `Adam` step schedule and the `GradientNorm` stopping criteria.
-`Stochastic` and `MiniBatch` appear to work best with the `Adagrad` step schedule, but none of the current stopping
-criteria appear to accurately detect convergence. For now, the best option is to simply specify a maximum number of
-iterations to run or amount of time to run the regression with `MaxIterations` or `MaxTime`, respectively.
+The `Adam` step schedule is a good default for all gradient descents. The `GradientNorm` stopping criteria works well
+for `Batch` descents. Convergence is considerably trickier for `Stochastic` and `MiniBatch` descents. Right now, the
+recommendation is to run enough iterations to bring the descent close to convergence and then halt it with
+`MaxIterations`. To get the descent to settle as it converges, wrap your descent schedule with `ExponentialDecay`,
+giving it the same value for its scale as you did for the max iterations. The logistic test data used to test `Batch`
+settles near convergence after 10,000,000 iterations with the `Stochastic` descent and the recommended schedule.
 
 When starting with a new project, it helps to tinker with the different options to find the best fit for your data. The
 `DescentSpy` stopping criteria is supplied to aid in this process. It decorates another stopping criteria and will call
@@ -175,6 +177,11 @@ interfaces are intended points of extension. If you have written an implementati
 be of use to others, please submit it with accompanying tests in a pull request.
 
 ## Change Log
+
+2.1.0
+
+- Add InverseRootDecay
+- Add ExponentialDecay
 
 2.0.0
 
