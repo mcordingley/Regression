@@ -88,7 +88,7 @@ final class Linear
      */
     public function getDegreesOfFreedomTotal(): int
     {
-        return $this->getObservationCount() - 1;
+        return count($this->observations) - 1;
     }
 
     /**
@@ -122,7 +122,8 @@ final class Linear
     private function getSumSquaredModel(): float
     {
         if (is_null($this->sumSquaredModel)) {
-            $average = array_sum($this->observations->getOutcomes()) / count($this->observations->getOutcomes());
+            $average = array_sum($this->observations->getOutcomes()) / count($this->observations);
+
             $this->sumSquaredModel = static::sumSquaredDifference($this->getPredictedOutcomes(), $average);
         }
 
@@ -162,7 +163,7 @@ final class Linear
      */
     public function getDegreesOfFreedomModel(): int
     {
-        return $this->getFeatureCount() - 1;
+        return $this->observations->getFeatureCount() - 1;
     }
 
     /**
@@ -199,23 +200,7 @@ final class Linear
      */
     public function getDegreesOfFreedomError(): int
     {
-        return $this->getObservationCount() - $this->getFeatureCount();
-    }
-
-    /**
-     * @return int
-     */
-    private function getObservationCount(): int
-    {
-        return count($this->observations);
-    }
-
-    /**
-     * @return int
-     */
-    private function getFeatureCount(): int
-    {
-        return count($this->observations->getFeatures()[0]);
+        return count($this->observations) - $this->observations->getFeatureCount();
     }
 
     /**
@@ -242,7 +227,8 @@ final class Linear
     private function getSumSquaredTotal(): float
     {
         if (is_null($this->sumSquaredTotal)) {
-            $average = array_sum($this->observations->getOutcomes()) / count($this->observations->getOutcomes());
+            $average = array_sum($this->observations->getOutcomes()) / count($this->observations);
+
             $this->sumSquaredTotal = static::sumSquaredDifference($this->observations->getOutcomes(), $average);
         }
 

@@ -34,12 +34,17 @@ final class MiniBatch extends GradientDescent
      */
     protected function calculateGradient(Observations $observations, array $coefficients): array
     {
-        $gradient = array_fill(0, count($observations->getObservation(0)->getFeatures()), 0.0);
-        $batchElementIndices = (array) array_rand(range(0, count($observations) - 1), $this->batchSize);
+        $gradient = array_fill(0, $observations->getFeatureCount(), 0.0);
+        $batchElementIndices = (array) array_rand(range(0, $observations->count() - 1), $this->batchSize);
 
         foreach ($batchElementIndices as $index) {
             $observation = $observations->getObservation($index);
-            $observationGradient = $this->gradient->gradient($coefficients, $observation->getFeatures(), $observation->getOutcome());
+
+            $observationGradient = $this->gradient->gradient(
+                $coefficients,
+                $observation->getFeatures(),
+                $observation->getOutcome()
+            );
 
             foreach ($observationGradient as $i => $observationSlope) {
                 $gradient[$i] += $observationSlope / $this->batchSize;
