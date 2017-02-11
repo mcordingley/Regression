@@ -7,7 +7,7 @@ namespace MCordingley\Regression\Algorithm\GradientDescent;
 use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
-use MCordingley\Regression\Observations;
+use MCordingley\Regression\Data\Collection;
 
 final class MiniBatch extends GradientDescent
 {
@@ -28,11 +28,11 @@ final class MiniBatch extends GradientDescent
     }
 
     /**
-     * @param Observations $observations
+     * @param Collection $observations
      * @param array $coefficients
      * @return array
      */
-    protected function calculateGradient(Observations $observations, array $coefficients): array
+    protected function calculateGradient(Collection $observations, array $coefficients): array
     {
         $gradient = array_fill(0, $observations->getFeatureCount(), 0.0);
         $batchElementIndices = (array) array_rand(range(0, $observations->count() - 1), $this->batchSize);

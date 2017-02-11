@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace MCordingley\Regression;
 
-final class Observation
+use MCordingley\Regression\Data\Entry;
+
+final class Observation implements Entry
 {
     /** @var array */
     private $features;

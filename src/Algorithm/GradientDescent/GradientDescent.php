@@ -8,7 +8,7 @@ use MCordingley\Regression\Algorithm\Algorithm;
 use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Schedule;
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
-use MCordingley\Regression\Observations;
+use MCordingley\Regression\Data\Collection;
 
 abstract class GradientDescent implements Algorithm
 {
@@ -34,10 +34,10 @@ abstract class GradientDescent implements Algorithm
     }
 
     /**
-     * @param Observations $observations
+     * @param Collection $observations
      * @return array
      */
-    final public function regress(Observations $observations): array
+    final public function regress(Collection $observations): array
     {
         $coefficients = array_fill(0, $observations->getFeatureCount(), 0.0);
 
@@ -51,11 +51,11 @@ abstract class GradientDescent implements Algorithm
     }
 
     /**
-     * @param Observations $observations
+     * @param Collection $observations
      * @param array $coefficients
      * @return array
      */
-    abstract protected function calculateGradient(Observations $observations, array $coefficients): array;
+    abstract protected function calculateGradient(Collection $observations, array $coefficients): array;
 
     /**
      * @param array $coefficients

@@ -2,8 +2,8 @@
 
 namespace MCordingley\Regression\Tests\Algorithm;
 
-use MCordingley\Regression\Observations;
 use MCordingley\Regression\Algorithm\LeastSquares;
+use MCordingley\Regression\Observations;
 use MCordingley\Regression\Tests\LeastSquaresFeatures;
 use PHPUnit_Framework_TestCase;
 
@@ -22,7 +22,7 @@ class LeastSquaresTest extends PHPUnit_Framework_TestCase
 
     public function testTooFewObservations()
     {
-        static::setExpectedException('InvalidArgumentException');
+        static::expectException('InvalidArgumentException');
 
         $regression = new LeastSquares;
         $regression->regress(Observations::fromArray([[1, 1]], [1]));

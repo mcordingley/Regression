@@ -4,16 +4,16 @@ declare(strict_types = 1);
 
 namespace MCordingley\Regression\Algorithm\GradientDescent;
 
-use MCordingley\Regression\Observations;
+use MCordingley\Regression\Data\Collection;
 
 final class Stochastic extends GradientDescent
 {
     /**
-     * @param Observations $observations
+     * @param Collection $observations
      * @param array $coefficients
      * @return array
      */
-    protected function calculateGradient(Observations $observations, array $coefficients): array
+    protected function calculateGradient(Collection $observations, array $coefficients): array
     {
         $observation = $observations->getObservation(mt_rand(0, $observations->count() - 1));
 

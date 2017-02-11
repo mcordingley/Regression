@@ -6,16 +6,16 @@ namespace MCordingley\Regression\Algorithm;
 
 use InvalidArgumentException;
 use MCordingley\LinearAlgebra\Matrix;
-use MCordingley\Regression\Observations;
+use MCordingley\Regression\Data\Collection;
 
 final class LeastSquares implements Algorithm
 {
     /**
-     * @param Observations $observations
+     * @param Collection $observations
      * @return array
      * @throws InvalidArgumentException
      */
-    public function regress(Observations $observations): array
+    public function regress(Collection $observations): array
     {
         $design = new Matrix($observations->getFeatures());
         $observed = (new Matrix([$observations->getOutcomes()]))->transpose();

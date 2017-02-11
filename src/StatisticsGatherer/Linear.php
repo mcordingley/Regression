@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace MCordingley\Regression\StatisticsGatherer;
 
 use MCordingley\LinearAlgebra\Matrix;
-use MCordingley\Regression\Observations;
+use MCordingley\Regression\Data\Collection;
 use MCordingley\Regression\Predictor\Predictor;
 
 final class Linear
@@ -19,7 +19,7 @@ final class Linear
     private $coefficients;
 
     /**
-     * @var Observations
+     * @var Collection
      */
     private $observations;
 
@@ -72,11 +72,11 @@ final class Linear
     private $tStatistics;
 
     /**
-     * @param Observations $observations
+     * @param Collection $observations
      * @param array $coefficients
      * @param Predictor $predictor
      */
-    public function __construct(Observations $observations, array $coefficients, Predictor $predictor)
+    public function __construct(Collection $observations, array $coefficients, Predictor $predictor)
     {
         $this->observations = $observations;
         $this->coefficients = $coefficients;

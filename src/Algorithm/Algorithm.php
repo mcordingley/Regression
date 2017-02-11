@@ -5,14 +5,14 @@ declare(strict_types = 1);
 namespace MCordingley\Regression\Algorithm;
 
 use InvalidArgumentException;
-use MCordingley\Regression\Observations;
+use MCordingley\Regression\Data\Collection;
 
 interface Algorithm
 {
     /**
-     * @param Observations $observations
+     * @param Collection $observations
      * @return array
      * @throws InvalidArgumentException
      */
-    public function regress(Observations $observations): array;
+    public function regress(Collection $observations): array;
 }

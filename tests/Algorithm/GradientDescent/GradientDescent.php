@@ -3,6 +3,7 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent;
 
 use MCordingley\Regression\Algorithm\Algorithm;
+use MCordingley\Regression\Data\Collection;
 use MCordingley\Regression\Observations;
 use PHPUnit_Framework_TestCase;
 
@@ -30,9 +31,9 @@ abstract class GradientDescent extends PHPUnit_Framework_TestCase
     abstract protected function getExpectedCoefficients();
 
     /**
-     * @return Observations
+     * @return Collection
      */
-    private function getLogisticObservations()
+    private function getLogisticObservations(): Collection
     {
         // Data from http://statistics.ats.ucla.edu/stat/r/dae/logit.htm
         $observations = new Observations;

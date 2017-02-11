@@ -5,14 +5,12 @@ declare(strict_types = 1);
 namespace MCordingley\Regression;
 
 use ArrayIterator;
-use IteratorAggregate;
-use Countable;
 use InvalidArgumentException;
+use MCordingley\Regression\Data\Collection;
+use MCordingley\Regression\Data\Entry;
 use Traversable;
 
-final class Observations implements
-    Countable,
-    IteratorAggregate
+final class Observations implements Collection
 {
     /** @var int */
     private $featureCount = 0;
@@ -117,9 +115,9 @@ final class Observations implements
 
     /**
      * @param int $index
-     * @return Observation
+     * @return Entry
      */
-    public function getObservation(int $index): Observation
+    public function getObservation(int $index): Entry
     {
         return $this->observations[$index];
     }

@@ -33,7 +33,7 @@ class ObservationsTest extends PHPUnit_Framework_TestCase
 
     public function testObservationsFromBadArray()
     {
-        static::setExpectedException('InvalidArgumentException');
+        static::expectException('InvalidArgumentException');
 
         Observations::fromArray(static::$features, [1, 2, 3]);
     }
@@ -43,7 +43,7 @@ class ObservationsTest extends PHPUnit_Framework_TestCase
         $observations = new Observations;
         $observations->add([1, 2, 3], 4);
 
-        static::setExpectedException('InvalidArgumentException');
+        static::expectException('InvalidArgumentException');
 
         $observations->add([1, 2], 4);
     }
