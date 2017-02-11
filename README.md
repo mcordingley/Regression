@@ -170,13 +170,17 @@ These concepts are discussed in more detail [on MSDN](https://msdn.microsoft.com
 
 ## Extending the Library
 
-With the exception of the `Observations` and `Observation` classes, the entire library is written against interfaces
+The entire library is written against interfaces
 with as much functionality as possible pulled out into collaborating objects. This means that you can easily swap in
 your own classes in place of the provided ones. In particular, the `Gradient`, `Schedule`, and `StoppingCriteria`
 interfaces are intended points of extension. If you have written an implementation of one of these that you think would
 be of use to others, please submit it with accompanying tests in a pull request.
 
 ## Change Log
+
+2.2.0
+
+- Extract interfaces from `Observations` and `Observation`.
 
 2.1.0
 
