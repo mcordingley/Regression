@@ -69,7 +69,7 @@ to interpret them is a bigger subject than can be covered in this documentation,
 Minitab blog that provides a good start on interpreting your regression.
 
 ```php
-use MCordingley\StatisticsGatherer\Linear;
+use MCordingley\Regression\StatisticsGatherer\Linear;
 
 $gatherer = new Linear($observations, $coefficients, $predictor);
 
