@@ -3,10 +3,18 @@ language: php
 php:
   - 7.0
   - 7.1
+  - 7.2
   - nightly
 
 install: composer install
 
-addons:
-  code_climate:
-    repo_token: 1596e8512438166182bdbac274f3ff421abb1fcb25e0b6e104ec1014238a5516
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
+
+script:
+- ./vendor/phpunit/phpunit/phpunit --coverage-clover clover.xml
+
+after_script:
+- ./cc-test-reporter after-build --coverage-input-type clover --id 1596e8512438166182bdbac274f3ff421abb1fcb25e0b6e104ec1014238a5516 --exit-code $TRAVIS_TEST_RESULT
