@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Schedule;
 
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Adagrad;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AdagradTest extends PHPUnit_Framework_TestCase
+class AdagradTest extends TestCase
 {
     public function testStep()
     {

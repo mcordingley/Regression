@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Predictor;
 
 use MCordingley\Regression\Predictor\Linear;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LinearTest extends PHPUnit_Framework_TestCase
+class LinearTest extends TestCase
 {
     public function testPredict()
     {

@@ -5,9 +5,9 @@ namespace MCordingley\Regression\Tests\Algorithm;
 use MCordingley\Regression\Algorithm\LeastSquares;
 use MCordingley\Regression\Observations;
 use MCordingley\Regression\Tests\LeastSquaresFeatures;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LeastSquaresTest extends PHPUnit_Framework_TestCase
+class LeastSquaresTest extends TestCase
 {
     use LeastSquaresFeatures;
 

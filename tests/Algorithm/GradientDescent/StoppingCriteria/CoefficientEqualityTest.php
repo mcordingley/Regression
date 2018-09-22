@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
 
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\CoefficientEquality;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class CoefficientEqualityTest extends PHPUnit_Framework_TestCase
+class CoefficientEqualityTest extends TestCase
 {
     public function testConverged()
     {

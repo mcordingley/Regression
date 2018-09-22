@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Schedule;
 
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class FixedTest extends PHPUnit_Framework_TestCase
+class FixedTest extends TestCase
 {
     public function testStep()
     {

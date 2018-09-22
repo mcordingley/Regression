@@ -4,9 +4,9 @@ namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteri
 
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\NthIteration;
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class NthIterationTest extends PHPUnit_Framework_TestCase
+class NthIterationTest extends TestCase
 {
     public function testConverged()
     {

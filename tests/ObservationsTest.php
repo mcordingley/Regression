@@ -4,9 +4,9 @@ namespace MCordingley\Regression\Tests;
 
 use MCordingley\Regression\Observation;
 use MCordingley\Regression\Observations;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ObservationsTest extends PHPUnit_Framework_TestCase
+class ObservationsTest extends TestCase
 {
     private static $features = [
         [1, 2, 3],

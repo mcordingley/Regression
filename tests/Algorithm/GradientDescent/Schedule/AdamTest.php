@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Schedule;
 
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Adam;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AdamTest extends PHPUnit_Framework_TestCase
+class AdamTest extends TestCase
 {
     public function testStep()
     {

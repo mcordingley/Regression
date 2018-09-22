@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Schedule;
 
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\RmsProp;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class RmsPropTest extends PHPUnit_Framework_TestCase
+class RmsPropTest extends TestCase
 {
     public function testStep()
     {

@@ -4,9 +4,9 @@ namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Schedule;
 
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\InverseRootDecay;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class InverseRootDecayTest extends PHPUnit_Framework_TestCase
+class InverseRootDecayTest extends TestCase
 {
     public function testStep()
     {

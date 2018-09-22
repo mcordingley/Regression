@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Predictor;
 
 use MCordingley\Regression\Predictor\Logistic;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LogisticTest extends PHPUnit_Framework_TestCase
+class LogisticTest extends TestCase
 {
     public function testPredict()
     {

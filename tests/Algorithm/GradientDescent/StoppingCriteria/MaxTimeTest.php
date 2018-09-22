@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
 
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\MaxTime;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class MaxTimeTest extends PHPUnit_Framework_TestCase
+class MaxTimeTest extends TestCase
 {
     public function testConverged()
     {

@@ -5,9 +5,9 @@ namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteri
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\Any;
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AnyTest extends PHPUnit_Framework_TestCase
+class AnyTest extends TestCase
 {
     public function testConverged()
     {

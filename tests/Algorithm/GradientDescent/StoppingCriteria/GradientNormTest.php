@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteria;
 
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\GradientNorm;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class GradientNormTest extends PHPUnit_Framework_TestCase
+class GradientNormTest extends TestCase
 {
     public function testConverged()
     {

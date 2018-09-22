@@ -5,9 +5,9 @@ namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteri
 use MCordingley\Regression\Algorithm\GradientDescent\Schedule\Fixed;
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\SteppedCriteria;
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class SteppedCriteriaTest extends PHPUnit_Framework_TestCase
+class SteppedCriteriaTest extends TestCase
 {
     public function testConverged()
     {

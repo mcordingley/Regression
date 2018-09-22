@@ -6,9 +6,9 @@ use MCordingley\Regression\Observations;
 use MCordingley\Regression\Predictor\Linear as LinearPredictor;
 use MCordingley\Regression\StatisticsGatherer\Linear as LinearStatisticsGatherer;
 use MCordingley\Regression\Tests\LeastSquaresFeatures;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LinearTest extends PHPUnit_Framework_TestCase
+class LinearTest extends TestCase
 {
     use LeastSquaresFeatures;
 

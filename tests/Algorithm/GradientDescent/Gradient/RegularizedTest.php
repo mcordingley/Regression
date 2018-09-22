@@ -4,9 +4,9 @@ namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\Gradient;
 
 use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Gradient;
 use MCordingley\Regression\Algorithm\GradientDescent\Gradient\Regularized;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class RegularizedTest extends PHPUnit_Framework_TestCase
+class RegularizedTest extends TestCase
 {
     public function testCost()
     {

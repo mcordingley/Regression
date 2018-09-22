@@ -3,9 +3,9 @@
 namespace MCordingley\Regression\Tests;
 
 use MCordingley\Regression\Observation;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ObservationTest extends PHPUnit_Framework_TestCase
+class ObservationTest extends TestCase
 {
     public function testGetters()
     {

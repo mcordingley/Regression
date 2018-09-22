@@ -5,9 +5,9 @@ namespace MCordingley\Regression\Tests\Algorithm\GradientDescent;
 use MCordingley\Regression\Algorithm\Algorithm;
 use MCordingley\Regression\Data\Collection;
 use MCordingley\Regression\Observations;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class GradientDescent extends PHPUnit_Framework_TestCase
+abstract class GradientDescent extends TestCase
 {
     /**
      * @large

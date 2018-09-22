@@ -4,10 +4,10 @@ namespace MCordingley\Regression\Tests\Algorithm\GradientDescent\StoppingCriteri
 
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\DescentSpy;
 use MCordingley\Regression\Algorithm\GradientDescent\StoppingCriteria\StoppingCriteria;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class DescentSpyTest extends PHPUnit_Framework_TestCase
+class DescentSpyTest extends TestCase
 {
     public function testConverged()
     {
