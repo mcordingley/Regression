@@ -14,8 +14,7 @@
         "mcordingley/linearalgebra": "^2.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.5.3",
-        "codeclimate/php-test-reporter": "dev-master"
+        "phpunit/phpunit": "^6.0.0"
     },
     "autoload": {
         "psr-4": {
